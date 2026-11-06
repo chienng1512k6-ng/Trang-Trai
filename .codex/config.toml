@@ -1,0 +1,4 @@
+# Project-local Codex configuration. Loaded for trusted repositories.
+# Keep write permissions bounded to the project and request approval for escalation.
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
