@@ -16,7 +16,7 @@
 | FDS-005 | 5h | 003,004 | Player sprite with 4-direction animation placeholder, velocity normalization and stable delta handling |
 | FDS-006 | 3h | 005 | **PASS local/browser** — WASD screen directions, reserved interaction/attack bindings, diagonal speed tests; see verification below |
 | FDS-007 | 5h | 005 | **PASS local/browser emulation** — joystick, Action signal, pointer capture, safe-area layout; real-device QA unverified |
-| FDS-008 | 4h | 004,005 | Camera follow, world bounds, zoom, resize, landscape orientation prompt |
+| FDS-008 | 4h | 004,005 | **PASS local/browser emulation** — footpoint follow, world bounds, zoom/resize; [verification](../docs/CAMERA-CONTROLS.md); real-device QA unverified |
 | FDS-009 | 4h | 004,005 | Obstacles, collision against tree/rock/building and visible depth/occlusion correctness |
 | FDS-010 | 5h | 005,009 | One slime: idle/wander/chase/hit/death, state boundaries and basic tests |
 | FDS-011 | 4h | 006,007,010 | One attack: cooldown, range, damage, feedback + enemy death; no client-server economy |

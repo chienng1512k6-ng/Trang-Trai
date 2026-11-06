@@ -1,6 +1,8 @@
 import StartGame from '../src/game/main';
 import { playerWorldPosition } from '../src/core/player';
 import { MAP_ORIGIN } from '../src/core/prototypeMap';
+import { verifyCameraGeometry } from './camera.browser.mjs';
+import { pointerToGridCell } from '../src/game/isometricPointer';
 
 /** Fixture for real browser key presses; dispose it when verification finishes. */
 export async function startKeyboardBrowserCheck() {
@@ -16,6 +18,19 @@ export async function startKeyboardBrowserCheck() {
     }
     let scene = await ready();
     return {
+        verifyCameraGeometry,
+        cameraSnapshot() {
+            const camera = scene.cameras.main;
+            const foot = scene.data.get('player').view.sprite;
+            const screenFoot = camera.matrixCombined.transformPoint(foot.x, foot.y);
+            return { zoom: camera.zoom, width: camera.width, height: camera.height,
+                scroll: { x: camera.scrollX, y: camera.scrollY },
+                view: { x: camera.worldView.x, y: camera.worldView.y, width: camera.worldView.width, height: camera.worldView.height },
+                foot: { x: foot.x, y: foot.y },
+                screenFoot, pickedFoot: pointerToGridCell(screenFoot, camera, undefined, MAP_ORIGIN), depth: foot.depth,
+                scaleListeners: game.scale.listenerCount('resize'),
+                overlays: globalThis.document.querySelectorAll('.camera-controls').length };
+        },
         snapshot() {
             const player = scene.data.get('player');
             const touch = scene.data.get('touchControls');

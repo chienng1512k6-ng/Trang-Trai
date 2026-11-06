@@ -45,6 +45,11 @@ replace browser rendering tests. Production output is in apps/game/dist.
 
 ## CI results
 
+Camera follows the player's footpoint. Use the canvas mouse wheel or the
+screen-fixed +/- buttons to zoom (0.5–3, default 1.5). Joystick and Action remain
+independent. The canvas resizes with the viewport; portrait shows the existing
+landscape prompt. See [camera rules and verification](docs/CAMERA-CONTROLS.md).
+
 [Development Quality](.github/workflows/ci.yml) runs on pushes and pull requests
 with Node 26 and pnpm 12.18.0: frozen install, lint, typecheck, tests, then build.
 No secrets are required. A failed step fails the job and prevents later checks

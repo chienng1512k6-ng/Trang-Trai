@@ -11,7 +11,7 @@ const config: Types.Core.GameConfig = {
     backgroundColor: '#028af8',
     pixelArt: true,
     scale: {
-        mode: Scale.FIT,
+        mode: Scale.RESIZE,
         autoCenter: Scale.CENTER_BOTH
     },
     scene: [

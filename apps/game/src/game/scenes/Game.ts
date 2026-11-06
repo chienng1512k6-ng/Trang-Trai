@@ -8,9 +8,12 @@ import { PLAYER_ART } from '../player/PlayerView';
 import { KeyboardInput } from '../player/KeyboardInput';
 import { TouchControls } from '../player/TouchControls';
 import { CombinedInput } from '../player/CombinedInput';
+import { CameraController } from '../CameraController';
+import { mapWorldBounds } from '../../core/camera';
 
 export class Game extends Scene {
     private player?: Player;
+    private cameraController?: CameraController;
     constructor() { super('Game'); }
 
     preload() {
@@ -29,6 +32,10 @@ export class Game extends Scene {
             this.createMap();
             this.player = new Player(this, MAP_ORIGIN);
             this.data.set('player', this.player);
+            const cameraParent = this.game.canvas.closest<HTMLElement>('#app') ?? this.game.canvas.parentElement;
+            if (!cameraParent) throw new Error('Game container unavailable.');
+            this.cameraController = new CameraController(this, this.player.view.sprite, mapWorldBounds(MAP_ORIGIN), cameraParent);
+            this.data.set('cameraController', this.cameraController);
             this.events.once('shutdown', () => { this.player?.destroy(); this.player = undefined; });
             if (import.meta.env.DEV && new URLSearchParams(location.search).get('playerDemo') === '1') {
                 void import('../player/demoInput').then(({ DemoInput }) => {
@@ -73,15 +80,8 @@ export class Game extends Scene {
         detail.setDepth(-1);
         obstacles.forEach(obstacle => this.drawObstacle(obstacle));
 
-        const left = gridToWorld({ col: 0, row: bounds.rows }, tile, MAP_ORIGIN);
-        const right = gridToWorld({ col: bounds.columns, row: 0 }, tile, MAP_ORIGIN);
         const bottom = gridToWorld({ col: bounds.columns, row: bounds.rows }, tile, MAP_ORIGIN);
-        const worldWidth = right.x - left.x;
-        const worldHeight = bottom.y - MAP_ORIGIN.y;
         const camera = this.cameras.main;
-        camera.setBackgroundColor('#172c2c');
-        camera.setZoom(Math.min(camera.width / worldWidth, camera.height / worldHeight) * 0.86);
-        camera.centerOn(MAP_ORIGIN.x, MAP_ORIGIN.y + worldHeight / 2);
 
         const checkpoints = [{ col: 0, row: 0 }, { col: 5, row: 5 }, { col: 0, row: 31 },
             { col: 31, row: 0 }, { col: 31, row: 31 }];
@@ -96,18 +96,11 @@ export class Game extends Scene {
         });
         this.data.set({ map, ground, detail, coordinateChecks, obstacleCount: obstacles.length });
 
-        camera.preRender();
-        const hud = camera.getWorldPoint(20, 20);
-        const status = this.add.text(hud.x, hud.y, 'FARM DEVELOPMENT  /  ISOMETRIC MAP\n32 × 32 · hover to inspect a cell', {
-            fontFamily: 'monospace', fontSize: '16px', color: '#f5e8cc', backgroundColor: '#172c2c', padding: { x: 12, y: 8 },
-        }).setDepth(bottom.y + 2);
-        // Camera zoom affects world-space UI too; compensate without altering world geometry.
-        status.setScale(1 / camera.zoom);
         const highlight = this.add.graphics().setDepth(bottom.y + 1);
         this.input.on('pointermove', (pointer: Parameters<typeof pointerToGridCell>[0]) => {
             const cell = pointerToGridCell(pointer, camera, tile, MAP_ORIGIN);
             highlight.clear();
-            status.setText(`FARM DEVELOPMENT  /  ISOMETRIC MAP\n${isGridCellWithinBounds(cell) ? `Cell ${cell.col}, ${cell.row}` : 'Outside map'} · 32 × 32`);
+            this.cameraController?.setStatus(`FARM DEVELOPMENT  /  ISOMETRIC MAP\n${isGridCellWithinBounds(cell) ? `Cell ${cell.col}, ${cell.row}` : 'Outside map'} · 32 × 32`);
             if (!isGridCellWithinBounds(cell)) return;
             const top = gridToWorld(cell, tile, MAP_ORIGIN);
             highlight.lineStyle(2, 0xffe3a3).strokePoints([
