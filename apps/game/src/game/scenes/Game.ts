@@ -3,8 +3,11 @@ import { DEFAULT_TILE_DIMENSIONS as tile, PROTOTYPE_MAP_BOUNDS as bounds,
     gridToWorld, gridToWorldCenter, isGridCellWithinBounds } from '../../core/isometric';
 import { MAP_ASSETS, MAP_ORIGIN, validatePrototypeMap, type Obstacle } from '../../core/prototypeMap';
 import { pointerToGridCell } from '../isometricPointer';
+import { Player } from '../player/Player';
+import { PLAYER_ART } from '../player/PlayerView';
 
 export class Game extends Scene {
+    private player?: Player;
     constructor() { super('Game'); }
 
     preload() {
@@ -15,16 +18,27 @@ export class Game extends Scene {
         this.events.once('shutdown', () => this.load.off('loaderror', onLoadError));
         this.load.tilemapTiledJSON(MAP_ASSETS.mapKey, MAP_ASSETS.mapUrl);
         this.load.image(MAP_ASSETS.textureKey, MAP_ASSETS.textureUrl);
+        this.load.spritesheet(PLAYER_ART.key, PLAYER_ART.url, { frameWidth: PLAYER_ART.frameWidth, frameHeight: PLAYER_ART.frameHeight });
     }
 
     create() {
         try {
             this.createMap();
+            this.player = new Player(this, MAP_ORIGIN);
+            this.data.set('player', this.player);
+            this.events.once('shutdown', () => { this.player?.destroy(); this.player = undefined; });
+            if (import.meta.env.DEV && new URLSearchParams(location.search).get('playerDemo') === '1') {
+                void import('../player/demoInput').then(({ DemoInput }) => {
+                    if (this.sys.isActive()) this.player?.setInput(new DemoInput());
+                });
+            }
         } catch (error) {
             console.error(error);
-            this.add.text(24, 24, 'Map could not load. Check asset paths and browser console.', { color: '#ffb4a2' });
+            this.add.text(24, 24, 'Scene could not load. Check asset paths and browser console.', { color: '#ffb4a2' });
         }
     }
+
+    update(_time: number, delta: number) { this.player?.update(delta); }
 
     private createMap() {
         if (!this.cache.tilemap.exists(MAP_ASSETS.mapKey) || !this.textures.exists(MAP_ASSETS.textureKey)) {

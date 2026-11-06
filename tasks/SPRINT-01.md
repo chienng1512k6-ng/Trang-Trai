@@ -93,6 +93,27 @@
 - Tiled GUI round trip, real mobile and hosted CI unverified. No player,
   movement, collision runtime or FDS-005 work included.
 
+## FDS-005 verification — 2026-11-06: PASS (local browser)
+
+- Pure PlayerState/movement, device-independent input, controller and Phaser
+  renderer separated. Spawn footpoint at grid (16.5,16.5), world (1024,528).
+- 3 ground cells/second, normalized diagonals, analog magnitudes preserved,
+  50ms delta cap with discarded stall time, compensated summation and 0.25-cell
+  map-edge inset. Existing FDS-003 projection/FDS-004 map reused.
+- Original MIT player atlas: 24 frames, 32x48, four isometric facings with
+  Idle/Walk. Foot origin (16,46), depth=world foot Y, unchanged animations
+  do not restart. Source and license recorded in asset attribution.
+- `pnpm.cmd run lint`, `pnpm.cmd run typecheck`, `pnpm.cmd run test`
+  (96 passed: 37 new), `pnpm.cmd run build`, `git diff --check` passed.
+- localhost:8080 real browser: four walking directions advanced frames,
+  Idle stopped and retained facing, correct footpoint/depth, eight animations,
+  1024 ground tiles and 9 obstacle visuals retained, no critical load errors.
+- Opt-in DEV `?playerDemo=1` moved and switched Walk/Idle. Production JS scan
+  confirmed no playerDemo/DemoInput/demoInput tokens after build.
+- Details and repeatable diagnostic: [Player movement](../docs/PLAYER-MOVEMENT.md).
+- No dependencies/version changes, controls, camera follow or obstacle collision.
+  Real phone, long play sessions, production-browser run and hosted CI unverified.
+
 ## Acceptance gates
 1. 32×32 diamond isometric scene loads correctly and can be explored.
 2. PC WASD and landscape touch joystick move player; diagonal speed is normalized.

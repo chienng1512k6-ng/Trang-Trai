@@ -11,6 +11,17 @@
 - License for these original assets and their generator: MIT (text below).
 - No downloaded imagery, music or third-party art is used by the map scene.
 
+## FDS-005 player artwork
+
+- File: player/farmer.png (192x192 RGBA PNG, 24 frames of 32x48 pixels).
+- Author: Farm Development project, created with Codex assistance, 2026-11-06.
+- Source: original procedural pixel art in
+  [generate-player.mjs](../../tools/generate-player.mjs), no third-party images.
+- License: MIT, under the Farm Development contributors copyright and full
+  terms below (also applies to this player asset and generator).
+- Rows: southEast, southWest, northWest, northEast. Columns 0-1 idle, 2-5 walk.
+  Authored contact point is (16,46) in every frame; transparent canvas 32x48.
+
 ## Retained template files
 
 bg.png, logo.png, favicon.png and the repository's template screenshot were
@@ -18,7 +29,7 @@ supplied by the Phaser Studio template; see [template LICENSE](../../LICENSE)
 and [upstream template](https://github.com/phaserjs/template-vite-ts).
 The old background/logo are retained but are not loaded by the map scene.
 
-## MIT License — original FDS-004 assets
+## MIT License — original project assets
 
 Copyright (c) 2026 Farm Development contributors
 

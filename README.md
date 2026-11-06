@@ -1,7 +1,11 @@
 # FARM DEVELOPMENT — DESIGN PACK V1.0
 
 Status: Sprint 1 foundation and development quality tooling. The client currently
-renders a 32x32 isometric prototype map; player gameplay is not implemented.
+renders a 32x32 isometric prototype map and an animated placeholder player.
+Device controls and obstacle collision are not implemented.
+
+Player rules and optional development movement demo:
+[Player movement](docs/PLAYER-MOVEMENT.md).
 
 Map authoring, asset attribution, coordinate checkpoints and browser verification:
 [Isometric tilemap](docs/ISOMETRIC-TILEMAP.md).
