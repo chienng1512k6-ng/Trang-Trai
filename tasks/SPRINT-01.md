@@ -25,6 +25,20 @@
 
 **Total:** 52 focused hours, excluding uncertainty/asset rework.
 
+## FDS-001 verification — 2026-11-06: PASS
+
+- Git and pnpm workspace present. Phaser 4.0.0, TypeScript 5.7.3 and Vite
+  6.4.5 unchanged. Root dev/build/typecheck scripts delegate to apps/game.
+- Strict property initialization enabled; default dev/build do not call log.js.
+- `pnpm.cmd install` and `pnpm.cmd install --frozen-lockfile` passed with
+  approved access outside the sandbox for registry metadata and pnpm store.
+  Initial frozen install required metadata regeneration for packageManager.
+- `pnpm.cmd run typecheck` and `pnpm.cmd run build` passed (exit 0).
+- `pnpm.cmd run dev` started Vite at http://localhost:8080. Integrated browser
+  reload produced one canvas and no pageerror events during the smoke check.
+- `git diff --check` passed. Visual QA in desktop Chrome/Edge and physical
+  phone testing remain unverified. FDS-002 lint/unit/CI work is not included.
+
 ## Acceptance gates
 1. 32×32 diamond isometric scene loads correctly and can be explored.
 2. PC WASD and landscape touch joystick move player; diagonal speed is normalized.

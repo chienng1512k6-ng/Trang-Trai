@@ -16,7 +16,7 @@
         "moduleDetection": "force",
         "noEmit": true,
         /* Linting */
-        "strictPropertyInitialization": false,
+        "strictPropertyInitialization": true,
         "strict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,

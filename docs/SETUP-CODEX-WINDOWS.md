@@ -45,6 +45,29 @@ Copy `AGENTS.md`, `.codex/`, `docs/`, `tasks/`, and `prompts/` from the starter 
 
 ## Step 4 — Initialize Phaser game with the official generator
 
+### Existing repository — FDS-001
+
+The game is already scaffolded. Do not rerun the generator. Use pnpm 12.18.0
+(pinned in the root manifest) and run these commands from the repository root:
+
+```powershell
+pnpm.cmd install --frozen-lockfile
+pnpm.cmd run typecheck
+pnpm.cmd run build
+pnpm.cmd run dev
+```
+
+Vite uses port 8080; check its printed URL if the port is occupied. The default
+dev/build scripts invoke Vite directly without template telemetry. Only esbuild
+is explicitly allowed to run dependency build scripts. Keep pnpm-lock.yaml as
+the dependency lockfile; do not generate an npm package-lock.json.
+PowerShell commands use pnpm.cmd without changing Windows Execution Policy.
+For a trusted phone, use `pnpm.cmd --dir apps/game run dev --host 0.0.0.0`.
+Browser rendering, console errors and real-phone behavior must be checked
+separately. Lint/unit/CI setup remains FDS-002.
+
+### New repository only
+
 ```powershell
 mkdir apps
 pnpm create @phaserjs/game@latest
