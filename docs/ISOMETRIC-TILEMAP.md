@@ -13,6 +13,8 @@ orientation isometric, tile size 64x32, finite map, no layer offsets or parallax
   integer col/row custom properties and type tree/rock. Tiled object-space
   x/y are `(col+0.5)*tileheight`, `(row+0.5)*tileheight`; runtime positions use
   the canonical col/row and FDS-003 gridToWorldCenter, not another projection.
+  FDS-009 adds `collisionShape`, `collisionWidth`, `collisionDepth` properties
+  for ground footprints; see [collision and depth](./COLLISION-DEPTH.md).
 - Embedded prototype-terrain tileset: 4 columns, 4 tiles, 256x32 RGBA PNG;
   relative image path terrain.png, no margin or spacing.
 

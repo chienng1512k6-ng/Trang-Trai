@@ -1,4 +1,5 @@
 import { DEFAULT_TILE_DIMENSIONS, PROTOTYPE_MAP_BOUNDS, isGridCellWithinBounds } from './isometric';
+import type { GridCollider } from './collision';
 
 export const MAP_ASSETS = Object.freeze({
     mapKey: 'prototype-map', mapUrl: 'assets/prototype/farm.tmj',
@@ -8,7 +9,20 @@ export const MAP_ASSETS = Object.freeze({
 export const MAP_ORIGIN = Object.freeze({
     x: PROTOTYPE_MAP_BOUNDS.rows * DEFAULT_TILE_DIMENSIONS.width / 2, y: 0,
 });
-export interface Obstacle { readonly col: number; readonly row: number; readonly kind: 'tree' | 'rock' }
+export interface Obstacle {
+    readonly id: number;
+    readonly col: number;
+    readonly row: number;
+    readonly kind: 'tree' | 'rock';
+    readonly collisionWidth: number;
+    readonly collisionDepth: number;
+}
+
+export function obstacleColliders(obstacles: readonly Obstacle[]): GridCollider[] {
+    return obstacles.map(o => ({ id: o.id,
+        minCol: o.col + 0.5 - o.collisionWidth / 2, maxCol: o.col + 0.5 + o.collisionWidth / 2,
+        minRow: o.row + 0.5 - o.collisionDepth / 2, maxRow: o.row + 0.5 + o.collisionDepth / 2 }));
+}
 
 function record(value: unknown): Record<string, unknown> {
     if (typeof value !== 'object' || value === null) throw new Error('Expected map object.');
@@ -51,12 +65,24 @@ export function validatePrototypeMap(value: unknown): Obstacle[] {
     const objectLayers = layers.filter(layer => layer.name === 'Obstacles');
     if (objectLayers.length !== 1 || objectLayers[0].type !== 'objectgroup') throw new Error('Missing Obstacles object layer.');
     const occupied = new Set<string>();
+    const ids = new Set<number>();
     return array(objectLayers[0].objects).map(value => {
         const object = record(value);
         const properties = array(object.properties).map(record);
         const col = properties.find(property => property.name === 'col' && property.type === 'int')?.value;
         const row = properties.find(property => property.name === 'row' && property.type === 'int')?.value;
         const kind = object.type;
+        const collisionWidth = properties.find(p => p.name === 'collisionWidth' && p.type === 'float')?.value;
+        const collisionDepth = properties.find(p => p.name === 'collisionDepth' && p.type === 'float')?.value;
+        const shape = properties.find(p => p.name === 'collisionShape' && p.type === 'string')?.value;
+        if (shape !== 'grid-aabb' || typeof collisionWidth !== 'number' || typeof collisionDepth !== 'number'
+            || !Number.isFinite(collisionWidth) || !Number.isFinite(collisionDepth)
+            || collisionWidth <= 0 || collisionDepth <= 0 || collisionWidth > 1 || collisionDepth > 1
+            || typeof object.id !== 'number' || !Number.isSafeInteger(object.id) || object.id <= 0 || ids.has(object.id)
+            || new Set(properties.map(p => p.name)).size !== properties.length) {
+            throw new Error('Invalid or duplicate obstacle collision metadata/id.');
+        }
+        ids.add(object.id);
         if (typeof col !== 'number' || typeof row !== 'number' || !isGridCellWithinBounds({ col, row })
             || (kind !== 'tree' && kind !== 'rock') || object.point !== true
             || object.x !== (col + 0.5) * height || object.y !== (row + 0.5) * height) {
@@ -65,6 +91,6 @@ export function validatePrototypeMap(value: unknown): Obstacle[] {
         const key = `${col},${row}`;
         if (occupied.has(key)) throw new Error('Duplicate obstacle cell.');
         occupied.add(key);
-        return { col, row, kind };
+        return { id: object.id, col, row, kind, collisionWidth, collisionDepth };
     });
 }

@@ -79,7 +79,10 @@ const map = {
             // Tiled isometric object space: square sides = tileheight, at cell center.
             x: (col + 0.5) * tile.height, y: (row + 0.5) * tile.height,
             width: 0, height: 0, rotation: 0, visible: true,
-            properties: [{ name: 'col', type: 'int', value: col }, { name: 'row', type: 'int', value: row }],
+            properties: [{ name: 'col', type: 'int', value: col }, { name: 'row', type: 'int', value: row },
+                { name: 'collisionShape', type: 'string', value: 'grid-aabb' },
+                { name: 'collisionWidth', type: 'float', value: kind === 'tree' ? 0.36 : 0.7 },
+                { name: 'collisionDepth', type: 'float', value: kind === 'tree' ? 0.36 : 0.7 }],
         })),
     }],
     tilesets: [{ firstgid: 1, name: 'prototype-terrain', image: 'terrain.png',

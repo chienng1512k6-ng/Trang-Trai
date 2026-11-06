@@ -29,6 +29,7 @@ describe('player visual contract', () => {
         expect(sprite.setOrigin).toHaveBeenCalledWith(0.5, 46 / 48);
         const state = createPlayer();
         view.sync(state); view.sync(state);
+        expect(sprite.setDepth).toHaveBeenCalledTimes(1);
         expect(sprite.play).toHaveBeenCalledTimes(1);
         expect(sprite.setPosition).toHaveBeenLastCalledWith(1024, 528);
         expect(sprite.setDepth).toHaveBeenLastCalledWith(528);

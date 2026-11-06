@@ -2116,6 +2116,21 @@
               "name": "row",
               "type": "int",
               "value": 7
+            },
+            {
+              "name": "collisionShape",
+              "type": "string",
+              "value": "grid-aabb"
+            },
+            {
+              "name": "collisionWidth",
+              "type": "float",
+              "value": 0.36
+            },
+            {
+              "name": "collisionDepth",
+              "type": "float",
+              "value": 0.36
             }
           ]
         },
@@ -2140,6 +2155,21 @@
               "name": "row",
               "type": "int",
               "value": 24
+            },
+            {
+              "name": "collisionShape",
+              "type": "string",
+              "value": "grid-aabb"
+            },
+            {
+              "name": "collisionWidth",
+              "type": "float",
+              "value": 0.36
+            },
+            {
+              "name": "collisionDepth",
+              "type": "float",
+              "value": 0.36
             }
           ]
         },
@@ -2164,6 +2194,21 @@
               "name": "row",
               "type": "int",
               "value": 5
+            },
+            {
+              "name": "collisionShape",
+              "type": "string",
+              "value": "grid-aabb"
+            },
+            {
+              "name": "collisionWidth",
+              "type": "float",
+              "value": 0.36
+            },
+            {
+              "name": "collisionDepth",
+              "type": "float",
+              "value": 0.36
             }
           ]
         },
@@ -2188,6 +2233,21 @@
               "name": "row",
               "type": "int",
               "value": 10
+            },
+            {
+              "name": "collisionShape",
+              "type": "string",
+              "value": "grid-aabb"
+            },
+            {
+              "name": "collisionWidth",
+              "type": "float",
+              "value": 0.36
+            },
+            {
+              "name": "collisionDepth",
+              "type": "float",
+              "value": 0.36
             }
           ]
         },
@@ -2212,6 +2272,21 @@
               "name": "row",
               "type": "int",
               "value": 23
+            },
+            {
+              "name": "collisionShape",
+              "type": "string",
+              "value": "grid-aabb"
+            },
+            {
+              "name": "collisionWidth",
+              "type": "float",
+              "value": 0.36
+            },
+            {
+              "name": "collisionDepth",
+              "type": "float",
+              "value": 0.36
             }
           ]
         },
@@ -2236,6 +2311,21 @@
               "name": "row",
               "type": "int",
               "value": 26
+            },
+            {
+              "name": "collisionShape",
+              "type": "string",
+              "value": "grid-aabb"
+            },
+            {
+              "name": "collisionWidth",
+              "type": "float",
+              "value": 0.36
+            },
+            {
+              "name": "collisionDepth",
+              "type": "float",
+              "value": 0.36
             }
           ]
         },
@@ -2260,6 +2350,21 @@
               "name": "row",
               "type": "int",
               "value": 21
+            },
+            {
+              "name": "collisionShape",
+              "type": "string",
+              "value": "grid-aabb"
+            },
+            {
+              "name": "collisionWidth",
+              "type": "float",
+              "value": 0.7
+            },
+            {
+              "name": "collisionDepth",
+              "type": "float",
+              "value": 0.7
             }
           ]
         },
@@ -2284,6 +2389,21 @@
               "name": "row",
               "type": "int",
               "value": 7
+            },
+            {
+              "name": "collisionShape",
+              "type": "string",
+              "value": "grid-aabb"
+            },
+            {
+              "name": "collisionWidth",
+              "type": "float",
+              "value": 0.7
+            },
+            {
+              "name": "collisionDepth",
+              "type": "float",
+              "value": 0.7
             }
           ]
         },
@@ -2308,6 +2428,21 @@
               "name": "row",
               "type": "int",
               "value": 19
+            },
+            {
+              "name": "collisionShape",
+              "type": "string",
+              "value": "grid-aabb"
+            },
+            {
+              "name": "collisionWidth",
+              "type": "float",
+              "value": 0.7
+            },
+            {
+              "name": "collisionDepth",
+              "type": "float",
+              "value": 0.7
             }
           ]
         }

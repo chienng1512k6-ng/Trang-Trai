@@ -42,7 +42,8 @@ of bit-identical deterministic simulation across machines.
 Footpoint bounds are `[0.25,31.75]` per axis, leaving a quarter-cell edge inset.
 Clamp each axis, allowing travel along a map edge; a fully blocked player is
 Idle. The inset is a map-boundary policy, not collision geometry. Trees/rocks
-are not tested for collision. Zero/invalid input stops immediately.
+are now resolved by the FDS-009 ground-plane collision path; see
+[collision and depth](./COLLISION-DEPTH.md). Zero/invalid input stops immediately.
 
 ## Facing, sprite and depth
 

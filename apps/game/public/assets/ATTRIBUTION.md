@@ -7,7 +7,7 @@
 - Source: original procedural pixel art and authored map layout in
   [generate-prototype-map.mjs](../../tools/generate-prototype-map.mjs).
 - Tree/rock graphics: original geometric placeholder artwork drawn in
-  [Game.ts](../../src/game/scenes/Game.ts); same author and license.
+  [ObstacleRenderer.ts](../../src/game/ObstacleRenderer.ts); same author and license.
 - License for these original assets and their generator: MIT (text below).
 - No downloaded imagery, music or third-party art is used by the map scene.
 
@@ -21,6 +21,14 @@
   terms below (also applies to this player asset and generator).
 - Rows: southEast, southWest, northWest, northEast. Columns 0-1 idle, 2-5 walk.
   Authored contact point is (16,46) in every frame; transparent canvas 32x48.
+
+## FDS-010 Green Slime artwork
+
+- File: monsters/green-slime.png, 256x32 RGBA, eight 32x32 frames.
+- Author: Farm Development contributors, created with Codex assistance, 2026-11-06.
+- Source: original procedural pixel art in [generate-slime.mjs](../../tools/generate-slime.mjs).
+- License: MIT under the project asset terms below; no third-party source image.
+- Frames: 0–1 idle, 2–5 move, 6 hit hook, 7 dead hook. Footpoint (16,28).
 
 ## Retained template files
 

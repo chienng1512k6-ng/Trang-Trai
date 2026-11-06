@@ -9,6 +9,7 @@ export const PLAYER_FACINGS: readonly Facing[] = ['southEast', 'southWest', 'nor
 export class PlayerView {
     readonly sprite: GameObjects.Sprite;
     private animation = '';
+    private depth?: number;
     constructor(scene: Scene, private readonly origin: WorldPosition) {
         if (!scene.textures.exists(PLAYER_ART.key)) throw new Error('Player spritesheet is missing.');
         for (const [row, facing] of PLAYER_FACINGS.entries()) {
@@ -27,7 +28,11 @@ export class PlayerView {
     }
     sync(state: PlayerState) {
         const foot = playerWorldPosition(state, this.origin);
-        this.sprite.setPosition(foot.x, foot.y).setDepth(foot.y);
+        this.sprite.setPosition(foot.x, foot.y);
+        if (this.depth !== foot.y) {
+            this.sprite.setDepth(foot.y);
+            this.depth = foot.y;
+        }
         const key = `player-${state.motion}-${state.facing}`;
         if (key !== this.animation) {
             this.sprite.play(key, true);

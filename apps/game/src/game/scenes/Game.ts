@@ -1,7 +1,7 @@
 import { Scene, Tilemaps, Math as PhaserMath, type Loader } from 'phaser';
 import { DEFAULT_TILE_DIMENSIONS as tile, PROTOTYPE_MAP_BOUNDS as bounds,
     gridToWorld, gridToWorldCenter, isGridCellWithinBounds } from '../../core/isometric';
-import { MAP_ASSETS, MAP_ORIGIN, validatePrototypeMap, type Obstacle } from '../../core/prototypeMap';
+import { MAP_ASSETS, MAP_ORIGIN, validatePrototypeMap, obstacleColliders } from '../../core/prototypeMap';
 import { pointerToGridCell } from '../isometricPointer';
 import { Player } from '../player/Player';
 import { PLAYER_ART } from '../player/PlayerView';
@@ -10,9 +10,13 @@ import { TouchControls } from '../player/TouchControls';
 import { CombinedInput } from '../player/CombinedInput';
 import { CameraController } from '../CameraController';
 import { mapWorldBounds } from '../../core/camera';
+import { renderObstacle } from '../ObstacleRenderer';
+import { installDepthOrder } from '../depthOrder';
+import { Monster, SLIME_ART } from '../Monster';
 
 export class Game extends Scene {
     private player?: Player;
+    private monster?: Monster;
     private cameraController?: CameraController;
     constructor() { super('Game'); }
 
@@ -25,18 +29,23 @@ export class Game extends Scene {
         this.load.tilemapTiledJSON(MAP_ASSETS.mapKey, MAP_ASSETS.mapUrl);
         this.load.image(MAP_ASSETS.textureKey, MAP_ASSETS.textureUrl);
         this.load.spritesheet(PLAYER_ART.key, PLAYER_ART.url, { frameWidth: PLAYER_ART.frameWidth, frameHeight: PLAYER_ART.frameHeight });
+        this.load.spritesheet(SLIME_ART.key, SLIME_ART.url, { frameWidth: SLIME_ART.frameWidth, frameHeight: SLIME_ART.frameHeight });
     }
 
     create() {
         try {
-            this.createMap();
-            this.player = new Player(this, MAP_ORIGIN);
+            const { obstacles, obstacleViews } = this.createMap();
+            this.player = new Player(this, MAP_ORIGIN, undefined, obstacleColliders(obstacles));
+            this.monster = new Monster(this, MAP_ORIGIN, obstacleColliders(obstacles));
+            installDepthOrder(this, [...obstacleViews, this.monster.view.sprite, this.player.view.sprite]);
+            this.data.set('monster', this.monster);
             this.data.set('player', this.player);
             const cameraParent = this.game.canvas.closest<HTMLElement>('#app') ?? this.game.canvas.parentElement;
             if (!cameraParent) throw new Error('Game container unavailable.');
             this.cameraController = new CameraController(this, this.player.view.sprite, mapWorldBounds(MAP_ORIGIN), cameraParent);
             this.data.set('cameraController', this.cameraController);
             this.events.once('shutdown', () => { this.player?.destroy(); this.player = undefined; });
+            this.events.once('shutdown', () => { this.monster?.destroy(); this.monster = undefined; });
             if (import.meta.env.DEV && new URLSearchParams(location.search).get('playerDemo') === '1') {
                 void import('../player/demoInput').then(({ DemoInput }) => {
                     if (this.sys.isActive()) this.player?.setInput(new DemoInput());
@@ -57,7 +66,10 @@ export class Game extends Scene {
         }
     }
 
-    update(_time: number, delta: number) { this.player?.update(delta); }
+    update(_time: number, delta: number) {
+        this.player?.update(delta);
+        this.monster?.update(delta, this.player?.state.position);
+    }
 
     private createMap() {
         if (!this.cache.tilemap.exists(MAP_ASSETS.mapKey) || !this.textures.exists(MAP_ASSETS.textureKey)) {
@@ -78,7 +90,8 @@ export class Game extends Scene {
         if (!ground || !detail || !map.getObjectLayer('Obstacles')) throw new Error('Required map layer is missing.');
         ground.setDepth(-2);
         detail.setDepth(-1);
-        obstacles.forEach(obstacle => this.drawObstacle(obstacle));
+        const obstacleViews = [...obstacles].sort((a, b) => a.id - b.id).map(obstacle => renderObstacle(this, obstacle));
+        this.data.set({ obstacles, obstacleViews, colliders: obstacleColliders(obstacles) });
 
         const bottom = gridToWorld({ col: bounds.columns, row: bounds.rows }, tile, MAP_ORIGIN);
         const camera = this.cameras.main;
@@ -108,21 +121,7 @@ export class Game extends Scene {
                 { x: top.x, y: top.y + tile.height }, { x: top.x - tile.width / 2, y: top.y + tile.height / 2 },
             ].map(({ x, y }) => new PhaserMath.Vector2(x, y)), true);
         });
+        return { obstacles, obstacleViews };
     }
 
-    private drawObstacle(obstacle: Obstacle) {
-        const center = gridToWorldCenter(obstacle, tile, MAP_ORIGIN);
-        const graphic = this.add.graphics({ x: center.x, y: center.y }).setDepth(center.y);
-        graphic.fillStyle(0x263c2c, 0.35).fillEllipse(0, 0, 34, 14);
-        if (obstacle.kind === 'tree') {
-            graphic.fillStyle(0x63482e).fillRect(-4, -34, 8, 34);
-            graphic.fillStyle(0x244e3c).fillPoints([{ x: -26, y: -20 }, { x: 0, y: -70 }, { x: 26, y: -20 }].map(({ x, y }) => new PhaserMath.Vector2(x, y)), true);
-            graphic.fillStyle(0x397351).fillPoints([{ x: -22, y: -36 }, { x: 0, y: -78 }, { x: 22, y: -36 }].map(({ x, y }) => new PhaserMath.Vector2(x, y)), true);
-            graphic.fillStyle(0x56905d).fillTriangle(-12, -50, 0, -78, 0, -50);
-        } else {
-            graphic.fillStyle(0x68777b).fillPoints([{ x: -19, y: -2 }, { x: -14, y: -22 },
-                { x: 7, y: -28 }, { x: 21, y: -12 }, { x: 15, y: 1 }].map(({ x, y }) => new PhaserMath.Vector2(x, y)), true);
-            graphic.fillStyle(0x9da99c).fillTriangle(-14, -22, 7, -28, 1, -10);
-        }
-    }
 }
