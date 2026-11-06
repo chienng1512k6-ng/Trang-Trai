@@ -56,6 +56,23 @@
 - Registry marked ESLint 9.39.5 deprecated; it remains functional with the
   selected TypeScript ESLint setup. No browser/device tests run for this ticket.
 
+## FDS-003 verification — 2026-11-06: PASS (local)
+
+- Pure 2:1 projection/inverse, cell center/picking and integer bounds helpers;
+  defaults 64x32 tiles, 32x32 bounds, explicit translated top-vertex origin.
+  Contract: [Isometric coordinates](../docs/ISOMETRIC-COORDINATES.md).
+- No dependencies changed; Phaser remains 4.0.0. No map/gameplay added.
+- `pnpm.cmd run lint`, `pnpm.cmd run typecheck`, `pnpm.cmd run test`,
+  `pnpm.cmd run build` and `git diff --check` passed.
+- Vitest: 41 tests passed (39 new, 2 existing), including 1000 fixed-seed
+  fractional round trips, negative/outside positions, edges, origins and bounds.
+- Real Phaser browser diagnostic: 40 checks passed for camera scroll, zoom
+  0.5/1/2/3, rotation, viewport offset and tile conversion parity. This browser
+  check is separate from CI; adapter unit tests use camera results as fixtures.
+- Initial attempt to load Phaser Camera in Vitest Node failed on window access;
+  replaced with browser checks using the actual installed API, not DOM stubs.
+- Physical phone, full Tiled map rendering and hosted CI remain unverified.
+
 ## Acceptance gates
 1. 32×32 diamond isometric scene loads correctly and can be explored.
 2. PC WASD and landscape touch joystick move player; diagonal speed is normalized.

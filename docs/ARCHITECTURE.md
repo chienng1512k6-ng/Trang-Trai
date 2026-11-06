@@ -22,6 +22,8 @@ packages/
 Separate rendering from domain state. Starting with a standalone `apps/game` avoids SSR and canvas integration complexity. Later integrate with the portal by sharing same-origin auth/API behind deployment routing, not by granting game client direct database access.
 
 ## 2. Coordinate systems
+- FDS-003 implementation conventions, integration limits and repeatable checks:
+  [Isometric coordinate contract](./ISOMETRIC-COORDINATES.md).
 - Canonical grid cell: integer (col,row), `zoneId`, optionally chunkId. Canonical world simulation positions: fixed or integer sub-cell units as needed.
 - Example 2:1 diamond projection centered at origin: `sx=(col-row)*(tileWidth/2)`, `sy=(col+row)*(tileHeight/2)`; inverse is tested and camera transforms must be applied before picking.
 - Sprites have a footpoint anchor and world collision shape; depth ordering is based on footpoint Y (with per-layer offsets), not sprite top edge.
