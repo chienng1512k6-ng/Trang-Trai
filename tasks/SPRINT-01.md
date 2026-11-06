@@ -73,6 +73,26 @@
   replaced with browser checks using the actual installed API, not DOM stubs.
 - Physical phone, full Tiled map rendering and hosted CI remain unverified.
 
+## FDS-004 verification — 2026-11-06: PASS (local browser)
+
+- Tiled-compatible finite 32x32 isometric JSON, 64x32 tiles, Ground/Detail
+  tile layers and Obstacles point-object layer (6 trees, 3 rocks).
+- Original deterministic 256x32 RGBA PNG tileset and map; source, author and
+  MIT terms recorded in assets/ATTRIBUTION.md. No dependency/version changes.
+- Scene uses two ordinary TilemapLayer instances, FDS-003 helpers, top origin
+  (1024,0), layer placement (992,0), camera fit and hover cell inspection.
+- Five actual layer coordinate checks matched FDS-003 at (0,0), (5,5),
+  (0,31), (31,0), (31,31); pointer picking matched all five through the camera.
+- `pnpm.cmd run lint`, `pnpm.cmd run typecheck`, `pnpm.cmd run test`
+  (59 tests: 18 new), `pnpm.cmd run build`, `git diff --check` passed.
+- localhost:8080 browser: map visually inspected, 1024 ground tiles drawn,
+  9 obstacle visuals, no JS/console errors or HTTP asset failures on clean load.
+  Forced missing PNG reported loader/scene errors; restored load passed.
+- Repeatable scene diagnostic and authoring details:
+  [Isometric tilemap](../docs/ISOMETRIC-TILEMAP.md).
+- Tiled GUI round trip, real mobile and hosted CI unverified. No player,
+  movement, collision runtime or FDS-005 work included.
+
 ## Acceptance gates
 1. 32×32 diamond isometric scene loads correctly and can be explored.
 2. PC WASD and landscape touch joystick move player; diagonal speed is normalized.

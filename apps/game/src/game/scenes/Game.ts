@@ -1,30 +1,109 @@
-import { Scene } from 'phaser';
+import { Scene, Tilemaps, Math as PhaserMath, type Loader } from 'phaser';
+import { DEFAULT_TILE_DIMENSIONS as tile, PROTOTYPE_MAP_BOUNDS as bounds,
+    gridToWorld, gridToWorldCenter, isGridCellWithinBounds } from '../../core/isometric';
+import { MAP_ASSETS, MAP_ORIGIN, validatePrototypeMap, type Obstacle } from '../../core/prototypeMap';
+import { pointerToGridCell } from '../isometricPointer';
 
-export class Game extends Scene
-{
-    constructor ()
-    {
-        super('Game');
+export class Game extends Scene {
+    constructor() { super('Game'); }
+
+    preload() {
+        const onLoadError = (file: Loader.File) => {
+            console.error(`Map asset failed: ${file.key} (${file.url})`);
+        };
+        this.load.on('loaderror', onLoadError);
+        this.events.once('shutdown', () => this.load.off('loaderror', onLoadError));
+        this.load.tilemapTiledJSON(MAP_ASSETS.mapKey, MAP_ASSETS.mapUrl);
+        this.load.image(MAP_ASSETS.textureKey, MAP_ASSETS.textureUrl);
     }
 
-    preload ()
-    {
-        this.load.setPath('assets');
-        
-        this.load.image('background', 'bg.png');
-        this.load.image('logo', 'logo.png');
+    create() {
+        try {
+            this.createMap();
+        } catch (error) {
+            console.error(error);
+            this.add.text(24, 24, 'Map could not load. Check asset paths and browser console.', { color: '#ffb4a2' });
+        }
     }
 
-    create ()
-    {
-        
-        this.add.image(512, 384, 'background');
-        this.add.image(512, 350, 'logo').setDepth(100);
-        this.add.text(512, 490, 'Make something fun!\nand share it with us:\nsupport@phaser.io', {
-            fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
-            stroke: '#000000', strokeThickness: 8,
-            align: 'center'
-        }).setOrigin(0.5).setDepth(100);
-        
+    private createMap() {
+        if (!this.cache.tilemap.exists(MAP_ASSETS.mapKey) || !this.textures.exists(MAP_ASSETS.textureKey)) {
+            throw new Error('Required map JSON or tileset image is missing.');
+        }
+        const raw: unknown = this.cache.tilemap.get(MAP_ASSETS.mapKey).data;
+        const obstacles = validatePrototypeMap(raw);
+        const map = this.make.tilemap({ key: MAP_ASSETS.mapKey });
+        // Phaser 4.0.0 types say string; parser source returns numeric Orientation.
+        const orientation: unknown = map.orientation;
+        if (orientation !== Tilemaps.Orientation.ISOMETRIC) throw new Error('Map orientation mismatch.');
+        const tileset = map.addTilesetImage(MAP_ASSETS.tilesetName, MAP_ASSETS.textureKey);
+        if (!tileset) throw new Error('Map tileset name or texture does not match.');
+        // FDS-003: layer origin is image top-left, half a tile left of diamond top.
+        const layerX = MAP_ORIGIN.x - tile.width / 2;
+        const ground = map.createLayer('Ground', tileset, layerX, MAP_ORIGIN.y);
+        const detail = map.createLayer('Detail', tileset, layerX, MAP_ORIGIN.y);
+        if (!ground || !detail || !map.getObjectLayer('Obstacles')) throw new Error('Required map layer is missing.');
+        ground.setDepth(-2);
+        detail.setDepth(-1);
+        obstacles.forEach(obstacle => this.drawObstacle(obstacle));
+
+        const left = gridToWorld({ col: 0, row: bounds.rows }, tile, MAP_ORIGIN);
+        const right = gridToWorld({ col: bounds.columns, row: 0 }, tile, MAP_ORIGIN);
+        const bottom = gridToWorld({ col: bounds.columns, row: bounds.rows }, tile, MAP_ORIGIN);
+        const worldWidth = right.x - left.x;
+        const worldHeight = bottom.y - MAP_ORIGIN.y;
+        const camera = this.cameras.main;
+        camera.setBackgroundColor('#172c2c');
+        camera.setZoom(Math.min(camera.width / worldWidth, camera.height / worldHeight) * 0.86);
+        camera.centerOn(MAP_ORIGIN.x, MAP_ORIGIN.y + worldHeight / 2);
+
+        const checkpoints = [{ col: 0, row: 0 }, { col: 5, row: 5 }, { col: 0, row: 31 },
+            { col: 31, row: 0 }, { col: 31, row: 31 }];
+        const coordinateChecks = checkpoints.map(cell => {
+            const actual = ground.tileToWorldXY(cell.col, cell.row);
+            const expected = gridToWorld(cell, tile, MAP_ORIGIN);
+            const top = { x: actual.x + tile.width / 2, y: actual.y };
+            if (top.x !== expected.x || top.y !== expected.y) throw new Error('FDS-003 layer coordinate mismatch.');
+            const center = gridToWorldCenter(cell, tile, MAP_ORIGIN);
+            this.add.circle(center.x, center.y, 5, 0xffe3a3).setDepth(bottom.y + 1);
+            return { ...cell, actual: top, expected };
+        });
+        this.data.set({ map, ground, detail, coordinateChecks, obstacleCount: obstacles.length });
+
+        camera.preRender();
+        const hud = camera.getWorldPoint(20, 20);
+        const status = this.add.text(hud.x, hud.y, 'FARM DEVELOPMENT  /  ISOMETRIC MAP\n32 × 32 · hover to inspect a cell', {
+            fontFamily: 'monospace', fontSize: '16px', color: '#f5e8cc', backgroundColor: '#172c2c', padding: { x: 12, y: 8 },
+        }).setDepth(bottom.y + 2);
+        // Camera zoom affects world-space UI too; compensate without altering world geometry.
+        status.setScale(1 / camera.zoom);
+        const highlight = this.add.graphics().setDepth(bottom.y + 1);
+        this.input.on('pointermove', (pointer: Parameters<typeof pointerToGridCell>[0]) => {
+            const cell = pointerToGridCell(pointer, camera, tile, MAP_ORIGIN);
+            highlight.clear();
+            status.setText(`FARM DEVELOPMENT  /  ISOMETRIC MAP\n${isGridCellWithinBounds(cell) ? `Cell ${cell.col}, ${cell.row}` : 'Outside map'} · 32 × 32`);
+            if (!isGridCellWithinBounds(cell)) return;
+            const top = gridToWorld(cell, tile, MAP_ORIGIN);
+            highlight.lineStyle(2, 0xffe3a3).strokePoints([
+                { x: top.x, y: top.y }, { x: top.x + tile.width / 2, y: top.y + tile.height / 2 },
+                { x: top.x, y: top.y + tile.height }, { x: top.x - tile.width / 2, y: top.y + tile.height / 2 },
+            ].map(({ x, y }) => new PhaserMath.Vector2(x, y)), true);
+        });
+    }
+
+    private drawObstacle(obstacle: Obstacle) {
+        const center = gridToWorldCenter(obstacle, tile, MAP_ORIGIN);
+        const graphic = this.add.graphics({ x: center.x, y: center.y }).setDepth(center.y);
+        graphic.fillStyle(0x263c2c, 0.35).fillEllipse(0, 0, 34, 14);
+        if (obstacle.kind === 'tree') {
+            graphic.fillStyle(0x63482e).fillRect(-4, -34, 8, 34);
+            graphic.fillStyle(0x244e3c).fillPoints([{ x: -26, y: -20 }, { x: 0, y: -70 }, { x: 26, y: -20 }].map(({ x, y }) => new PhaserMath.Vector2(x, y)), true);
+            graphic.fillStyle(0x397351).fillPoints([{ x: -22, y: -36 }, { x: 0, y: -78 }, { x: 22, y: -36 }].map(({ x, y }) => new PhaserMath.Vector2(x, y)), true);
+            graphic.fillStyle(0x56905d).fillTriangle(-12, -50, 0, -78, 0, -50);
+        } else {
+            graphic.fillStyle(0x68777b).fillPoints([{ x: -19, y: -2 }, { x: -14, y: -22 },
+                { x: 7, y: -28 }, { x: 21, y: -12 }, { x: 15, y: 1 }].map(({ x, y }) => new PhaserMath.Vector2(x, y)), true);
+            graphic.fillStyle(0x9da99c).fillTriangle(-14, -22, 7, -28, 1, -10);
+        }
     }
 }

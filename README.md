@@ -1,7 +1,10 @@
 # FARM DEVELOPMENT — DESIGN PACK V1.0
 
 Status: Sprint 1 foundation and development quality tooling. The client currently
-renders the Phaser template scene; gameplay is not implemented.
+renders a 32x32 isometric prototype map; player gameplay is not implemented.
+
+Map authoring, asset attribution, coordinate checkpoints and browser verification:
+[Isometric tilemap](docs/ISOMETRIC-TILEMAP.md).
 
 ## Environment and local commands
 

@@ -9,6 +9,7 @@ const config: Types.Core.GameConfig = {
     height: 768,
     parent: 'game-container',
     backgroundColor: '#028af8',
+    pixelArt: true,
     scale: {
         mode: Scale.FIT,
         autoCenter: Scale.CENTER_BOTH
