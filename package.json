@@ -3,8 +3,16 @@
   "private": true,
   "packageManager": "pnpm@12.18.0",
   "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "test": "pnpm --dir apps/game run test",
     "dev": "pnpm --dir apps/game run dev",
     "typecheck": "pnpm --dir apps/game run typecheck",
     "build": "pnpm --dir apps/game run build"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "eslint": "^9.39.5",
+    "globals": "^17.14.0",
+    "typescript-eslint": "^8.72.1"
   }
 }

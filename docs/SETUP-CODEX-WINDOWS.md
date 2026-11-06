@@ -127,7 +127,11 @@ git commit -m "chore: initialize farm development prototype"
 Create a `.gitignore` for `node_modules`, `dist`, `.env*` secrets, logs, and local cache, but **do not ignore `.env.example`**. Check `git diff --cached` before every commit.
 
 ## Step 8 — QA and basic automation
-Make Codex add scripts for lint, typecheck, test and build in FDS-002. Install test tooling at that time rather than globally. CI must run with a lockfile. Browser automation can be added at FDS-012; real-device manual QA is still required.
+FDS-002 provides root lint, typecheck, test and build scripts. Run
+`pnpm.cmd run lint`, `pnpm.cmd run typecheck`, `pnpm.cmd run test` and
+`pnpm.cmd run build` after `pnpm.cmd install --frozen-lockfile`.
+See the root README for CI results and commands. Browser automation can be
+added at FDS-012; real-device manual QA is still required.
 
 ## Optional integrations — NOT day-one requirements
 - GitHub CLI: https://cli.github.com/ (push issues, pull requests)

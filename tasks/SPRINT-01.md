@@ -39,6 +39,23 @@
 - `git diff --check` passed. Visual QA in desktop Chrome/Edge and physical
   phone testing remain unverified. FDS-002 lint/unit/CI work is not included.
 
+## FDS-002 verification — 2026-11-06: PASS (local), GitHub run unverified
+
+- ESLint Flat Config uses JS and TypeScript recommended rules; generated
+  output/node_modules are ignored and lint warnings fail the command.
+- Vitest 4.1.12 runs two bootstrap unit tests with Phaser mocked; no gameplay
+  or isometric math added. Phaser 4.0.0, Vite 6.4.5 and TypeScript 5.7.3 retained.
+- `pnpm.cmd install --frozen-lockfile`, `pnpm.cmd run lint`,
+  `pnpm.cmd run typecheck`, `pnpm.cmd run test`, `pnpm.cmd run build` and
+  `git diff --check` passed on Node 26.13.0 / pnpm 12.18.0.
+- Temporarily changing the expected container made one assertion fail and
+  root `pnpm.cmd run test` exit 1. Restored test suite passed (2 tests, exit 0).
+- Workflow YAML parsed and required triggers, tool versions, ordered commands
+  and no error suppression verified locally. No commit/push performed;
+  hosted GitHub CI failure/success propagation still requires a real run.
+- Registry marked ESLint 9.39.5 deprecated; it remains functional with the
+  selected TypeScript ESLint setup. No browser/device tests run for this ticket.
+
 ## Acceptance gates
 1. 32×32 diamond isometric scene loads correctly and can be explored.
 2. PC WASD and landscape touch joystick move player; diagonal speed is normalized.
