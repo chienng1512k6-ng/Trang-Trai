@@ -74,7 +74,9 @@ asset with `node apps/game/tools/generate-player.mjs`.
 Run `pnpm.cmd run dev`. Default http://localhost:8080/ uses FDS-006 WASD controls.
 Use http://localhost:8080/?playerDemo=1 for development movement with keyboard
 disabled. Vite removes the DEV demo branch and dynamic import from production.
-See [PC keyboard controls](./PC-KEYBOARD-CONTROLS.md). Touch controls remain deferred.
+See [PC keyboard controls](./PC-KEYBOARD-CONTROLS.md) and
+[Mobile touch controls](./MOBILE-TOUCH-CONTROLS.md). FDS-007 supplies a combined
+keyboard/joystick adapter while preserving the movement/animation modules.
 
 Root lint/typecheck/test/build remain unchanged. Vitest tests spawn, zero input,
 four facings, diagonals, analog magnitude, split deltas, stalls, invalid inputs,

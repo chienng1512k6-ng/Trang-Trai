@@ -6,10 +6,83 @@ body {
 }
 
 #app {
+    position: relative;
     width: 100%;
     height: 100vh;
+    height: 100dvh;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+.touch-controls {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    pointer-events: none;
+    font-family: system-ui, sans-serif;
+}
+.virtual-joystick, .touch-action {
+    position: absolute;
+    bottom: max(12px, env(safe-area-inset-bottom, 0px));
+    pointer-events: auto;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    box-sizing: border-box;
+    border: 2px solid #f5e8cc99;
+    background: #172c2ccc;
+    color: #f5e8cc;
+}
+.virtual-joystick {
+    left: max(12px, env(safe-area-inset-left, 0px));
+    width: clamp(88px, 24vmin, 128px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+}
+.joystick-knob {
+    position: absolute;
+    left: 32.5%;
+    top: 32.5%;
+    width: 35%;
+    height: 35%;
+    border-radius: 50%;
+    background: #f5e8cc;
+    box-shadow: 0 2px 8px #0006;
+    pointer-events: none;
+}
+.joystick-label {
+    position: absolute;
+    top: -22px;
+    width: 100%;
+    text-align: center;
+    font-size: 11px;
+    pointer-events: none;
+}
+.touch-action {
+    right: max(12px, env(safe-area-inset-right, 0px));
+    min-width: 88px;
+    min-height: 72px;
+    padding: 12px;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 700;
+}
+.touch-action small { display: block; font-size: 10px; font-weight: 400; margin-top: 4px; }
+.touch-action[aria-pressed="true"] { background: #f5e8cc; color: #172c2c; }
+.orientation-prompt {
+    display: none;
+    position: absolute;
+    inset: 0;
+    padding: max(24px, env(safe-area-inset-top, 0px)) max(24px, env(safe-area-inset-right, 0px))
+        max(24px, env(safe-area-inset-bottom, 0px)) max(24px, env(safe-area-inset-left, 0px));
+    background: #172c2cf5;
+    place-content: center;
+    text-align: center;
+    color: #f5e8cc;
+    font-size: clamp(18px, 5vw, 28px);
+    pointer-events: auto;
+}
+.is-portrait .orientation-prompt { display: grid; }
+.is-portrait .virtual-joystick, .is-portrait .touch-action { display: none; }

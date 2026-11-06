@@ -18,11 +18,15 @@ export async function startKeyboardBrowserCheck() {
     return {
         snapshot() {
             const player = scene.data.get('player');
+            const touch = scene.data.get('touchControls');
             return { position: { ...player.state.position }, world: playerWorldPosition(player.state, MAP_ORIGIN),
                 motion: player.state.motion, facing: player.state.facing,
                 animation: player.view.sprite.anims.currentAnim.key,
                 keyboardListeners: scene.input.keyboard.listenerCount('keydown'),
-                hasKeyboard: Boolean(scene.data.get('keyboardInput')) };
+                hasKeyboard: Boolean(scene.data.get('keyboardInput')),
+                touch: touch ? { pointerId: touch.joystick.pointerId, displacement: touch.joystick.displacement,
+                    actionPointerId: touch.action.pointerId, actionPressed: touch.action.pressed, blocked: touch.isBlocked(),
+                    overlays: touch.root.parentElement.querySelectorAll('.touch-controls').length } : null };
         },
         async restart() {
             const previous = scene.data.get('player');

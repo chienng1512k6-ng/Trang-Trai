@@ -15,7 +15,7 @@
 | FDS-004 | 5h | 003 | Tiled JSON 32×32 isometric map, ground/obstacle/object layers; art sources recorded |
 | FDS-005 | 5h | 003,004 | Player sprite with 4-direction animation placeholder, velocity normalization and stable delta handling |
 | FDS-006 | 3h | 005 | **PASS local/browser** — WASD screen directions, reserved interaction/attack bindings, diagonal speed tests; see verification below |
-| FDS-007 | 5h | 005 | Mobile joystick + action button, touch capture, safe-area UI, no page scroll while playing |
+| FDS-007 | 5h | 005 | **PASS local/browser emulation** — joystick, Action signal, pointer capture, safe-area layout; real-device QA unverified |
 | FDS-008 | 4h | 004,005 | Camera follow, world bounds, zoom, resize, landscape orientation prompt |
 | FDS-009 | 4h | 004,005 | Obstacles, collision against tree/rock/building and visible depth/occlusion correctness |
 | FDS-010 | 5h | 005,009 | One slime: idle/wander/chase/hit/death, state boundaries and basic tests |
@@ -135,6 +135,31 @@
 - Details: [PC keyboard controls](../docs/PC-KEYBOARD-CONTROLS.md).
   Physical Alt-Tab/hidden-tab transitions, hardware ghosting and hosted CI
   remain unverified. No mobile controls, camera follow, collision or combat.
+
+## FDS-007 verification — 2026-11-06: PASS (local/browser emulation)
+
+- Pure VirtualJoystick/ActionPointer, DOM screen-space touch overlay and
+  CombinedInput reuse FDS-003/006 screen mapping and FDS-005 movement.
+- 15% configurable dead zone, linear analog remap, radius clamp; held joystick
+  takes priority over WASD even at zero magnitude. One Player update per frame.
+- Separate pointer owners/capture support joystick+Action simultaneously;
+  independent release, cancel/lost capture, blur/visibility, resize and scene
+  lifecycle cleanup. Action is labelled No gameplay yet and has no game logic.
+- `pnpm.cmd run lint`, `pnpm.cmd run typecheck`, `pnpm.cmd run test`
+  (162 passed: 35 new), `pnpm.cmd run build`, `git diff --check` passed.
+  Initial dead-zone negative-zero assertions and browser-diagnostic lint error
+  were corrected and rerun successfully.
+- Chromium touch emulation on localhost:8080: movement/release, two pointers
+  with independent release in both orders, outside drag/clamp/cancel, Action
+  color/aria feedback, keyboard priority/resume and three scene restarts passed.
+  One overlay/keyboard listener retained; clean load had no console/HTTP errors.
+- CSS rect checks passed 568x320, 844x390, 1024x600: controls inside viewport,
+  game center uncovered. Portrait 360x640 showed rotate prompt and blocked input.
+  DEV demo created no real-input overlay/listeners. No dependencies upgraded.
+- Details: [Mobile touch controls](../docs/MOBILE-TOUCH-CONTROLS.md).
+  Real phone, nonzero physical safe areas, Safari/iOS, OS app switching and
+  hosted CI unverified. Forced-size screenshots in the integrated browser were
+  unreliable; layout was checked with CSS measurements. No FDS-008+ work.
 
 ## Acceptance gates
 1. 32×32 diamond isometric scene loads correctly and can be explored.

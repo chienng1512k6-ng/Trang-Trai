@@ -4,6 +4,10 @@ Status: Sprint 1 foundation and development quality tooling. The client currentl
 renders a 32x32 isometric prototype map and an animated placeholder player.
 PC WASD moves the player in screen directions; obstacle collision is not implemented.
 See [PC keyboard controls](docs/PC-KEYBOARD-CONTROLS.md) for mapping and focus rules.
+Landscape touch/hybrid devices can use the virtual joystick. Action is a visual
+prototype without gameplay. Portrait shows a rotate prompt. See
+[Mobile touch controls](docs/MOBILE-TOUCH-CONTROLS.md) for analog/priority rules
+and real-device QA limitations.
 
 Player rules and optional development movement demo:
 [Player movement](docs/PLAYER-MOVEMENT.md).

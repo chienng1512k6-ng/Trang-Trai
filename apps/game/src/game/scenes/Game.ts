@@ -6,6 +6,8 @@ import { pointerToGridCell } from '../isometricPointer';
 import { Player } from '../player/Player';
 import { PLAYER_ART } from '../player/PlayerView';
 import { KeyboardInput } from '../player/KeyboardInput';
+import { TouchControls } from '../player/TouchControls';
+import { CombinedInput } from '../player/CombinedInput';
 
 export class Game extends Scene {
     private player?: Player;
@@ -35,8 +37,12 @@ export class Game extends Scene {
             } else {
                 if (!this.input.keyboard) throw new Error('Keyboard plugin is unavailable.');
                 const keyboard = new KeyboardInput(this.input.keyboard, this.events);
-                this.player.setInput(keyboard);
+                const parent = this.game.canvas.closest<HTMLElement>('#app') ?? this.game.canvas.parentElement;
+                if (!parent) throw new Error('Game container is unavailable for touch controls.');
+                const touch = new TouchControls(this.events, parent);
+                this.player.setInput(new CombinedInput(keyboard, touch.joystick, touch.isBlocked));
                 this.data.set('keyboardInput', keyboard);
+                this.data.set('touchControls', touch);
             }
         } catch (error) {
             console.error(error);

@@ -50,8 +50,10 @@ adapter. The scene wires it to the existing Player; core movement and PlayerView
 are not modified.
 
 Default http://localhost:8080/ uses WASD. With `?playerDemo=1` in development,
-only DemoInput is connected, and KeyboardInput is not instantiated. Production
+only DemoInput is connected, and real input adapters are not instantiated. Production
 removes the demo branch and uses WASD even if the query is present.
+FDS-007 adds [touch controls](./MOBILE-TOUCH-CONTROLS.md): a held joystick takes
+priority over keyboard (even in the dead zone), and release restores WASD.
 
 ## Verification
 
