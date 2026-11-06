@@ -28,9 +28,31 @@ function fixture() {
 const editable = (tag = 'input') => ({ closest: () => ({ matches: () => tag !== 'contenteditable', getAttribute: () => 'true' }) });
 
 describe('Phaser keyboard adapter lifecycle and focus', () => {
+    it('Space buffers one attack per press, preserving quick taps and simultaneous movement', () => {
+        const { keyboard, input, key } = fixture();
+        keyboard.emit('keydown', key('KeyW')); keyboard.emit('keydown', key('Space'));
+        keyboard.emit('keyup', key('Space'));
+        expect(input.consumeAttack()).toBe(true); expect(input.consumeAttack()).toBe(false);
+        expect(input.sample().col).toBeLessThan(0);
+        keyboard.emit('keydown', key('Space'));
+        expect(input.consumeAttack()).toBe(true);
+        for (let n = 0; n < 10; n++) { keyboard.emit('keydown', key('Space', { repeat: true })); expect(input.consumeAttack()).toBe(false); }
+        input.destroy();
+    });
+    it.each(['blur', 'visibilitychange', 'pause', 'sleep'])('clears pending combat on %s', event => {
+        const { keyboard, input, key, environment, events } = fixture(); keyboard.emit('keydown', key('Space'));
+        (event === 'blur' ? environment.window : event === 'visibilitychange' ? environment.document : events).emit(event);
+        expect(input.consumeAttack()).toBe(false); input.destroy();
+    });
+    it.each(['input', 'textarea', 'contenteditable'])('Space does not capture typing in %s', tag => {
+        const { keyboard, input, key, environment } = fixture(); const target = editable(tag);
+        environment.document.activeElement = target; const event = key('Space', { target });
+        keyboard.emit('keydown', event); expect(event.preventDefault).not.toHaveBeenCalled();
+        expect(input.consumeAttack()).toBe(false); input.destroy();
+    });
     it('does not capture unimplemented actions or unrelated keys', () => {
         const { keyboard, input, key } = fixture();
-        for (const code of ['KeyE', 'Space', 'ArrowUp']) {
+        for (const code of ['KeyE', 'ArrowUp']) {
             const event = key(code);
             keyboard.emit('keydown', event);
             expect(event.preventDefault).not.toHaveBeenCalled();

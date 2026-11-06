@@ -1,4 +1,5 @@
 import { screenIntentToGrid } from './keyboardIntent';
+import { PressLatch } from './pressLatch';
 
 export interface JoystickPosition { readonly x: number; readonly y: number }
 
@@ -41,13 +42,16 @@ export class VirtualJoystick {
 
 export class ActionPointer {
     private owner: number | null = null;
+    private readonly press = new PressLatch();
     get pointerId() { return this.owner; }
     get pressed() { return this.owner !== null; }
     begin(pointerId: number) {
         if (this.owner !== null) return false;
         this.owner = pointerId;
+        this.press.down();
         return true;
     }
-    release(pointerId: number) { if (this.owner === pointerId) this.reset(); }
-    reset() { this.owner = null; }
+    release(pointerId: number) { if (this.owner === pointerId) { this.owner = null; this.press.up(); } }
+    consumeAttack() { return this.press.consume(); }
+    reset() { this.owner = null; this.press.reset(); }
 }

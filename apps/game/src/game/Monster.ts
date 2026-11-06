@@ -42,6 +42,7 @@ export class Monster {
         this.view.sync(this.current);
     }
     get state() { return this.current; }
+    reset() { this.current = createMonster(this.colliders, this.config); this.view.sync(this.current); }
     update(deltaMs: number, target?: GridPosition) {
         this.current = updateMonster(this.current, target, deltaMs, this.colliders, this.config);
         this.view.sync(this.current);

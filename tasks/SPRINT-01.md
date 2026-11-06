@@ -19,7 +19,7 @@
 | FDS-008 | 4h | 004,005 | **PASS local/browser emulation** — footpoint follow, world bounds, zoom/resize; [verification](../docs/CAMERA-CONTROLS.md); real-device QA unverified |
 | FDS-009 | 4h | 004,005 | **PASS local/browser emulation** — Tiled tree/rock footprints, swept sliding collision and footpoint depth; [verification](../docs/COLLISION-DEPTH.md); real-device QA unverified |
 | FDS-010 | 5h | 005,009 | **PASS local/browser emulation** — one Green Slime, seeded FSM, bounded navigation and HIT/DEAD hooks; [verification](../docs/MONSTER-AI.md); real-device QA unverified |
-| FDS-011 | 4h | 006,007,010 | One attack: cooldown, range, damage, feedback + enemy death; no client-server economy |
+| FDS-011 | 4h | 006,007,010 | **PASS local/browser emulation** — Space/Attack, directional damage, melee, HP, knockout/recovery; [verification](../docs/COMBAT.md); real-device QA unverified |
 | FDS-012 | 4h | 007-011 | Performance/QA: Chrome desktop, one real landscape phone, debug overlay and accessibility checks |
 | FDS-013 | 3h | 012 | CI green, remove blockers, playable README, screenshots/test evidence and ADR outcome |
 

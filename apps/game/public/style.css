@@ -93,3 +93,7 @@ body {
 .camera-zoom { position: absolute; top: max(12px, env(safe-area-inset-top, 0px)); right: max(12px, env(safe-area-inset-right, 0px)); display: flex; align-items: center; gap: 4px; background: #172c2ccc; }
 .camera-zoom button { pointer-events: auto; touch-action: manipulation; width: 44px; height: 44px; font-size: 24px; color: inherit; background: transparent; border: 1px solid #f5e8cc99; }
 .camera-zoom output { min-width: 40px; text-align: center; }
+
+.combat-hud { position: absolute; top: max(70px, calc(env(safe-area-inset-top, 0px) + 58px)); left: 50%; transform: translateX(-50%); z-index: 9; pointer-events: none; color: #f5e8cc; background: #172c2ccc; padding: 6px; text-align: center; font: 12px system-ui; max-width: 75%; }
+.combat-message { font-size: 11px; }
+.combat-recover { pointer-events: auto; min-height: 44px; margin-top: 6px; touch-action: manipulation; }

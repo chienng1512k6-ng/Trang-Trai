@@ -5,6 +5,7 @@ import { MAP_ORIGIN } from '../src/core/prototypeMap';
 import { verifyCameraGeometry } from './camera.browser.mjs';
 import { pointerToGridCell } from '../src/game/isometricPointer';
 import { createMonster, MONSTER_CONFIG } from '../src/core/monster';
+import { createCombat } from '../src/core/combat';
 
 /** Fixture for real browser key presses; dispose it when verification finishes. */
 export async function startKeyboardBrowserCheck() {
@@ -23,6 +24,27 @@ export async function startKeyboardBrowserCheck() {
     let samples = 0;
     let penetrations = 0;
     return {
+        combatCase(kind = 'hit') {
+            const combat = scene.data.get('combat'); combat.current = createCombat();
+            const blocked = kind === 'blocked';
+            const playerPosition = blocked ? { col: 4.1, row: 7.5 } : { col: 20, row: 16.5 };
+            const slime = blocked ? { col: 4.9, row: 7.5 } : { col: kind === 'outside' ? 24 : kind === 'knockout' ? 20.5 : 21, row: 16.5 };
+            this.placePlayerForMonster(playerPosition);
+            const player = scene.data.get('player');
+            player.current = { ...player.state, facing: kind === 'back' ? 'northWest' : 'southEast' };
+            player.view.sync(player.state);
+            this.resetMonster({ ...MONSTER_CONFIG, spawn: slime });
+            if (kind === 'knockout') combat.current = { ...combat.current, player: { hp: 1, maxHP: 5 } };
+            return this.combatSnapshot();
+        },
+        combatSnapshot() {
+            const combat = scene.data.get('combat');
+            return { state: combat.state, canControl: combat.canControl,
+                hud: globalThis.document.querySelector('.combat-hp')?.textContent,
+                message: globalThis.document.querySelector('.combat-message')?.textContent,
+                swingActive: combat.swingRemaining > 0, monster: this.monsterSnapshot(), player: this.snapshot(),
+                overlays: globalThis.document.querySelectorAll('.combat-hud').length };
+        },
         monsterSnapshot() {
             const monster = scene.data.get('monster');
             const sprite = monster.view.sprite;

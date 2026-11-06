@@ -38,6 +38,18 @@ function fixture() {
 afterEach(() => vi.unstubAllGlobals());
 
 describe('touch overlay events and lifecycle', () => {
+    it('quick Action release buffers once without stopping joystick', () => {
+        const { ring, button, touch, pointer } = fixture();
+        ring.emit('pointerdown', pointer(1)); button.emit('pointerdown', pointer(2));
+        button.emit('pointerup', pointer(2)); button.emit('lostpointercapture', pointer(2));
+        expect(touch.action.consumeAttack()).toBe(true); expect(touch.action.consumeAttack()).toBe(false);
+        expect(touch.joystick.pointerId).toBe(1); touch.destroy();
+    });
+    it.each(['pointercancel', 'lostpointercapture'])('Action %s clears buffered activation but not joystick', event => {
+        const { ring, button, touch, pointer } = fixture();
+        ring.emit('pointerdown', pointer(1)); button.emit('pointerdown', pointer(2)); button.emit(event, pointer(2));
+        expect(touch.action.consumeAttack()).toBe(false); expect(touch.joystick.pointerId).toBe(1); touch.destroy();
+    });
     it('captures a joystick drag and releases safely outside the ring', () => {
         const { ring, touch, pointer } = fixture();
         ring.emit('pointerdown', pointer(1)); expect(ring.hasPointerCapture(1)).toBe(true);

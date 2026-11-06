@@ -11,6 +11,26 @@ export interface GridCollider {
 export const PLAYER_HALF_EXTENT = 0.18;
 const EPSILON = 1e-10;
 
+/** Exact finite segment vs authored static footprints, without actor inflation.
+ * Used for attack occlusion, not movement. Tangent contact blocks conservatively. */
+export function isSegmentBlocked(from: GridPosition, to: GridPosition, colliders: readonly GridCollider[]): boolean {
+    return colliders.some(b => {
+        let enter = 0, exit = 1;
+        for (const [start, delta, min, max] of [
+            [from.col, to.col - from.col, b.minCol, b.maxCol],
+            [from.row, to.row - from.row, b.minRow, b.maxRow],
+        ]) {
+            if (delta === 0) { if (start < min || start > max) return false; }
+            else {
+                const a = (min - start) / delta, c = (max - start) / delta;
+                enter = Math.max(enter, Math.min(a, c)); exit = Math.min(exit, Math.max(a, c));
+                if (enter > exit) return false;
+            }
+        }
+        return true;
+    });
+}
+
 function expanded(collider: GridCollider) {
     return { minCol: collider.minCol - PLAYER_HALF_EXTENT, maxCol: collider.maxCol + PLAYER_HALF_EXTENT,
         minRow: collider.minRow - PLAYER_HALF_EXTENT, maxRow: collider.maxRow + PLAYER_HALF_EXTENT };

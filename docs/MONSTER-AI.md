@@ -131,4 +131,5 @@ enabled in production by default.
 Real-device iOS/Android, Safari/Firefox, long-duration performance and hosted CI
 remain unverified. Phone emulation is not real-device QA. Target switches and
 navigation have only been validated for one enemy and the current static map.
-No FDS-011 combat functionality is implemented.
+FDS-010 itself added no combat. FDS-011 now connects these existing hooks to
+central health/cooldowns without changing AI movement; see [combat](./COMBAT.md).

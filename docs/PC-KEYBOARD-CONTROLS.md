@@ -24,8 +24,8 @@ All nonzero combinations have the same ground magnitude/speed. Apparent pixel
 speed can differ by direction as specified in FDS-005. Speed, delta policy,
 map clamp, animation selection and footpoint/depth remain unchanged.
 
-PC_BINDINGS reserves E for interaction and Space for attack as definitions only.
-They have no listeners, capture, gameplay actions or combat implementation.
+E remains reserved for interaction. FDS-011 now implements Space as one attack
+per press, using the same keyboard listeners and focus guards. See [combat](./COMBAT.md).
 
 ## Phaser and lifecycle
 

@@ -10,6 +10,15 @@ import { isPositionBlocked } from '../src/core/collision';
 
 const collider = { id: 1, minCol: 16.8, maxCol: 17.2, minRow: 15.5, maxRow: 17.5 };
 describe('Player uses one collision path for device-independent input', () => {
+    it('knockout gating drains input without moving; explicit safe respawn validates collision', () => {
+        const input = { sample: vi.fn(() => ({ col: 1, row: 0 })) };
+        const player = new Player({}, { x: 1024, y: 0 }, input, [collider]);
+        const initial = player.state.position; player.update(16, false);
+        expect(player.state.position).toEqual(initial); expect(player.state.motion).toBe('idle');
+        expect(input.sample).toHaveBeenCalledOnce(); player.respawn({ col: 15, row: 15 });
+        expect(player.state.position).toEqual({ col: 15, row: 15 });
+        expect(() => player.respawn({ col: 17, row: 16 })).toThrow();
+    });
     it.each(['keyboard', 'joystick'])('resolves %s input before syncing the view', device => {
         const joystick = new VirtualJoystick();
         const keyboard = { sample: () => device === 'keyboard' ? screenIntentToGrid({ x: 1, y: 0 }) : { col: 0, row: 0 } };

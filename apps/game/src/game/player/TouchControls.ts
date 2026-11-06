@@ -20,7 +20,7 @@ export class TouchControls {
         this.root = document.createElement('div');
         this.root.className = 'touch-controls';
         this.root.innerHTML = '<div class="virtual-joystick" aria-label="Movement joystick"><span class="joystick-knob"></span><span class="joystick-label">MOVE</span></div>'
-            + '<button type="button" class="touch-action" aria-label="Action prototype, no gameplay" aria-pressed="false">ACTION<small>No gameplay yet</small></button>'
+            + '<button type="button" class="touch-action" aria-label="Attack" aria-pressed="false">ATTACK<small>Face the Slime</small></button>'
             + '<div class="orientation-prompt" role="status">Rotate your device to landscape<br><small>Xoay thiết bị sang ngang để chơi</small></div>';
         parent.append(this.root);
         this.ring = this.root.querySelector<HTMLDivElement>('.virtual-joystick')!;
@@ -48,6 +48,7 @@ export class TouchControls {
             for (const name of ['pointerup', 'pointercancel', 'lostpointercapture']) {
                 this.listen(target, name, event => {
                     const pointer = event as PointerEvent;
+                    if (name !== 'pointerup' && this.action.pointerId === pointer.pointerId) this.action.reset();
                     this.joystick.release(pointer.pointerId);
                     this.action.release(pointer.pointerId);
                     this.draw();

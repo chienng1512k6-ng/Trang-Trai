@@ -13,10 +13,12 @@ import { mapWorldBounds } from '../../core/camera';
 import { renderObstacle } from '../ObstacleRenderer';
 import { installDepthOrder } from '../depthOrder';
 import { Monster, SLIME_ART } from '../Monster';
+import { CombatController } from '../CombatController';
 
 export class Game extends Scene {
     private player?: Player;
     private monster?: Monster;
+    private combat?: CombatController;
     private cameraController?: CameraController;
     constructor() { super('Game'); }
 
@@ -44,6 +46,10 @@ export class Game extends Scene {
             if (!cameraParent) throw new Error('Game container unavailable.');
             this.cameraController = new CameraController(this, this.player.view.sprite, mapWorldBounds(MAP_ORIGIN), cameraParent);
             this.data.set('cameraController', this.cameraController);
+            let attackInput = () => false;
+            this.combat = new CombatController(this, this.player, this.monster, obstacleColliders(obstacles), cameraParent, () => attackInput());
+            this.data.set('combat', this.combat);
+            this.events.once('shutdown', () => { this.combat = undefined; });
             this.events.once('shutdown', () => { this.player?.destroy(); this.player = undefined; });
             this.events.once('shutdown', () => { this.monster?.destroy(); this.monster = undefined; });
             if (import.meta.env.DEV && new URLSearchParams(location.search).get('playerDemo') === '1') {
@@ -56,6 +62,10 @@ export class Game extends Scene {
                 const parent = this.game.canvas.closest<HTMLElement>('#app') ?? this.game.canvas.parentElement;
                 if (!parent) throw new Error('Game container is unavailable for touch controls.');
                 const touch = new TouchControls(this.events, parent);
+                attackInput = () => {
+                    const keys = keyboard.consumeAttack(), action = touch.action.consumeAttack();
+                    return !touch.isBlocked() && (keys || action);
+                };
                 this.player.setInput(new CombinedInput(keyboard, touch.joystick, touch.isBlocked));
                 this.data.set('keyboardInput', keyboard);
                 this.data.set('touchControls', touch);
@@ -67,8 +77,9 @@ export class Game extends Scene {
     }
 
     update(_time: number, delta: number) {
-        this.player?.update(delta);
-        this.monster?.update(delta, this.player?.state.position);
+        this.player?.update(delta, this.combat?.canControl ?? true);
+        this.monster?.update(delta, this.combat?.canControl ? this.player?.state.position : undefined);
+        this.combat?.update(delta);
     }
 
     private createMap() {

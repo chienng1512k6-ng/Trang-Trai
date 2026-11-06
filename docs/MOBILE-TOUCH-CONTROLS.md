@@ -43,8 +43,9 @@ the circle/button. Up, cancel and lost capture clear the matching pointer only.
 Blur, visibility, resize, text entry, scene pause/sleep reset both controls and
 release held captures. Old fingers must start a new gesture after reset.
 
-Action is visibly labelled **No gameplay yet**. It exposes pressed/released
-state only: no damage, hitbox, cooldown, interaction or combat handler.
+FDS-011 now labels Action **ATTACK** and buffers one attack per pointer press.
+Release preserves a quick tap; cancel/blur clears pending input. Joystick and
+Action ownership remain independent. See [combat](./COMBAT.md).
 
 ## Layout and lifecycle
 

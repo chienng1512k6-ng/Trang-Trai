@@ -49,6 +49,9 @@ Trees and rocks now block the player's ground footprint, with edge sliding and
 footpoint depth sorting. See [collision/depth rules and QA](docs/COLLISION-DEPTH.md).
 One Green Slime now wanders, detects/chases Player and returns home, using the
 same collision system. See [Monster AI rules and QA](docs/MONSTER-AI.md).
+Use Space or ATTACK to strike in the current facing direction. Three valid hits
+defeat Slime; it can hurt Player at close range. On knockout, use the HUD recovery
+button. See [combat rules and QA](docs/COMBAT.md).
 
 Camera follows the player's footpoint. Use the canvas mouse wheel or the
 screen-fixed +/- buttons to zoom (0.5–3, default 1.5). Joystick and Action remain
