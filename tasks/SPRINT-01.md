@@ -14,7 +14,7 @@
 | FDS-003 | 4h | 001 | 2:1 grid math helper + inverse/property tests under camera transformations |
 | FDS-004 | 5h | 003 | Tiled JSON 32×32 isometric map, ground/obstacle/object layers; art sources recorded |
 | FDS-005 | 5h | 003,004 | Player sprite with 4-direction animation placeholder, velocity normalization and stable delta handling |
-| FDS-006 | 3h | 005 | WASD move, keyboard interaction/attack mapping, diagonal speed tests |
+| FDS-006 | 3h | 005 | **PASS local/browser** — WASD screen directions, reserved interaction/attack bindings, diagonal speed tests; see verification below |
 | FDS-007 | 5h | 005 | Mobile joystick + action button, touch capture, safe-area UI, no page scroll while playing |
 | FDS-008 | 4h | 004,005 | Camera follow, world bounds, zoom, resize, landscape orientation prompt |
 | FDS-009 | 4h | 004,005 | Obstacles, collision against tree/rock/building and visible depth/occlusion correctness |
@@ -113,6 +113,28 @@
 - Details and repeatable diagnostic: [Player movement](../docs/PLAYER-MOVEMENT.md).
 - No dependencies/version changes, controls, camera follow or obstacle collision.
   Real phone, long play sessions, production-browser run and hosted CI unverified.
+
+## FDS-006 verification — 2026-11-06: PASS (local browser)
+
+- Phaser 4.0.0 KeyboardPlugin keydown/keyup adapter feeds existing PlayerInput.
+  Screen intent uses FDS-003 worldToGrid, normalized on the ground plane;
+  Player/movement/animation code and FDS-004 map unchanged.
+- Opposite keys cancel, repeats do not stack; blur/visibility/focus/text-entry
+  and scene pause/sleep reset holds. Shutdown/destroy removes owned listeners.
+- E/Space interaction/attack bindings defined only; no action logic or capture.
+  DEV playerDemo mode does not instantiate the keyboard adapter.
+- `pnpm.cmd run lint`, `pnpm.cmd run typecheck`, `pnpm.cmd run test`
+  (127 passed: 31 new), `pnpm.cmd run build` and `git diff --check` passed.
+- Real localhost:8080 browser keys: W/S/A/D, four diagonals, opposite keys,
+  release-to-idle, animation updates, text entry in input/textarea/contenteditable,
+  no console errors/scroll, blur-event stop, three restarts with one keydown
+  listener and map-edge stress passed. Demo had zero keyboard listeners.
+- First multi-game browser probe was invalid because the first game consumed
+  events. Replaced with a single-game instrumented bootstrap/standalone fixture;
+  an in-flight probe was rerun after navigation with the correct demo URL.
+- Details: [PC keyboard controls](../docs/PC-KEYBOARD-CONTROLS.md).
+  Physical Alt-Tab/hidden-tab transitions, hardware ghosting and hosted CI
+  remain unverified. No mobile controls, camera follow, collision or combat.
 
 ## Acceptance gates
 1. 32×32 diamond isometric scene loads correctly and can be explored.

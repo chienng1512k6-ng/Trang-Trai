@@ -2,7 +2,8 @@
 
 Status: Sprint 1 foundation and development quality tooling. The client currently
 renders a 32x32 isometric prototype map and an animated placeholder player.
-Device controls and obstacle collision are not implemented.
+PC WASD moves the player in screen directions; obstacle collision is not implemented.
+See [PC keyboard controls](docs/PC-KEYBOARD-CONTROLS.md) for mapping and focus rules.
 
 Player rules and optional development movement demo:
 [Player movement](docs/PLAYER-MOVEMENT.md).

@@ -5,6 +5,7 @@ import { MAP_ASSETS, MAP_ORIGIN, validatePrototypeMap, type Obstacle } from '../
 import { pointerToGridCell } from '../isometricPointer';
 import { Player } from '../player/Player';
 import { PLAYER_ART } from '../player/PlayerView';
+import { KeyboardInput } from '../player/KeyboardInput';
 
 export class Game extends Scene {
     private player?: Player;
@@ -31,6 +32,11 @@ export class Game extends Scene {
                 void import('../player/demoInput').then(({ DemoInput }) => {
                     if (this.sys.isActive()) this.player?.setInput(new DemoInput());
                 });
+            } else {
+                if (!this.input.keyboard) throw new Error('Keyboard plugin is unavailable.');
+                const keyboard = new KeyboardInput(this.input.keyboard, this.events);
+                this.player.setInput(keyboard);
+                this.data.set('keyboardInput', keyboard);
             }
         } catch (error) {
             console.error(error);

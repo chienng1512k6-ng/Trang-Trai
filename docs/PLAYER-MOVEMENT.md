@@ -5,7 +5,8 @@
 - [core/player.ts](../apps/game/src/core/player.ts): immutable state, spawn,
   pure movement and FDS-003 projection. No Phaser import.
 - [input.ts](../apps/game/src/game/player/input.ts): device-independent sample
-  interface; production/default input returns zero.
+  interface; its neutral implementation returns zero. FDS-006 connects a keyboard
+  adapter in the Game scene.
 - [Player.ts](../apps/game/src/game/player/Player.ts): composes input, pure
   update and rendering. Scene only preloads, constructs, updates and destroys it.
 - [PlayerView.ts](../apps/game/src/game/player/PlayerView.ts): spritesheet,
@@ -70,10 +71,10 @@ asset with `node apps/game/tools/generate-player.mjs`.
 
 ## Running and verification
 
-Run `pnpm.cmd run dev`. Default http://localhost:8080/ spawns an Idle player.
-Use http://localhost:8080/?playerDemo=1 for development movement. No keyboard or
-touch binding exists. Vite removes the DEV demo branch and dynamic import from
-production; the production player stays Idle until a future input adapter exists.
+Run `pnpm.cmd run dev`. Default http://localhost:8080/ uses FDS-006 WASD controls.
+Use http://localhost:8080/?playerDemo=1 for development movement with keyboard
+disabled. Vite removes the DEV demo branch and dynamic import from production.
+See [PC keyboard controls](./PC-KEYBOARD-CONTROLS.md). Touch controls remain deferred.
 
 Root lint/typecheck/test/build remain unchanged. Vitest tests spawn, zero input,
 four facings, diagonals, analog magnitude, split deltas, stalls, invalid inputs,
