@@ -44,6 +44,13 @@ export class TouchControls {
             this.button.setPointerCapture(pointer.pointerId);
             this.draw();
         });
+        // Safari compatibility: CSS is the primary gesture policy, but device QA
+        // found double-tap page zoom despite touch-action:none. Cancel only this
+        // button's touch-end default; attacks still come exclusively from pointers.
+        // No timing filter, document-wide gesture handler or synthetic click input.
+        this.listen(this.button, 'touchend', event => {
+            if (event.cancelable) event.preventDefault();
+        }, { passive: false });
         for (const target of [this.ring, this.button]) {
             for (const name of ['pointerup', 'pointercancel', 'lostpointercapture']) {
                 this.listen(target, name, event => {
@@ -65,9 +72,9 @@ export class TouchControls {
         for (const event of ['shutdown', 'destroy']) events.on(event, this.destroy);
         this.layout();
     }
-    private listen(target: EventTarget, event: string, handler: EventListener) {
-        target.addEventListener(event, handler);
-        this.removers.push(() => target.removeEventListener(event, handler));
+    private listen(target: EventTarget, event: string, handler: EventListener, options?: AddEventListenerOptions) {
+        target.addEventListener(event, handler, options);
+        this.removers.push(() => target.removeEventListener(event, handler, options));
     }
     readonly isBlocked = () => this.disposed || this.portrait || !this.focused || document.hidden
         || !document.hasFocus() || isEditableTarget(document.activeElement);

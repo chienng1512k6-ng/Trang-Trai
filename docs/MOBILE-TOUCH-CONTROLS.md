@@ -59,7 +59,8 @@ place; no follow/zoom/resize camera system is introduced. Safe-area variables:
 Controls stay visible for mouse, touch and hybrid devices; no unreliable device
 detection is used. Portrait shows a rotate prompt and suspends combined input;
 orientation lock is never requested. Layout/orientation changes reset held input.
-Only joystick/button have touch-action:none and consume their own pointer events.
+Canvas, joystick, Attack and portrait prompt use touch-action:none; Zoom and
+Recover use manipulation. Only dedicated game surfaces cancel touch-end defaults.
 The rest of the page, browser UI and input fields keep their normal behavior;
 no body-wide touch cancellation, zoom restriction or global touch listeners.
 
@@ -68,6 +69,33 @@ disposal is idempotent. Development playerDemo mode creates neither keyboard
 nor touch input, so demo and real input cannot compete.
 
 ## Verification and remaining QA
+
+### FDS-012-FIX-001: Safari Attack double-tap zoom
+
+Owner real-iPhone QA found page zoom on rapid Attack taps despite the existing
+button touch-action:none. Attack and descendants now explicitly use none; label
+descendants do not receive pointer hit tests. A local non-passive touchend handler
+on Attack cancels its cancelable browser default only. Pointer Events alone own
+attack presses/capture; there is no debounce, click attack or cooldown change.
+No global zoom restriction or viewport scale cap is added. Cleanup removes the
+compatibility listener. Status: **CLOSED, owner real-iPhone Safari retest PASS**;
+[diagnosis, test evidence and device checklist](./FDS-012-FIX-001.md).
+
+### FDS-012-FIX-002: other game surfaces
+
+Canvas/container and portrait prompt previously computed to touch-action:auto.
+Scoped CSS and Scene-owned GameGestureGuard now cover these surfaces, joystick,
+Zoom and Recover. Attack's verified FIX-001 path is unchanged. Zoom retains its
+existing pointer activation; Recover's native click is restored only for a valid
+owned tap after touchend default suppression. No document-wide cancellation or
+global zoom restriction. Status: **CLOSED — VERIFIED ON REAL IPHONE SAFARI**,
+10/10 cases reported by the project owner; Codex did not operate that device.
+[policy, click compatibility and evidence](./FDS-012-FIX-002.md).
+
+The original verification below is historical. The owner has since reported
+real-iPhone joystick/multi-touch/combat/collision/camera/safe-area/app-switch/
+reload/10-minute checks passed; both zoom fixes are now owner-verified CLOSED. Device version and
+numerical phone performance measurements have not been provided.
 
 Run root lint/typecheck/test/build using pnpm.cmd on Windows. New unit tests
 cover directions/diagonals, dead zone/analog magnitude, radius clamp, pointer

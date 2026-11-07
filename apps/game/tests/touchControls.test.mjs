@@ -38,6 +38,34 @@ function fixture() {
 afterEach(() => vi.unstubAllGlobals());
 
 describe('touch overlay events and lifecycle', () => {
+    it('cancels only Attack touch-end defaults, with an explicitly non-passive listener', () => {
+        const add = vi.spyOn(Target.prototype, 'addEventListener');
+        const f = fixture();
+        const touch = f.touch;
+        expect(add.mock.calls.filter((_, i) => add.mock.contexts[i] === f.button))
+            .toContainEqual(['touchend', expect.any(Function), { passive: false }]);
+        const end = { cancelable: true, preventDefault: vi.fn() };
+        f.button.emit('touchend', end); expect(end.preventDefault).toHaveBeenCalledOnce();
+        expect(touch.action.consumeAttack()).toBe(false);
+        const notCancelable = { cancelable: false, preventDefault: vi.fn() };
+        f.button.emit('touchend', notCancelable); expect(notCancelable.preventDefault).not.toHaveBeenCalled();
+        expect(f.doc.listeners.has('touchend')).toBe(false); expect(f.win.listeners.has('touchend')).toBe(false);
+        touch.destroy(); add.mockRestore();
+    });
+    it.each([2, 10])('%s rapid Attack taps preserve every pointer edge without duplicate touch-end attacks', count => {
+        const { ring, button, touch, pointer } = fixture();
+        ring.emit('pointerdown', pointer(1));
+        for (let n = 0; n < count; n++) {
+            button.emit('pointerdown', pointer(2)); button.emit('pointerup', pointer(2, -100, -100));
+            button.emit('touchend', { cancelable: true, preventDefault() {} });
+            button.emit('lostpointercapture', pointer(2));
+            expect(touch.action.consumeAttack()).toBe(true); expect(touch.action.consumeAttack()).toBe(false);
+            expect(touch.action.pressed).toBe(false); expect(touch.joystick.pointerId).toBe(1);
+        }
+        button.emit('pointerdown', pointer(2)); button.emit('pointercancel', pointer(2));
+        button.emit('touchend', { cancelable: true, preventDefault() {} });
+        expect(touch.action.consumeAttack()).toBe(false); touch.destroy();
+    });
     it('quick Action release buffers once without stopping joystick', () => {
         const { ring, button, touch, pointer } = fixture();
         ring.emit('pointerdown', pointer(1)); button.emit('pointerdown', pointer(2));

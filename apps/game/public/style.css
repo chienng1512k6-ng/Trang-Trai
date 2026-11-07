@@ -70,6 +70,9 @@ body {
     font-weight: 700;
 }
 .touch-action small { display: block; font-size: 10px; font-weight: 400; margin-top: 4px; }
+/* Dedicated control hit surface, including taps directly on nested labels. */
+.touch-action, .touch-action * { touch-action: none; }
+.touch-action * { pointer-events: none; }
 .touch-action[aria-pressed="true"] { background: #f5e8cc; color: #172c2c; }
 .orientation-prompt {
     display: none;
@@ -88,6 +91,13 @@ body {
 .is-portrait .virtual-joystick, .is-portrait .touch-action { display: none; }
 
 #game-container { width: 100%; height: 100%; }
+/* Game surfaces only: leave body, portal content, links and fields unrestricted. */
+#game-container, #game-container canvas, .orientation-prompt,
+.virtual-joystick, .virtual-joystick * { touch-action: none; }
+.camera-zoom button, .camera-zoom button *, .combat-recover, .combat-recover * {
+    touch-action: manipulation;
+}
+.camera-zoom button *, .combat-recover * { pointer-events: none; }
 .camera-controls { position: absolute; inset: 0; pointer-events: none; z-index: 9; color: #f5e8cc; font: 12px monospace; }
 .camera-status { position: absolute; top: max(12px, env(safe-area-inset-top, 0px)); left: max(12px, env(safe-area-inset-left, 0px)); max-width: 55%; white-space: pre-line; background: #172c2ccc; padding: 8px; }
 .camera-zoom { position: absolute; top: max(12px, env(safe-area-inset-top, 0px)); right: max(12px, env(safe-area-inset-right, 0px)); display: flex; align-items: center; gap: 4px; background: #172c2ccc; }

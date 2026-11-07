@@ -20,10 +20,57 @@
 | FDS-009 | 4h | 004,005 | **PASS local/browser emulation** — Tiled tree/rock footprints, swept sliding collision and footpoint depth; [verification](../docs/COLLISION-DEPTH.md); real-device QA unverified |
 | FDS-010 | 5h | 005,009 | **PASS local/browser emulation** — one Green Slime, seeded FSM, bounded navigation and HIT/DEAD hooks; [verification](../docs/MONSTER-AI.md); real-device QA unverified |
 | FDS-011 | 4h | 006,007,010 | **PASS local/browser emulation** — Space/Attack, directional damage, melee, HP, knockout/recovery; [verification](../docs/COMBAT.md); real-device QA unverified |
-| FDS-012 | 4h | 007-011 | **PARTIAL — PASS local/embedded browser**; 327 tests, measured 10-minute soak; [report and real-phone checklist](../docs/PERFORMANCE-QA.md); standalone Chrome/physical phone QA still open |
+| FDS-012 | 4h | 007-011 | **PASS** — owner Chrome 157/Windows 11 Pro 10-minute gameplay and physical Alt-Tab PASS; iPhone Safari QA PASS, FIX-001/002 CLOSED; last regression 351 tests PASS; production Electron 600s / 60.037 FPS mean; Chrome-specific FPS NOT MEASURED; [QA evidence](../docs/PERFORMANCE-QA.md) |
 | FDS-013 | 3h | 012 | CI green, remove blockers, playable README, screenshots/test evidence and ADR outcome |
 
 **Total:** 52 focused hours, excluding uncertainty/asset rework.
+
+## FDS-012-FIX-001 — P1 Safari Attack double-tap page zoom
+
+**CLOSED — owner confirmed iPhone Safari Attack PASS.** Narrow Attack
+CSS hit surface and local touchend default suppression; existing pointer IDs,
+capture and 450 ms cooldown preserved. Lint/typecheck/build and 330 unit tests
+pass; owner retest confirms center/text double taps, 10 taps, joystick+Attack,
+outside release, app switch/return and camera zoom.
+[Evidence/checklist](../docs/FDS-012-FIX-001.md).
+
+## FDS-012-FIX-002 — P1 Safari double-tap zoom on other game surfaces
+
+**CLOSED — VERIFIED ON REAL IPHONE SAFARI, owner-reported 10/10 PASS.** Scoped canvas,
+joystick, Zoom/Recover and portrait gesture policy; Attack FIX-001 unchanged.
+Native Recover click preserved, CameraController unchanged. Lint/typecheck/test
+(351)/build and production emulation pass. Physical-device results are supplied
+by the owner, not run by Codex. [Report/evidence](../docs/FDS-012-FIX-002.md).
+The earlier agent Chrome hidden-tab/frame-0 attempt is historical, not a manual
+Chrome result. Owner final Chrome gameplay and physical Alt-Tab QA now pass;
+FDS-012 is accepted below. No FDS-013 work.
+
+## FDS-012 final acceptance — PASS
+
+- **Owner-provided independent desktop QA:** Google Chrome 157.0.8103.38,
+  Windows 11 Pro, http://192.168.4.102:8080/, 10 continuous minutes. WASD/Space,
+  combat/Slime HIT/DEAD/knockout/recover, collision/depth, camera zoom/resize,
+  restart/reload and qualitative stability PASS; no blocking gameplay error
+  reported. Physical Alt-Tab while holding input and return without stuck input
+  or repeated attacks explicitly reported PASS. These were not performed by Codex.
+- Console/assets reported PASS; preserve the owner's conditional DevTools wording
+  rather than asserting a complete independently captured log.
+- **Owner-provided iPhone Safari QA:** functional cases PASS, both FIX-001 and
+  FIX-002 CLOSED. Device model/iOS/Safari version and numeric device FPS not supplied.
+- **Agent-measured production benchmark, Electron/Chromium only:** 600-second
+  session, mean **60.037 FPS**, mean 16.656ms, p95 17ms, 0 frames >33.3/>50ms,
+  10 Scene restarts, stable counters and no captured invariant/runtime/network
+  failures. Do not assign these numbers to standalone Chrome or iPhone.
+- Last executed regression: lint/typecheck/**351 unit tests**/build and
+  `git diff --check` PASS. This final acceptance edits documentation only; no new
+  source-code test run is claimed.
+- Chrome FPS/frame times **NOT MEASURED**; owner-session build mode/hash/date
+  unspecified (port 8080 alone is not proof); GPU/thermal, retained-object leak
+  analysis, assistive technology and untested browsers remain limitations.
+- Evidence meets FDS-012 prototype acceptance with no reported blocking defect.
+  See [source-attributed acceptance and limits](../docs/PERFORMANCE-QA.md).
+  FDS-013 remains pending; this does not declare Sprint review/CI/whole-Sprint
+  acceptance complete. No gameplay, dependency, commit or push is part of closure.
 
 ## FDS-001 verification — 2026-11-06: PASS
 

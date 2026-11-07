@@ -15,6 +15,7 @@ import { installDepthOrder } from '../depthOrder';
 import { Monster, SLIME_ART } from '../Monster';
 import { CombatController } from '../CombatController';
 import type { DevPerformance } from '../DevPerformance';
+import { GameGestureGuard } from '../GameGestureGuard';
 
 export class Game extends Scene {
     private player?: Player;
@@ -46,6 +47,7 @@ export class Game extends Scene {
             this.data.set('player', this.player);
             const cameraParent = this.game.canvas.closest<HTMLElement>('#app') ?? this.game.canvas.parentElement;
             if (!cameraParent) throw new Error('Game container unavailable.');
+            new GameGestureGuard(cameraParent, this.events);
             this.cameraController = new CameraController(this, this.player.view.sprite, mapWorldBounds(MAP_ORIGIN), cameraParent);
             this.data.set('cameraController', this.cameraController);
             if (import.meta.env.DEV && new URLSearchParams(location.search).get('perf') === '1') {

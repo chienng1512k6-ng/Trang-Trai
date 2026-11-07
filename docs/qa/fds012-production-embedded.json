@@ -1,0 +1,3004 @@
+{
+  "build": "unmodified production build, Vite preview",
+  "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.145.1 Chrome/150.0.7871.250 Electron/43.8.3 Safari/537.36",
+  "startedUTC": "2026-11-07T06:29:39.614Z",
+  "durationMs": 600000,
+  "completed": true,
+  "consoleErrors": [],
+  "httpErrors": [],
+  "networkFailures": [],
+  "actions": {
+    "0": 10,
+    "1": 10,
+    "2": 10,
+    "3": 10,
+    "4": 10,
+    "5": 10,
+    "6": 10,
+    "7": 10
+  },
+  "restarts": 10,
+  "collisionStops": 9,
+  "altTab": "NOT TESTED: physical OS action unavailable",
+  "environment": {
+    "width": 1024,
+    "height": 600,
+    "dpr": 1.0000000149011612,
+    "hardwareConcurrency": 12,
+    "deviceMemory": 16,
+    "hidden": false,
+    "focus": true
+  },
+  "measurement": {
+    "elapsedMs": 600244.3000000119,
+    "errors": [],
+    "finalState": {
+      "activation": 0,
+      "camera": {
+        "followsFeet": true,
+        "scrollX": 512,
+        "scrollY": 228,
+        "zoom": 1.5
+      },
+      "colliders": [
+        {
+          "id": 1,
+          "maxCol": 4.68,
+          "maxRow": 7.68,
+          "minCol": 4.32,
+          "minRow": 7.32
+        },
+        {
+          "id": 2,
+          "maxCol": 7.68,
+          "maxRow": 24.68,
+          "minCol": 7.32,
+          "minRow": 24.32
+        },
+        {
+          "id": 3,
+          "maxCol": 12.68,
+          "maxRow": 5.68,
+          "minCol": 12.32,
+          "minRow": 5.32
+        },
+        {
+          "id": 4,
+          "maxCol": 24.68,
+          "maxRow": 10.68,
+          "minCol": 24.32,
+          "minRow": 10.32
+        },
+        {
+          "id": 5,
+          "maxCol": 26.68,
+          "maxRow": 23.68,
+          "minCol": 26.32,
+          "minRow": 23.32
+        },
+        {
+          "id": 6,
+          "maxCol": 22.68,
+          "maxRow": 26.68,
+          "minCol": 22.32,
+          "minRow": 26.32
+        },
+        {
+          "id": 7,
+          "maxCol": 9.85,
+          "maxRow": 21.85,
+          "minCol": 9.15,
+          "minRow": 21.15
+        },
+        {
+          "id": 8,
+          "maxCol": 23.85,
+          "maxRow": 7.85,
+          "minCol": 23.15,
+          "minRow": 7.15
+        },
+        {
+          "id": 9,
+          "maxCol": 28.85,
+          "maxRow": 19.85,
+          "minCol": 28.15,
+          "minRow": 19.15
+        }
+      ],
+      "facing": "southEast",
+      "hp": 5,
+      "listeners": {
+        "keyboard": 1,
+        "poststep": 2,
+        "resize": 4,
+        "shutdown": 23
+      },
+      "monsterMode": "WANDER",
+      "objects": {
+        "obstacles": 9,
+        "slimes": 1,
+        "total": 20
+      },
+      "overlays": {
+        "camera-controls": 1,
+        "combat-hud": 1,
+        "performance-overlay": 0,
+        "touch-controls": 1
+      },
+      "playerBlocked": false,
+      "playerMotion": "idle",
+      "position": {
+        "col": 16.5,
+        "row": 16.5
+      },
+      "slimeBlocked": false,
+      "slimeHP": 3,
+      "slimePosition": {
+        "col": 21.089606824210723,
+        "row": 15.564783573374008
+      }
+    },
+    "focusEvents": [
+      {
+        "elapsedMs": 524759.200000003,
+        "type": "blur"
+      },
+      {
+        "elapsedMs": 525260.200000003,
+        "type": "focus"
+      },
+      {
+        "elapsedMs": 528988.5,
+        "type": "blur"
+      },
+      {
+        "elapsedMs": 529005.900000006,
+        "type": "focus"
+      },
+      {
+        "elapsedMs": 529146.1000000089,
+        "type": "blur"
+      },
+      {
+        "elapsedMs": 529187.6000000089,
+        "type": "focus"
+      },
+      {
+        "elapsedMs": 532812.900000006,
+        "type": "blur"
+      },
+      {
+        "elapsedMs": 532825.8000000119,
+        "type": "focus"
+      },
+      {
+        "elapsedMs": 533032.700000003,
+        "type": "blur"
+      },
+      {
+        "elapsedMs": 533491.1000000089,
+        "type": "focus"
+      }
+    ],
+    "frames": {
+      "maxMs": 32,
+      "meanFPS": 60.03707947088845,
+      "meanMs": 16.656373174929218,
+      "over33_3ms": 0,
+      "over50ms": 0,
+      "p95Ms": 17,
+      "sampledMs": 600062.5,
+      "samples": 36026
+    },
+    "hiddenFrames": 0,
+    "modes": {
+      "CHASE": 6907,
+      "IDLE": 14171,
+      "RETURN": 6634,
+      "WANDER": 8325
+    },
+    "observedPoststeps": 36037,
+    "unfocusedFrames": 62,
+    "windows": [
+      {
+        "elapsedMs": 30256.80000001192,
+        "frames": {
+          "maxMs": 18.099999994039536,
+          "meanFPS": 60.03711385220546,
+          "meanMs": 16.656363636361995,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "p95Ms": 16.900000005960464,
+          "sampledMs": 30231.29999999702,
+          "samples": 1815
+        },
+        "heapBytes": 16938433,
+        "state": {
+          "activation": 3,
+          "camera": {
+            "followsFeet": true,
+            "scrollX": 631.3337336418167,
+            "scrollY": 346.2034941627679,
+            "zoom": 1.5
+          },
+          "colliders": [
+            {
+              "id": 1,
+              "maxCol": 4.68,
+              "maxRow": 7.68,
+              "minCol": 4.32,
+              "minRow": 7.32
+            },
+            {
+              "id": 2,
+              "maxCol": 7.68,
+              "maxRow": 24.68,
+              "minCol": 7.32,
+              "minRow": 24.32
+            },
+            {
+              "id": 3,
+              "maxCol": 12.68,
+              "maxRow": 5.68,
+              "minCol": 12.32,
+              "minRow": 5.32
+            },
+            {
+              "id": 4,
+              "maxCol": 24.68,
+              "maxRow": 10.68,
+              "minCol": 24.32,
+              "minRow": 10.32
+            },
+            {
+              "id": 5,
+              "maxCol": 26.68,
+              "maxRow": 23.68,
+              "minCol": 26.32,
+              "minRow": 23.32
+            },
+            {
+              "id": 6,
+              "maxCol": 22.68,
+              "maxRow": 26.68,
+              "minCol": 22.32,
+              "minRow": 26.32
+            },
+            {
+              "id": 7,
+              "maxCol": 9.85,
+              "maxRow": 21.85,
+              "minCol": 9.15,
+              "minRow": 21.15
+            },
+            {
+              "id": 8,
+              "maxCol": 23.85,
+              "maxRow": 7.85,
+              "minCol": 23.15,
+              "minRow": 7.15
+            },
+            {
+              "id": 9,
+              "maxCol": 28.85,
+              "maxRow": 19.85,
+              "minCol": 28.15,
+              "minRow": 19.15
+            }
+          ],
+          "facing": "northWest",
+          "hp": 0,
+          "listeners": {
+            "keyboard": 1,
+            "poststep": 2,
+            "resize": 4,
+            "shutdown": 23
+          },
+          "monsterMode": "WANDER",
+          "objects": {
+            "obstacles": 9,
+            "slimes": 1,
+            "total": 20
+          },
+          "overlays": {
+            "camera-controls": 1,
+            "combat-hud": 1,
+            "performance-overlay": 0,
+            "touch-controls": 1
+          },
+          "playerBlocked": false,
+          "playerMotion": "idle",
+          "position": {
+            "col": 22.05844878073987,
+            "row": 18.32926960443311
+          },
+          "slimeBlocked": false,
+          "slimeHP": 3,
+          "slimePosition": {
+            "col": 23.41659794844818,
+            "row": 16.68088295923571
+          }
+        }
+      },
+      {
+        "elapsedMs": 60503.10000000894,
+        "frames": {
+          "maxMs": 31,
+          "meanFPS": 60.035836369268765,
+          "meanMs": 16.656718061678934,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "p95Ms": 17,
+          "sampledMs": 30248.60000000894,
+          "samples": 1816
+        },
+        "heapBytes": 20326166,
+        "state": {
+          "activation": 0,
+          "camera": {
+            "followsFeet": true,
+            "scrollX": 512,
+            "scrollY": 228,
+            "zoom": 1.5
+          },
+          "colliders": [
+            {
+              "id": 1,
+              "maxCol": 4.68,
+              "maxRow": 7.68,
+              "minCol": 4.32,
+              "minRow": 7.32
+            },
+            {
+              "id": 2,
+              "maxCol": 7.68,
+              "maxRow": 24.68,
+              "minCol": 7.32,
+              "minRow": 24.32
+            },
+            {
+              "id": 3,
+              "maxCol": 12.68,
+              "maxRow": 5.68,
+              "minCol": 12.32,
+              "minRow": 5.32
+            },
+            {
+              "id": 4,
+              "maxCol": 24.68,
+              "maxRow": 10.68,
+              "minCol": 24.32,
+              "minRow": 10.32
+            },
+            {
+              "id": 5,
+              "maxCol": 26.68,
+              "maxRow": 23.68,
+              "minCol": 26.32,
+              "minRow": 23.32
+            },
+            {
+              "id": 6,
+              "maxCol": 22.68,
+              "maxRow": 26.68,
+              "minCol": 22.32,
+              "minRow": 26.32
+            },
+            {
+              "id": 7,
+              "maxCol": 9.85,
+              "maxRow": 21.85,
+              "minCol": 9.15,
+              "minRow": 21.15
+            },
+            {
+              "id": 8,
+              "maxCol": 23.85,
+              "maxRow": 7.85,
+              "minCol": 23.15,
+              "minRow": 7.15
+            },
+            {
+              "id": 9,
+              "maxCol": 28.85,
+              "maxRow": 19.85,
+              "minCol": 28.15,
+              "minRow": 19.15
+            }
+          ],
+          "facing": "southEast",
+          "hp": 5,
+          "listeners": {
+            "keyboard": 1,
+            "poststep": 2,
+            "resize": 4,
+            "shutdown": 23
+          },
+          "monsterMode": "WANDER",
+          "objects": {
+            "obstacles": 9,
+            "slimes": 1,
+            "total": 20
+          },
+          "overlays": {
+            "camera-controls": 1,
+            "combat-hud": 1,
+            "performance-overlay": 0,
+            "touch-controls": 1
+          },
+          "playerBlocked": false,
+          "playerMotion": "idle",
+          "position": {
+            "col": 16.5,
+            "row": 16.5
+          },
+          "slimeBlocked": false,
+          "slimeHP": 3,
+          "slimePosition": {
+            "col": 20.745249425266042,
+            "row": 15.336443914864928
+          }
+        }
+      },
+      {
+        "elapsedMs": 90916.70000000298,
+        "frames": {
+          "maxMs": 17.600000008940697,
+          "meanFPS": 60.03833773375124,
+          "meanMs": 16.656024096380644,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "p95Ms": 17,
+          "sampledMs": 30413.89999999106,
+          "samples": 1826
+        },
+        "heapBytes": 16720011,
+        "state": {
+          "activation": 4,
+          "camera": {
+            "followsFeet": true,
+            "scrollX": 638.4125807278781,
+            "scrollY": 354.4125807278783,
+            "zoom": 1.5
+          },
+          "colliders": [
+            {
+              "id": 1,
+              "maxCol": 4.68,
+              "maxRow": 7.68,
+              "minCol": 4.32,
+              "minRow": 7.32
+            },
+            {
+              "id": 2,
+              "maxCol": 7.68,
+              "maxRow": 24.68,
+              "minCol": 7.32,
+              "minRow": 24.32
+            },
+            {
+              "id": 3,
+              "maxCol": 12.68,
+              "maxRow": 5.68,
+              "minCol": 12.32,
+              "minRow": 5.32
+            },
+            {
+              "id": 4,
+              "maxCol": 24.68,
+              "maxRow": 10.68,
+              "minCol": 24.32,
+              "minRow": 10.32
+            },
+            {
+              "id": 5,
+              "maxCol": 26.68,
+              "maxRow": 23.68,
+              "minCol": 26.32,
+              "minRow": 23.32
+            },
+            {
+              "id": 6,
+              "maxCol": 22.68,
+              "maxRow": 26.68,
+              "minCol": 22.32,
+              "minRow": 26.32
+            },
+            {
+              "id": 7,
+              "maxCol": 9.85,
+              "maxRow": 21.85,
+              "minCol": 9.15,
+              "minRow": 21.15
+            },
+            {
+              "id": 8,
+              "maxCol": 23.85,
+              "maxRow": 7.85,
+              "minCol": 23.15,
+              "minRow": 7.15
+            },
+            {
+              "id": 9,
+              "maxCol": 28.85,
+              "maxRow": 19.85,
+              "minCol": 28.15,
+              "minRow": 19.15
+            }
+          ],
+          "facing": "southEast",
+          "hp": 0,
+          "listeners": {
+            "keyboard": 1,
+            "poststep": 2,
+            "resize": 4,
+            "shutdown": 23
+          },
+          "monsterMode": "RETURN",
+          "objects": {
+            "obstacles": 9,
+            "slimes": 1,
+            "total": 20
+          },
+          "overlays": {
+            "camera-controls": 1,
+            "combat-hud": 1,
+            "performance-overlay": 0,
+            "touch-controls": 1
+          },
+          "playerBlocked": false,
+          "playerMotion": "idle",
+          "position": {
+            "col": 22.425589721619307,
+            "row": 18.475196573873102
+          },
+          "slimeBlocked": false,
+          "slimeHP": 3,
+          "slimePosition": {
+            "col": 22.918756618505387,
+            "row": 14.985465240399012
+          }
+        }
+      },
+      {
+        "elapsedMs": 121005.90000000596,
+        "frames": {
+          "maxMs": 20.299999997019768,
+          "meanFPS": 60.03721177486876,
+          "meanMs": 16.65633646928611,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "p95Ms": 16.900000005960464,
+          "sampledMs": 30098,
+          "samples": 1807
+        },
+        "heapBytes": 20541247,
+        "state": {
+          "activation": 0,
+          "camera": {
+            "followsFeet": true,
+            "scrollX": 512,
+            "scrollY": 228,
+            "zoom": 1.5
+          },
+          "colliders": [
+            {
+              "id": 1,
+              "maxCol": 4.68,
+              "maxRow": 7.68,
+              "minCol": 4.32,
+              "minRow": 7.32
+            },
+            {
+              "id": 2,
+              "maxCol": 7.68,
+              "maxRow": 24.68,
+              "minCol": 7.32,
+              "minRow": 24.32
+            },
+            {
+              "id": 3,
+              "maxCol": 12.68,
+              "maxRow": 5.68,
+              "minCol": 12.32,
+              "minRow": 5.32
+            },
+            {
+              "id": 4,
+              "maxCol": 24.68,
+              "maxRow": 10.68,
+              "minCol": 24.32,
+              "minRow": 10.32
+            },
+            {
+              "id": 5,
+              "maxCol": 26.68,
+              "maxRow": 23.68,
+              "minCol": 26.32,
+              "minRow": 23.32
+            },
+            {
+              "id": 6,
+              "maxCol": 22.68,
+              "maxRow": 26.68,
+              "minCol": 22.32,
+              "minRow": 26.32
+            },
+            {
+              "id": 7,
+              "maxCol": 9.85,
+              "maxRow": 21.85,
+              "minCol": 9.15,
+              "minRow": 21.15
+            },
+            {
+              "id": 8,
+              "maxCol": 23.85,
+              "maxRow": 7.85,
+              "minCol": 23.15,
+              "minRow": 7.15
+            },
+            {
+              "id": 9,
+              "maxCol": 28.85,
+              "maxRow": 19.85,
+              "minCol": 28.15,
+              "minRow": 19.15
+            }
+          ],
+          "facing": "southEast",
+          "hp": 5,
+          "listeners": {
+            "keyboard": 1,
+            "poststep": 2,
+            "resize": 4,
+            "shutdown": 23
+          },
+          "monsterMode": "IDLE",
+          "objects": {
+            "obstacles": 9,
+            "slimes": 1,
+            "total": 20
+          },
+          "overlays": {
+            "camera-controls": 1,
+            "combat-hud": 1,
+            "performance-overlay": 0,
+            "touch-controls": 1
+          },
+          "playerBlocked": false,
+          "playerMotion": "idle",
+          "position": {
+            "col": 16.5,
+            "row": 16.5
+          },
+          "slimeBlocked": false,
+          "slimeHP": 3,
+          "slimePosition": {
+            "col": 20.52314530364187,
+            "row": 15.189169079358138
+          }
+        }
+      },
+      {
+        "elapsedMs": 151409.10000000894,
+        "frames": {
+          "maxMs": 19,
+          "meanFPS": 60.036647027263655,
+          "meanMs": 16.65649315068983,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "p95Ms": 17.099999994039536,
+          "sampledMs": 30398.10000000894,
+          "samples": 1825
+        },
+        "heapBytes": 22549489,
+        "state": {
+          "activation": 4,
+          "camera": {
+            "followsFeet": true,
+            "scrollX": 635.3786156460487,
+            "scrollY": 347.3398052149237,
+            "zoom": 1.5
+          },
+          "colliders": [
+            {
+              "id": 1,
+              "maxCol": 4.68,
+              "maxRow": 7.68,
+              "minCol": 4.32,
+              "minRow": 7.32
+            },
+            {
+              "id": 2,
+              "maxCol": 7.68,
+              "maxRow": 24.68,
+              "minCol": 7.32,
+              "minRow": 24.32
+            },
+            {
+              "id": 3,
+              "maxCol": 12.68,
+              "maxRow": 5.68,
+              "minCol": 12.32,
+              "minRow": 5.32
+            },
+            {
+              "id": 4,
+              "maxCol": 24.68,
+              "maxRow": 10.68,
+              "minCol": 24.32,
+              "minRow": 10.32
+            },
+            {
+              "id": 5,
+              "maxCol": 26.68,
+              "maxRow": 23.68,
+              "minCol": 26.32,
+              "minRow": 23.32
+            },
+            {
+              "id": 6,
+              "maxCol": 22.68,
+              "maxRow": 26.68,
+              "minCol": 22.32,
+              "minRow": 26.32
+            },
+            {
+              "id": 7,
+              "maxCol": 9.85,
+              "maxRow": 21.85,
+              "minCol": 9.15,
+              "minRow": 21.15
+            },
+            {
+              "id": 8,
+              "maxCol": 23.85,
+              "maxRow": 7.85,
+              "minCol": 23.15,
+              "minRow": 7.15
+            },
+            {
+              "id": 9,
+              "maxCol": 28.85,
+              "maxRow": 19.85,
+              "minCol": 28.15,
+              "minRow": 19.15
+            }
+          ],
+          "facing": "southWest",
+          "hp": 0,
+          "listeners": {
+            "keyboard": 1,
+            "poststep": 2,
+            "resize": 4,
+            "shutdown": 23
+          },
+          "monsterMode": "RETURN",
+          "objects": {
+            "obstacles": 9,
+            "slimes": 1,
+            "total": 20
+          },
+          "overlays": {
+            "camera-controls": 1,
+            "combat-hud": 1,
+            "performance-overlay": 0,
+            "touch-controls": 1
+          },
+          "playerBlocked": false,
+          "playerMotion": "idle",
+          "position": {
+            "col": 22.157159782435876,
+            "row": 18.301578043496864
+          },
+          "slimeBlocked": false,
+          "slimeHP": 3,
+          "slimePosition": {
+            "col": 22.673489430353946,
+            "row": 15.872575720792138
+          }
+        }
+      },
+      {
+        "elapsedMs": 181625.60000000894,
+        "frames": {
+          "maxMs": 24.799999997019768,
+          "meanFPS": 60.03700185670621,
+          "meanMs": 16.656394707829648,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "p95Ms": 17,
+          "sampledMs": 30214.70000000298,
+          "samples": 1814
+        },
+        "heapBytes": 18454072,
+        "state": {
+          "activation": 0,
+          "camera": {
+            "followsFeet": true,
+            "scrollX": 512,
+            "scrollY": 228,
+            "zoom": 1.5
+          },
+          "colliders": [
+            {
+              "id": 1,
+              "maxCol": 4.68,
+              "maxRow": 7.68,
+              "minCol": 4.32,
+              "minRow": 7.32
+            },
+            {
+              "id": 2,
+              "maxCol": 7.68,
+              "maxRow": 24.68,
+              "minCol": 7.32,
+              "minRow": 24.32
+            },
+            {
+              "id": 3,
+              "maxCol": 12.68,
+              "maxRow": 5.68,
+              "minCol": 12.32,
+              "minRow": 5.32
+            },
+            {
+              "id": 4,
+              "maxCol": 24.68,
+              "maxRow": 10.68,
+              "minCol": 24.32,
+              "minRow": 10.32
+            },
+            {
+              "id": 5,
+              "maxCol": 26.68,
+              "maxRow": 23.68,
+              "minCol": 26.32,
+              "minRow": 23.32
+            },
+            {
+              "id": 6,
+              "maxCol": 22.68,
+              "maxRow": 26.68,
+              "minCol": 22.32,
+              "minRow": 26.32
+            },
+            {
+              "id": 7,
+              "maxCol": 9.85,
+              "maxRow": 21.85,
+              "minCol": 9.15,
+              "minRow": 21.15
+            },
+            {
+              "id": 8,
+              "maxCol": 23.85,
+              "maxRow": 7.85,
+              "minCol": 23.15,
+              "minRow": 7.15
+            },
+            {
+              "id": 9,
+              "maxCol": 28.85,
+              "maxRow": 19.85,
+              "minCol": 28.15,
+              "minRow": 19.15
+            }
+          ],
+          "facing": "southEast",
+          "hp": 5,
+          "listeners": {
+            "keyboard": 1,
+            "poststep": 2,
+            "resize": 4,
+            "shutdown": 23
+          },
+          "monsterMode": "IDLE",
+          "objects": {
+            "obstacles": 9,
+            "slimes": 1,
+            "total": 20
+          },
+          "overlays": {
+            "camera-controls": 1,
+            "combat-hud": 1,
+            "performance-overlay": 0,
+            "touch-controls": 1
+          },
+          "playerBlocked": false,
+          "playerMotion": "idle",
+          "position": {
+            "col": 16.5,
+            "row": 16.5
+          },
+          "slimeBlocked": false,
+          "slimeHP": 3,
+          "slimePosition": {
+            "col": 20.52313196886031,
+            "row": 15.189160237209032
+          }
+        }
+      },
+      {
+        "elapsedMs": 212071.70000000298,
+        "frames": {
+          "maxMs": 24.599999994039536,
+          "meanFPS": 60.03776993184991,
+          "meanMs": 16.656181619256017,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "p95Ms": 17.099999994039536,
+          "sampledMs": 30447.5,
+          "samples": 1828
+        },
+        "heapBytes": 17903622,
+        "state": {
+          "activation": 4,
+          "camera": {
+            "followsFeet": true,
+            "scrollX": 636.1502802978468,
+            "scrollY": 354.4107592559442,
+            "zoom": 1.5
+          },
+          "colliders": [
+            {
+              "id": 1,
+              "maxCol": 4.68,
+              "maxRow": 7.68,
+              "minCol": 4.32,
+              "minRow": 7.32
+            },
+            {
+              "id": 2,
+              "maxCol": 7.68,
+              "maxRow": 24.68,
+              "minCol": 7.32,
+              "minRow": 24.32
+            },
+            {
+              "id": 3,
+              "maxCol": 12.68,
+              "maxRow": 5.68,
+              "minCol": 12.32,
+              "minRow": 5.32
+            },
+            {
+              "id": 4,
+              "maxCol": 24.68,
+              "maxRow": 10.68,
+              "minCol": 24.32,
+              "minRow": 10.32
+            },
+            {
+              "id": 5,
+              "maxCol": 26.68,
+              "maxRow": 23.68,
+              "minCol": 26.32,
+              "minRow": 23.32
+            },
+            {
+              "id": 6,
+              "maxCol": 22.68,
+              "maxRow": 26.68,
+              "minCol": 22.32,
+              "minRow": 26.32
+            },
+            {
+              "id": 7,
+              "maxCol": 9.85,
+              "maxRow": 21.85,
+              "minCol": 9.15,
+              "minRow": 21.15
+            },
+            {
+              "id": 8,
+              "maxCol": 23.85,
+              "maxRow": 7.85,
+              "minCol": 23.15,
+              "minRow": 7.15
+            },
+            {
+              "id": 9,
+              "maxCol": 28.85,
+              "maxRow": 19.85,
+              "minCol": 28.15,
+              "minRow": 19.15
+            }
+          ],
+          "facing": "southEast",
+          "hp": 0,
+          "listeners": {
+            "keyboard": 1,
+            "poststep": 2,
+            "resize": 4,
+            "shutdown": 23
+          },
+          "monsterMode": "RETURN",
+          "objects": {
+            "obstacles": 9,
+            "slimes": 1,
+            "total": 20
+          },
+          "overlays": {
+            "camera-controls": 1,
+            "combat-hud": 1,
+            "performance-overlay": 0,
+            "touch-controls": 1
+          },
+          "playerBlocked": false,
+          "playerMotion": "idle",
+          "position": {
+            "col": 22.390184356402127,
+            "row": 18.5104880970944
+          },
+          "slimeBlocked": false,
+          "slimeHP": 3,
+          "slimePosition": {
+            "col": 22.577898148352162,
+            "row": 16.218260088325405
+          }
+        }
+      },
+      {
+        "elapsedMs": 242152.5,
+        "frames": {
+          "maxMs": 32,
+          "meanFPS": 60.03689975566378,
+          "meanMs": 16.65642303433001,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "p95Ms": 17,
+          "sampledMs": 30081.5,
+          "samples": 1806
+        },
+        "heapBytes": 17221014,
+        "state": {
+          "activation": 0,
+          "camera": {
+            "followsFeet": true,
+            "scrollX": 512,
+            "scrollY": 228,
+            "zoom": 1.5
+          },
+          "colliders": [
+            {
+              "id": 1,
+              "maxCol": 4.68,
+              "maxRow": 7.68,
+              "minCol": 4.32,
+              "minRow": 7.32
+            },
+            {
+              "id": 2,
+              "maxCol": 7.68,
+              "maxRow": 24.68,
+              "minCol": 7.32,
+              "minRow": 24.32
+            },
+            {
+              "id": 3,
+              "maxCol": 12.68,
+              "maxRow": 5.68,
+              "minCol": 12.32,
+              "minRow": 5.32
+            },
+            {
+              "id": 4,
+              "maxCol": 24.68,
+              "maxRow": 10.68,
+              "minCol": 24.32,
+              "minRow": 10.32
+            },
+            {
+              "id": 5,
+              "maxCol": 26.68,
+              "maxRow": 23.68,
+              "minCol": 26.32,
+              "minRow": 23.32
+            },
+            {
+              "id": 6,
+              "maxCol": 22.68,
+              "maxRow": 26.68,
+              "minCol": 22.32,
+              "minRow": 26.32
+            },
+            {
+              "id": 7,
+              "maxCol": 9.85,
+              "maxRow": 21.85,
+              "minCol": 9.15,
+              "minRow": 21.15
+            },
+            {
+              "id": 8,
+              "maxCol": 23.85,
+              "maxRow": 7.85,
+              "minCol": 23.15,
+              "minRow": 7.15
+            },
+            {
+              "id": 9,
+              "maxCol": 28.85,
+              "maxRow": 19.85,
+              "minCol": 28.15,
+              "minRow": 19.15
+            }
+          ],
+          "facing": "southEast",
+          "hp": 5,
+          "listeners": {
+            "keyboard": 1,
+            "poststep": 2,
+            "resize": 4,
+            "shutdown": 23
+          },
+          "monsterMode": "IDLE",
+          "objects": {
+            "obstacles": 9,
+            "slimes": 1,
+            "total": 20
+          },
+          "overlays": {
+            "camera-controls": 1,
+            "combat-hud": 1,
+            "performance-overlay": 0,
+            "touch-controls": 1
+          },
+          "playerBlocked": false,
+          "playerMotion": "idle",
+          "position": {
+            "col": 16.5,
+            "row": 16.5
+          },
+          "slimeBlocked": false,
+          "slimeHP": 3,
+          "slimePosition": {
+            "col": 20.523211977549654,
+            "row": 15.189213290103664
+          }
+        }
+      },
+      {
+        "elapsedMs": 272590.60000000894,
+        "frames": {
+          "maxMs": 21.099999994039536,
+          "meanFPS": 60.03647536269983,
+          "meanMs": 16.656540777230433,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "p95Ms": 17,
+          "sampledMs": 30431.5,
+          "samples": 1827
+        },
+        "heapBytes": 18285713,
+        "state": {
+          "activation": 4,
+          "camera": {
+            "followsFeet": true,
+            "scrollX": 514.4030222855492,
+            "scrollY": 204.60170390700685,
+            "zoom": 1.5
+          },
+          "colliders": [
+            {
+              "id": 1,
+              "maxCol": 4.68,
+              "maxRow": 7.68,
+              "minCol": 4.32,
+              "minRow": 7.32
+            },
+            {
+              "id": 2,
+              "maxCol": 7.68,
+              "maxRow": 24.68,
+              "minCol": 7.32,
+              "minRow": 24.32
+            },
+            {
+              "id": 3,
+              "maxCol": 12.68,
+              "maxRow": 5.68,
+              "minCol": 12.32,
+              "minRow": 5.32
+            },
+            {
+              "id": 4,
+              "maxCol": 24.68,
+              "maxRow": 10.68,
+              "minCol": 24.32,
+              "minRow": 10.32
+            },
+            {
+              "id": 5,
+              "maxCol": 26.68,
+              "maxRow": 23.68,
+              "minCol": 26.32,
+              "minRow": 23.32
+            },
+            {
+              "id": 6,
+              "maxCol": 22.68,
+              "maxRow": 26.68,
+              "minCol": 22.32,
+              "minRow": 26.32
+            },
+            {
+              "id": 7,
+              "maxCol": 9.85,
+              "maxRow": 21.85,
+              "minCol": 9.15,
+              "minRow": 21.15
+            },
+            {
+              "id": 8,
+              "maxCol": 23.85,
+              "maxRow": 7.85,
+              "minCol": 23.15,
+              "minRow": 7.15
+            },
+            {
+              "id": 9,
+              "maxCol": 28.85,
+              "maxRow": 19.85,
+              "minCol": 28.15,
+              "minRow": 19.15
+            }
+          ],
+          "facing": "northWest",
+          "hp": 5,
+          "listeners": {
+            "keyboard": 1,
+            "poststep": 2,
+            "resize": 4,
+            "shutdown": 23
+          },
+          "monsterMode": "IDLE",
+          "objects": {
+            "obstacles": 9,
+            "slimes": 1,
+            "total": 20
+          },
+          "overlays": {
+            "camera-controls": 1,
+            "combat-hud": 1,
+            "performance-overlay": 0,
+            "touch-controls": 1
+          },
+          "playerBlocked": false,
+          "playerMotion": "walk",
+          "position": {
+            "col": 15.44001865073012,
+            "row": 15.44001865073012
+          },
+          "slimeBlocked": false,
+          "slimeHP": 3,
+          "slimePosition": {
+            "col": 22.5,
+            "row": 16.5
+          }
+        }
+      },
+      {
+        "elapsedMs": 302757,
+        "frames": {
+          "maxMs": 31.799999997019768,
+          "meanFPS": 60.038169962366105,
+          "meanMs": 16.656070640174956,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "p95Ms": 17,
+          "sampledMs": 30180.79999999702,
+          "samples": 1812
+        },
+        "heapBytes": 20659935,
+        "state": {
+          "activation": 0,
+          "camera": {
+            "followsFeet": true,
+            "scrollX": 512,
+            "scrollY": 228,
+            "zoom": 1.5
+          },
+          "colliders": [
+            {
+              "id": 1,
+              "maxCol": 4.68,
+              "maxRow": 7.68,
+              "minCol": 4.32,
+              "minRow": 7.32
+            },
+            {
+              "id": 2,
+              "maxCol": 7.68,
+              "maxRow": 24.68,
+              "minCol": 7.32,
+              "minRow": 24.32
+            },
+            {
+              "id": 3,
+              "maxCol": 12.68,
+              "maxRow": 5.68,
+              "minCol": 12.32,
+              "minRow": 5.32
+            },
+            {
+              "id": 4,
+              "maxCol": 24.68,
+              "maxRow": 10.68,
+              "minCol": 24.32,
+              "minRow": 10.32
+            },
+            {
+              "id": 5,
+              "maxCol": 26.68,
+              "maxRow": 23.68,
+              "minCol": 26.32,
+              "minRow": 23.32
+            },
+            {
+              "id": 6,
+              "maxCol": 22.68,
+              "maxRow": 26.68,
+              "minCol": 22.32,
+              "minRow": 26.32
+            },
+            {
+              "id": 7,
+              "maxCol": 9.85,
+              "maxRow": 21.85,
+              "minCol": 9.15,
+              "minRow": 21.15
+            },
+            {
+              "id": 8,
+              "maxCol": 23.85,
+              "maxRow": 7.85,
+              "minCol": 23.15,
+              "minRow": 7.15
+            },
+            {
+              "id": 9,
+              "maxCol": 28.85,
+              "maxRow": 19.85,
+              "minCol": 28.15,
+              "minRow": 19.15
+            }
+          ],
+          "facing": "southEast",
+          "hp": 5,
+          "listeners": {
+            "keyboard": 1,
+            "poststep": 2,
+            "resize": 4,
+            "shutdown": 23
+          },
+          "monsterMode": "IDLE",
+          "objects": {
+            "obstacles": 9,
+            "slimes": 1,
+            "total": 20
+          },
+          "overlays": {
+            "camera-controls": 1,
+            "combat-hud": 1,
+            "performance-overlay": 0,
+            "touch-controls": 1
+          },
+          "playerBlocked": false,
+          "playerMotion": "idle",
+          "position": {
+            "col": 16.5,
+            "row": 16.5
+          },
+          "slimeBlocked": false,
+          "slimeHP": 3,
+          "slimePosition": {
+            "col": 20.523225312331206,
+            "row": 15.189222132252768
+          }
+        }
+      },
+      {
+        "elapsedMs": 332801.700000003,
+        "frames": {
+          "maxMs": 17.600000008940697,
+          "meanFPS": 60.03616154823827,
+          "meanMs": 16.65662784247979,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "p95Ms": 17,
+          "sampledMs": 30031.89999999106,
+          "samples": 1803
+        },
+        "heapBytes": 18272068,
+        "state": {
+          "activation": 4,
+          "camera": {
+            "followsFeet": true,
+            "scrollX": 514.3840045388922,
+            "scrollY": 204.5722971463569,
+            "zoom": 1.5
+          },
+          "colliders": [
+            {
+              "id": 1,
+              "maxCol": 4.68,
+              "maxRow": 7.68,
+              "minCol": 4.32,
+              "minRow": 7.32
+            },
+            {
+              "id": 2,
+              "maxCol": 7.68,
+              "maxRow": 24.68,
+              "minCol": 7.32,
+              "minRow": 24.32
+            },
+            {
+              "id": 3,
+              "maxCol": 12.68,
+              "maxRow": 5.68,
+              "minCol": 12.32,
+              "minRow": 5.32
+            },
+            {
+              "id": 4,
+              "maxCol": 24.68,
+              "maxRow": 10.68,
+              "minCol": 24.32,
+              "minRow": 10.32
+            },
+            {
+              "id": 5,
+              "maxCol": 26.68,
+              "maxRow": 23.68,
+              "minCol": 26.32,
+              "minRow": 23.32
+            },
+            {
+              "id": 6,
+              "maxCol": 22.68,
+              "maxRow": 26.68,
+              "minCol": 22.32,
+              "minRow": 26.32
+            },
+            {
+              "id": 7,
+              "maxCol": 9.85,
+              "maxRow": 21.85,
+              "minCol": 9.15,
+              "minRow": 21.15
+            },
+            {
+              "id": 8,
+              "maxCol": 23.85,
+              "maxRow": 7.85,
+              "minCol": 23.15,
+              "minRow": 7.15
+            },
+            {
+              "id": 9,
+              "maxCol": 28.85,
+              "maxRow": 19.85,
+              "minCol": 28.15,
+              "minRow": 19.15
+            }
+          ],
+          "facing": "northWest",
+          "hp": 5,
+          "listeners": {
+            "keyboard": 1,
+            "poststep": 2,
+            "resize": 4,
+            "shutdown": 23
+          },
+          "monsterMode": "IDLE",
+          "objects": {
+            "obstacles": 9,
+            "slimes": 1,
+            "total": 20
+          },
+          "overlays": {
+            "camera-controls": 1,
+            "combat-hud": 1,
+            "performance-overlay": 0,
+            "touch-controls": 1
+          },
+          "playerBlocked": false,
+          "playerMotion": "walk",
+          "position": {
+            "col": 15.43987015830607,
+            "row": 15.43987015830607
+          },
+          "slimeBlocked": false,
+          "slimeHP": 3,
+          "slimePosition": {
+            "col": 22.5,
+            "row": 16.5
+          }
+        }
+      },
+      {
+        "elapsedMs": 362857.200000003,
+        "frames": {
+          "maxMs": 20.099999994039536,
+          "meanFPS": 60.03758585707396,
+          "meanMs": 16.65623268698061,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "p95Ms": 17.099999994039536,
+          "sampledMs": 30064.5,
+          "samples": 1805
+        },
+        "heapBytes": 19807536,
+        "state": {
+          "activation": 0,
+          "camera": {
+            "followsFeet": true,
+            "scrollX": 512,
+            "scrollY": 228,
+            "zoom": 1.5
+          },
+          "colliders": [
+            {
+              "id": 1,
+              "maxCol": 4.68,
+              "maxRow": 7.68,
+              "minCol": 4.32,
+              "minRow": 7.32
+            },
+            {
+              "id": 2,
+              "maxCol": 7.68,
+              "maxRow": 24.68,
+              "minCol": 7.32,
+              "minRow": 24.32
+            },
+            {
+              "id": 3,
+              "maxCol": 12.68,
+              "maxRow": 5.68,
+              "minCol": 12.32,
+              "minRow": 5.32
+            },
+            {
+              "id": 4,
+              "maxCol": 24.68,
+              "maxRow": 10.68,
+              "minCol": 24.32,
+              "minRow": 10.32
+            },
+            {
+              "id": 5,
+              "maxCol": 26.68,
+              "maxRow": 23.68,
+              "minCol": 26.32,
+              "minRow": 23.32
+            },
+            {
+              "id": 6,
+              "maxCol": 22.68,
+              "maxRow": 26.68,
+              "minCol": 22.32,
+              "minRow": 26.32
+            },
+            {
+              "id": 7,
+              "maxCol": 9.85,
+              "maxRow": 21.85,
+              "minCol": 9.15,
+              "minRow": 21.15
+            },
+            {
+              "id": 8,
+              "maxCol": 23.85,
+              "maxRow": 7.85,
+              "minCol": 23.15,
+              "minRow": 7.15
+            },
+            {
+              "id": 9,
+              "maxCol": 28.85,
+              "maxRow": 19.85,
+              "minCol": 28.15,
+              "minRow": 19.15
+            }
+          ],
+          "facing": "southEast",
+          "hp": 5,
+          "listeners": {
+            "keyboard": 1,
+            "poststep": 2,
+            "resize": 4,
+            "shutdown": 23
+          },
+          "monsterMode": "IDLE",
+          "objects": {
+            "obstacles": 9,
+            "slimes": 1,
+            "total": 20
+          },
+          "overlays": {
+            "camera-controls": 1,
+            "combat-hud": 1,
+            "performance-overlay": 0,
+            "touch-controls": 1
+          },
+          "playerBlocked": false,
+          "playerMotion": "idle",
+          "position": {
+            "col": 16.5,
+            "row": 16.5
+          },
+          "slimeBlocked": false,
+          "slimeHP": 3,
+          "slimePosition": {
+            "col": 20.523151971032643,
+            "row": 15.189173500432688
+          }
+        }
+      },
+      {
+        "elapsedMs": 393352,
+        "frames": {
+          "maxMs": 17.5,
+          "meanFPS": 60.03672371958817,
+          "meanMs": 16.65647187329328,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "p95Ms": 16.900000005960464,
+          "sampledMs": 30498,
+          "samples": 1831
+        },
+        "heapBytes": 19977732,
+        "state": {
+          "activation": 4,
+          "camera": {
+            "followsFeet": true,
+            "scrollX": 512.0405926371284,
+            "scrollY": 166.22729275035465,
+            "zoom": 1.5
+          },
+          "colliders": [
+            {
+              "id": 1,
+              "maxCol": 4.68,
+              "maxRow": 7.68,
+              "minCol": 4.32,
+              "minRow": 7.32
+            },
+            {
+              "id": 2,
+              "maxCol": 7.68,
+              "maxRow": 24.68,
+              "minCol": 7.32,
+              "minRow": 24.32
+            },
+            {
+              "id": 3,
+              "maxCol": 12.68,
+              "maxRow": 5.68,
+              "minCol": 12.32,
+              "minRow": 5.32
+            },
+            {
+              "id": 4,
+              "maxCol": 24.68,
+              "maxRow": 10.68,
+              "minCol": 24.32,
+              "minRow": 10.32
+            },
+            {
+              "id": 5,
+              "maxCol": 26.68,
+              "maxRow": 23.68,
+              "minCol": 26.32,
+              "minRow": 23.32
+            },
+            {
+              "id": 6,
+              "maxCol": 22.68,
+              "maxRow": 26.68,
+              "minCol": 22.32,
+              "minRow": 26.32
+            },
+            {
+              "id": 7,
+              "maxCol": 9.85,
+              "maxRow": 21.85,
+              "minCol": 9.15,
+              "minRow": 21.15
+            },
+            {
+              "id": 8,
+              "maxCol": 23.85,
+              "maxRow": 7.85,
+              "minCol": 23.15,
+              "minRow": 7.15
+            },
+            {
+              "id": 9,
+              "maxCol": 28.85,
+              "maxRow": 19.85,
+              "minCol": 28.15,
+              "minRow": 19.15
+            }
+          ],
+          "facing": "northWest",
+          "hp": 5,
+          "listeners": {
+            "keyboard": 1,
+            "poststep": 2,
+            "resize": 4,
+            "shutdown": 23
+          },
+          "monsterMode": "IDLE",
+          "objects": {
+            "obstacles": 9,
+            "slimes": 1,
+            "total": 20
+          },
+          "overlays": {
+            "camera-controls": 1,
+            "combat-hud": 1,
+            "performance-overlay": 0,
+            "touch-controls": 1
+          },
+          "playerBlocked": false,
+          "playerMotion": "walk",
+          "position": {
+            "col": 14.309248841595654,
+            "row": 14.309248841595654
+          },
+          "slimeBlocked": false,
+          "slimeHP": 3,
+          "slimePosition": {
+            "col": 22.5,
+            "row": 16.5
+          }
+        }
+      },
+      {
+        "elapsedMs": 423531.40000000596,
+        "frames": {
+          "maxMs": 20.599999994039536,
+          "meanFPS": 60.03666513065325,
+          "meanMs": 16.65648812810931,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "p95Ms": 17,
+          "sampledMs": 30164.90000000596,
+          "samples": 1811
+        },
+        "heapBytes": 17733377,
+        "state": {
+          "activation": 0,
+          "camera": {
+            "followsFeet": true,
+            "scrollX": 512,
+            "scrollY": 228,
+            "zoom": 1.5
+          },
+          "colliders": [
+            {
+              "id": 1,
+              "maxCol": 4.68,
+              "maxRow": 7.68,
+              "minCol": 4.32,
+              "minRow": 7.32
+            },
+            {
+              "id": 2,
+              "maxCol": 7.68,
+              "maxRow": 24.68,
+              "minCol": 7.32,
+              "minRow": 24.32
+            },
+            {
+              "id": 3,
+              "maxCol": 12.68,
+              "maxRow": 5.68,
+              "minCol": 12.32,
+              "minRow": 5.32
+            },
+            {
+              "id": 4,
+              "maxCol": 24.68,
+              "maxRow": 10.68,
+              "minCol": 24.32,
+              "minRow": 10.32
+            },
+            {
+              "id": 5,
+              "maxCol": 26.68,
+              "maxRow": 23.68,
+              "minCol": 26.32,
+              "minRow": 23.32
+            },
+            {
+              "id": 6,
+              "maxCol": 22.68,
+              "maxRow": 26.68,
+              "minCol": 22.32,
+              "minRow": 26.32
+            },
+            {
+              "id": 7,
+              "maxCol": 9.85,
+              "maxRow": 21.85,
+              "minCol": 9.15,
+              "minRow": 21.15
+            },
+            {
+              "id": 8,
+              "maxCol": 23.85,
+              "maxRow": 7.85,
+              "minCol": 23.15,
+              "minRow": 7.15
+            },
+            {
+              "id": 9,
+              "maxCol": 28.85,
+              "maxRow": 19.85,
+              "minCol": 28.15,
+              "minRow": 19.15
+            }
+          ],
+          "facing": "southEast",
+          "hp": 5,
+          "listeners": {
+            "keyboard": 1,
+            "poststep": 2,
+            "resize": 4,
+            "shutdown": 23
+          },
+          "monsterMode": "RETURN",
+          "objects": {
+            "obstacles": 9,
+            "slimes": 1,
+            "total": 20
+          },
+          "overlays": {
+            "camera-controls": 1,
+            "combat-hud": 1,
+            "performance-overlay": 0,
+            "touch-controls": 1
+          },
+          "playerBlocked": false,
+          "playerMotion": "idle",
+          "position": {
+            "col": 16.5,
+            "row": 16.5
+          },
+          "slimeBlocked": false,
+          "slimeHP": 3,
+          "slimePosition": {
+            "col": 21.522843875932512,
+            "row": 15.85205836621076
+          }
+        }
+      },
+      {
+        "elapsedMs": 453920.40000000596,
+        "frames": {
+          "maxMs": 18.69999998807907,
+          "meanFPS": 60.03842459173283,
+          "meanMs": 16.656000000001633,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "p95Ms": 17,
+          "sampledMs": 30397.20000000298,
+          "samples": 1825
+        },
+        "heapBytes": 20387659,
+        "state": {
+          "activation": 4,
+          "camera": {
+            "followsFeet": true,
+            "scrollX": 512.00084585342,
+            "scrollY": 132.26801353364564,
+            "zoom": 1.5
+          },
+          "colliders": [
+            {
+              "id": 1,
+              "maxCol": 4.68,
+              "maxRow": 7.68,
+              "minCol": 4.32,
+              "minRow": 7.32
+            },
+            {
+              "id": 2,
+              "maxCol": 7.68,
+              "maxRow": 24.68,
+              "minCol": 7.32,
+              "minRow": 24.32
+            },
+            {
+              "id": 3,
+              "maxCol": 12.68,
+              "maxRow": 5.68,
+              "minCol": 12.32,
+              "minRow": 5.32
+            },
+            {
+              "id": 4,
+              "maxCol": 24.68,
+              "maxRow": 10.68,
+              "minCol": 24.32,
+              "minRow": 10.32
+            },
+            {
+              "id": 5,
+              "maxCol": 26.68,
+              "maxRow": 23.68,
+              "minCol": 26.32,
+              "minRow": 23.32
+            },
+            {
+              "id": 6,
+              "maxCol": 22.68,
+              "maxRow": 26.68,
+              "minCol": 22.32,
+              "minRow": 26.32
+            },
+            {
+              "id": 7,
+              "maxCol": 9.85,
+              "maxRow": 21.85,
+              "minCol": 9.15,
+              "minRow": 21.15
+            },
+            {
+              "id": 8,
+              "maxCol": 23.85,
+              "maxRow": 7.85,
+              "minCol": 23.15,
+              "minRow": 7.15
+            },
+            {
+              "id": 9,
+              "maxCol": 28.85,
+              "maxRow": 19.85,
+              "minCol": 28.15,
+              "minRow": 19.15
+            }
+          ],
+          "facing": "northWest",
+          "hp": 5,
+          "listeners": {
+            "keyboard": 1,
+            "poststep": 2,
+            "resize": 4,
+            "shutdown": 23
+          },
+          "monsterMode": "IDLE",
+          "objects": {
+            "obstacles": 9,
+            "slimes": 1,
+            "total": 20
+          },
+          "overlays": {
+            "camera-controls": 1,
+            "combat-hud": 1,
+            "performance-overlay": 0,
+            "touch-controls": 1
+          },
+          "playerBlocked": false,
+          "playerMotion": "walk",
+          "position": {
+            "col": 13.249267492325798,
+            "row": 13.249267492325798
+          },
+          "slimeBlocked": false,
+          "slimeHP": 3,
+          "slimePosition": {
+            "col": 22.5,
+            "row": 16.5
+          }
+        }
+      },
+      {
+        "elapsedMs": 484010.40000000596,
+        "frames": {
+          "maxMs": 20.399999991059303,
+          "meanFPS": 60.036500596702346,
+          "meanMs": 16.65653377630287,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "p95Ms": 17,
+          "sampledMs": 30081.70000000298,
+          "samples": 1806
+        },
+        "heapBytes": 20182243,
+        "state": {
+          "activation": 0,
+          "camera": {
+            "followsFeet": true,
+            "scrollX": 512,
+            "scrollY": 228,
+            "zoom": 1.5
+          },
+          "colliders": [
+            {
+              "id": 1,
+              "maxCol": 4.68,
+              "maxRow": 7.68,
+              "minCol": 4.32,
+              "minRow": 7.32
+            },
+            {
+              "id": 2,
+              "maxCol": 7.68,
+              "maxRow": 24.68,
+              "minCol": 7.32,
+              "minRow": 24.32
+            },
+            {
+              "id": 3,
+              "maxCol": 12.68,
+              "maxRow": 5.68,
+              "minCol": 12.32,
+              "minRow": 5.32
+            },
+            {
+              "id": 4,
+              "maxCol": 24.68,
+              "maxRow": 10.68,
+              "minCol": 24.32,
+              "minRow": 10.32
+            },
+            {
+              "id": 5,
+              "maxCol": 26.68,
+              "maxRow": 23.68,
+              "minCol": 26.32,
+              "minRow": 23.32
+            },
+            {
+              "id": 6,
+              "maxCol": 22.68,
+              "maxRow": 26.68,
+              "minCol": 22.32,
+              "minRow": 26.32
+            },
+            {
+              "id": 7,
+              "maxCol": 9.85,
+              "maxRow": 21.85,
+              "minCol": 9.15,
+              "minRow": 21.15
+            },
+            {
+              "id": 8,
+              "maxCol": 23.85,
+              "maxRow": 7.85,
+              "minCol": 23.15,
+              "minRow": 7.15
+            },
+            {
+              "id": 9,
+              "maxCol": 28.85,
+              "maxRow": 19.85,
+              "minCol": 28.15,
+              "minRow": 19.15
+            }
+          ],
+          "facing": "southEast",
+          "hp": 5,
+          "listeners": {
+            "keyboard": 1,
+            "poststep": 2,
+            "resize": 4,
+            "shutdown": 23
+          },
+          "monsterMode": "RETURN",
+          "objects": {
+            "obstacles": 9,
+            "slimes": 1,
+            "total": 20
+          },
+          "overlays": {
+            "camera-controls": 1,
+            "combat-hud": 1,
+            "performance-overlay": 0,
+            "touch-controls": 1
+          },
+          "playerBlocked": false,
+          "playerMotion": "idle",
+          "position": {
+            "col": 16.5,
+            "row": 16.5
+          },
+          "slimeBlocked": false,
+          "slimeHP": 3,
+          "slimePosition": {
+            "col": 22.039233291752467,
+            "row": 16.194470590334266
+          }
+        }
+      },
+      {
+        "elapsedMs": 514400.200000003,
+        "frames": {
+          "maxMs": 17.600000008940697,
+          "meanFPS": 60.03743704295771,
+          "meanMs": 16.656273972596207,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "p95Ms": 17,
+          "sampledMs": 30397.69999998808,
+          "samples": 1825
+        },
+        "heapBytes": 17988535,
+        "state": {
+          "activation": 4,
+          "camera": {
+            "followsFeet": true,
+            "scrollX": 512.0000183081684,
+            "scrollY": 98.35005356531256,
+            "zoom": 1.5
+          },
+          "colliders": [
+            {
+              "id": 1,
+              "maxCol": 4.68,
+              "maxRow": 7.68,
+              "minCol": 4.32,
+              "minRow": 7.32
+            },
+            {
+              "id": 2,
+              "maxCol": 7.68,
+              "maxRow": 24.68,
+              "minCol": 7.32,
+              "minRow": 24.32
+            },
+            {
+              "id": 3,
+              "maxCol": 12.68,
+              "maxRow": 5.68,
+              "minCol": 12.32,
+              "minRow": 5.32
+            },
+            {
+              "id": 4,
+              "maxCol": 24.68,
+              "maxRow": 10.68,
+              "minCol": 24.32,
+              "minRow": 10.32
+            },
+            {
+              "id": 5,
+              "maxCol": 26.68,
+              "maxRow": 23.68,
+              "minCol": 26.32,
+              "minRow": 23.32
+            },
+            {
+              "id": 6,
+              "maxCol": 22.68,
+              "maxRow": 26.68,
+              "minCol": 22.32,
+              "minRow": 26.32
+            },
+            {
+              "id": 7,
+              "maxCol": 9.85,
+              "maxRow": 21.85,
+              "minCol": 9.15,
+              "minRow": 21.15
+            },
+            {
+              "id": 8,
+              "maxCol": 23.85,
+              "maxRow": 7.85,
+              "minCol": 23.15,
+              "minRow": 7.15
+            },
+            {
+              "id": 9,
+              "maxCol": 28.85,
+              "maxRow": 19.85,
+              "minCol": 28.15,
+              "minRow": 19.15
+            }
+          ],
+          "facing": "northWest",
+          "hp": 5,
+          "listeners": {
+            "keyboard": 1,
+            "poststep": 2,
+            "resize": 4,
+            "shutdown": 23
+          },
+          "monsterMode": "IDLE",
+          "objects": {
+            "obstacles": 9,
+            "slimes": 1,
+            "total": 20
+          },
+          "overlays": {
+            "camera-controls": 1,
+            "combat-hud": 1,
+            "performance-overlay": 0,
+            "touch-controls": 1
+          },
+          "playerBlocked": false,
+          "playerMotion": "walk",
+          "position": {
+            "col": 12.189413422276514,
+            "row": 12.189413422276514
+          },
+          "slimeBlocked": false,
+          "slimeHP": 3,
+          "slimePosition": {
+            "col": 22.5,
+            "row": 16.5
+          }
+        }
+      },
+      {
+        "elapsedMs": 544430.900000006,
+        "frames": {
+          "maxMs": 22.799999997019768,
+          "meanFPS": 60.03643036041349,
+          "meanMs": 16.656553262689894,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "p95Ms": 17.200000002980232,
+          "sampledMs": 29865.20000000298,
+          "samples": 1793
+        },
+        "heapBytes": 17515255,
+        "state": {
+          "activation": 0,
+          "camera": {
+            "followsFeet": true,
+            "scrollX": 512,
+            "scrollY": 228,
+            "zoom": 1.5
+          },
+          "colliders": [
+            {
+              "id": 1,
+              "maxCol": 4.68,
+              "maxRow": 7.68,
+              "minCol": 4.32,
+              "minRow": 7.32
+            },
+            {
+              "id": 2,
+              "maxCol": 7.68,
+              "maxRow": 24.68,
+              "minCol": 7.32,
+              "minRow": 24.32
+            },
+            {
+              "id": 3,
+              "maxCol": 12.68,
+              "maxRow": 5.68,
+              "minCol": 12.32,
+              "minRow": 5.32
+            },
+            {
+              "id": 4,
+              "maxCol": 24.68,
+              "maxRow": 10.68,
+              "minCol": 24.32,
+              "minRow": 10.32
+            },
+            {
+              "id": 5,
+              "maxCol": 26.68,
+              "maxRow": 23.68,
+              "minCol": 26.32,
+              "minRow": 23.32
+            },
+            {
+              "id": 6,
+              "maxCol": 22.68,
+              "maxRow": 26.68,
+              "minCol": 22.32,
+              "minRow": 26.32
+            },
+            {
+              "id": 7,
+              "maxCol": 9.85,
+              "maxRow": 21.85,
+              "minCol": 9.15,
+              "minRow": 21.15
+            },
+            {
+              "id": 8,
+              "maxCol": 23.85,
+              "maxRow": 7.85,
+              "minCol": 23.15,
+              "minRow": 7.15
+            },
+            {
+              "id": 9,
+              "maxCol": 28.85,
+              "maxRow": 19.85,
+              "minCol": 28.15,
+              "minRow": 19.15
+            }
+          ],
+          "facing": "southEast",
+          "hp": 5,
+          "listeners": {
+            "keyboard": 1,
+            "poststep": 2,
+            "resize": 4,
+            "shutdown": 23
+          },
+          "monsterMode": "IDLE",
+          "objects": {
+            "obstacles": 9,
+            "slimes": 1,
+            "total": 20
+          },
+          "overlays": {
+            "camera-controls": 1,
+            "combat-hud": 1,
+            "performance-overlay": 0,
+            "touch-controls": 1
+          },
+          "playerBlocked": false,
+          "playerMotion": "idle",
+          "position": {
+            "col": 16.5,
+            "row": 16.5
+          },
+          "slimeBlocked": false,
+          "slimeHP": 3,
+          "slimePosition": {
+            "col": 22.488922130220978,
+            "row": 16.492654384630324
+          }
+        }
+      },
+      {
+        "elapsedMs": 574767.200000003,
+        "frames": {
+          "maxMs": 19.5,
+          "meanFPS": 60.03699149061479,
+          "meanMs": 16.65639758375174,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "p95Ms": 17.200000002980232,
+          "sampledMs": 30331.30000001192,
+          "samples": 1821
+        },
+        "heapBytes": 24008281,
+        "state": {
+          "activation": 4,
+          "camera": {
+            "followsFeet": true,
+            "scrollX": 565.8314004569295,
+            "scrollY": 87.95227116379225,
+            "zoom": 1.5
+          },
+          "colliders": [
+            {
+              "id": 1,
+              "maxCol": 4.68,
+              "maxRow": 7.68,
+              "minCol": 4.32,
+              "minRow": 7.32
+            },
+            {
+              "id": 2,
+              "maxCol": 7.68,
+              "maxRow": 24.68,
+              "minCol": 7.32,
+              "minRow": 24.32
+            },
+            {
+              "id": 3,
+              "maxCol": 12.68,
+              "maxRow": 5.68,
+              "minCol": 12.32,
+              "minRow": 5.32
+            },
+            {
+              "id": 4,
+              "maxCol": 24.68,
+              "maxRow": 10.68,
+              "minCol": 24.32,
+              "minRow": 10.32
+            },
+            {
+              "id": 5,
+              "maxCol": 26.68,
+              "maxRow": 23.68,
+              "minCol": 26.32,
+              "minRow": 23.32
+            },
+            {
+              "id": 6,
+              "maxCol": 22.68,
+              "maxRow": 26.68,
+              "minCol": 22.32,
+              "minRow": 26.32
+            },
+            {
+              "id": 7,
+              "maxCol": 9.85,
+              "maxRow": 21.85,
+              "minCol": 9.15,
+              "minRow": 21.15
+            },
+            {
+              "id": 8,
+              "maxCol": 23.85,
+              "maxRow": 7.85,
+              "minCol": 23.15,
+              "minRow": 7.15
+            },
+            {
+              "id": 9,
+              "maxCol": 28.85,
+              "maxRow": 19.85,
+              "minCol": 28.15,
+              "minRow": 19.15
+            }
+          ],
+          "facing": "southEast",
+          "hp": 5,
+          "listeners": {
+            "keyboard": 1,
+            "poststep": 2,
+            "resize": 4,
+            "shutdown": 23
+          },
+          "monsterMode": "IDLE",
+          "objects": {
+            "obstacles": 9,
+            "slimes": 1,
+            "total": 20
+          },
+          "overlays": {
+            "camera-controls": 1,
+            "combat-hud": 1,
+            "performance-overlay": 0,
+            "touch-controls": 1
+          },
+          "playerBlocked": false,
+          "playerMotion": "walk",
+          "position": {
+            "col": 13.21377780297801,
+            "row": 11.023387269032096
+          },
+          "slimeBlocked": false,
+          "slimeHP": 3,
+          "slimePosition": {
+            "col": 22.5,
+            "row": 16.5
+          }
+        }
+      },
+      {
+        "elapsedMs": 600240,
+        "frames": {
+          "maxMs": 25.69999998807907,
+          "meanFPS": 60.037199519730486,
+          "meanMs": 16.656339869273253,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "p95Ms": 17.299999997019768,
+          "sampledMs": 25484.19999998808,
+          "samples": 1530
+        },
+        "heapBytes": 17711552,
+        "state": {
+          "activation": 0,
+          "camera": {
+            "followsFeet": true,
+            "scrollX": 512,
+            "scrollY": 228,
+            "zoom": 1.5
+          },
+          "colliders": [
+            {
+              "id": 1,
+              "maxCol": 4.68,
+              "maxRow": 7.68,
+              "minCol": 4.32,
+              "minRow": 7.32
+            },
+            {
+              "id": 2,
+              "maxCol": 7.68,
+              "maxRow": 24.68,
+              "minCol": 7.32,
+              "minRow": 24.32
+            },
+            {
+              "id": 3,
+              "maxCol": 12.68,
+              "maxRow": 5.68,
+              "minCol": 12.32,
+              "minRow": 5.32
+            },
+            {
+              "id": 4,
+              "maxCol": 24.68,
+              "maxRow": 10.68,
+              "minCol": 24.32,
+              "minRow": 10.32
+            },
+            {
+              "id": 5,
+              "maxCol": 26.68,
+              "maxRow": 23.68,
+              "minCol": 26.32,
+              "minRow": 23.32
+            },
+            {
+              "id": 6,
+              "maxCol": 22.68,
+              "maxRow": 26.68,
+              "minCol": 22.32,
+              "minRow": 26.32
+            },
+            {
+              "id": 7,
+              "maxCol": 9.85,
+              "maxRow": 21.85,
+              "minCol": 9.15,
+              "minRow": 21.15
+            },
+            {
+              "id": 8,
+              "maxCol": 23.85,
+              "maxRow": 7.85,
+              "minCol": 23.15,
+              "minRow": 7.15
+            },
+            {
+              "id": 9,
+              "maxCol": 28.85,
+              "maxRow": 19.85,
+              "minCol": 28.15,
+              "minRow": 19.15
+            }
+          ],
+          "facing": "southEast",
+          "hp": 5,
+          "listeners": {
+            "keyboard": 1,
+            "poststep": 2,
+            "resize": 4,
+            "shutdown": 23
+          },
+          "monsterMode": "WANDER",
+          "objects": {
+            "obstacles": 9,
+            "slimes": 1,
+            "total": 20
+          },
+          "overlays": {
+            "camera-controls": 1,
+            "combat-hud": 1,
+            "performance-overlay": 0,
+            "touch-controls": 1
+          },
+          "playerBlocked": false,
+          "playerMotion": "idle",
+          "position": {
+            "col": 16.5,
+            "row": 16.5
+          },
+          "slimeBlocked": false,
+          "slimeHP": 3,
+          "slimePosition": {
+            "col": 21.089606824210723,
+            "row": 15.564783573374008
+          }
+        }
+      }
+    ],
+    "frameIntervalHistogram": [
+      {
+        "intervalMs": 2.9000000059604645,
+        "count": 1
+      },
+      {
+        "intervalMs": 3.7999999970197678,
+        "count": 1
+      },
+      {
+        "intervalMs": 4.5,
+        "count": 1
+      },
+      {
+        "intervalMs": 7.5,
+        "count": 1
+      },
+      {
+        "intervalMs": 8.400000005960464,
+        "count": 1
+      },
+      {
+        "intervalMs": 8.599999994039536,
+        "count": 1
+      },
+      {
+        "intervalMs": 10.200000002980232,
+        "count": 1
+      },
+      {
+        "intervalMs": 10.299999997019768,
+        "count": 1
+      },
+      {
+        "intervalMs": 12.099999994039536,
+        "count": 1
+      },
+      {
+        "intervalMs": 12.800000011920929,
+        "count": 1
+      },
+      {
+        "intervalMs": 13,
+        "count": 2
+      },
+      {
+        "intervalMs": 13.200000002980232,
+        "count": 1
+      },
+      {
+        "intervalMs": 13.800000011920929,
+        "count": 1
+      },
+      {
+        "intervalMs": 13.900000005960464,
+        "count": 1
+      },
+      {
+        "intervalMs": 14,
+        "count": 1
+      },
+      {
+        "intervalMs": 14.200000002980232,
+        "count": 2
+      },
+      {
+        "intervalMs": 14.400000005960464,
+        "count": 2
+      },
+      {
+        "intervalMs": 14.599999994039536,
+        "count": 2
+      },
+      {
+        "intervalMs": 14.600000008940697,
+        "count": 1
+      },
+      {
+        "intervalMs": 15.099999994039536,
+        "count": 1
+      },
+      {
+        "intervalMs": 15.199999988079071,
+        "count": 1
+      },
+      {
+        "intervalMs": 15.200000002980232,
+        "count": 4
+      },
+      {
+        "intervalMs": 15.299999997019768,
+        "count": 1
+      },
+      {
+        "intervalMs": 15.399999991059303,
+        "count": 2
+      },
+      {
+        "intervalMs": 15.400000005960464,
+        "count": 3
+      },
+      {
+        "intervalMs": 15.5,
+        "count": 2
+      },
+      {
+        "intervalMs": 15.599999994039536,
+        "count": 4
+      },
+      {
+        "intervalMs": 15.600000008940697,
+        "count": 3
+      },
+      {
+        "intervalMs": 15.699999988079071,
+        "count": 4
+      },
+      {
+        "intervalMs": 15.700000002980232,
+        "count": 18
+      },
+      {
+        "intervalMs": 15.799999997019768,
+        "count": 26
+      },
+      {
+        "intervalMs": 15.800000011920929,
+        "count": 17
+      },
+      {
+        "intervalMs": 15.899999991059303,
+        "count": 41
+      },
+      {
+        "intervalMs": 15.900000005960464,
+        "count": 51
+      },
+      {
+        "intervalMs": 16,
+        "count": 221
+      },
+      {
+        "intervalMs": 16.099999994039536,
+        "count": 232
+      },
+      {
+        "intervalMs": 16.100000008940697,
+        "count": 136
+      },
+      {
+        "intervalMs": 16.19999998807907,
+        "count": 99
+      },
+      {
+        "intervalMs": 16.200000002980232,
+        "count": 457
+      },
+      {
+        "intervalMs": 16.299999997019768,
+        "count": 821
+      },
+      {
+        "intervalMs": 16.30000001192093,
+        "count": 197
+      },
+      {
+        "intervalMs": 16.399999991059303,
+        "count": 770
+      },
+      {
+        "intervalMs": 16.400000005960464,
+        "count": 1132
+      },
+      {
+        "intervalMs": 16.5,
+        "count": 4459
+      },
+      {
+        "intervalMs": 16.599999994039536,
+        "count": 5423
+      },
+      {
+        "intervalMs": 16.600000008940697,
+        "count": 3606
+      },
+      {
+        "intervalMs": 16.69999998807907,
+        "count": 1918
+      },
+      {
+        "intervalMs": 16.700000002980232,
+        "count": 7570
+      },
+      {
+        "intervalMs": 16.799999997019768,
+        "count": 3797
+      },
+      {
+        "intervalMs": 16.80000001192093,
+        "count": 982
+      },
+      {
+        "intervalMs": 16.899999991059303,
+        "count": 692
+      },
+      {
+        "intervalMs": 16.900000005960464,
+        "count": 964
+      },
+      {
+        "intervalMs": 17,
+        "count": 578
+      },
+      {
+        "intervalMs": 17.099999994039536,
+        "count": 232
+      },
+      {
+        "intervalMs": 17.100000008940697,
+        "count": 172
+      },
+      {
+        "intervalMs": 17.19999998807907,
+        "count": 68
+      },
+      {
+        "intervalMs": 17.200000002980232,
+        "count": 336
+      },
+      {
+        "intervalMs": 17.299999997019768,
+        "count": 292
+      },
+      {
+        "intervalMs": 17.30000001192093,
+        "count": 96
+      },
+      {
+        "intervalMs": 17.399999991059303,
+        "count": 101
+      },
+      {
+        "intervalMs": 17.400000005960464,
+        "count": 156
+      },
+      {
+        "intervalMs": 17.5,
+        "count": 175
+      },
+      {
+        "intervalMs": 17.599999994039536,
+        "count": 56
+      },
+      {
+        "intervalMs": 17.600000008940697,
+        "count": 31
+      },
+      {
+        "intervalMs": 17.69999998807907,
+        "count": 4
+      },
+      {
+        "intervalMs": 17.700000002980232,
+        "count": 20
+      },
+      {
+        "intervalMs": 17.799999997019768,
+        "count": 2
+      },
+      {
+        "intervalMs": 17.80000001192093,
+        "count": 2
+      },
+      {
+        "intervalMs": 17.899999991059303,
+        "count": 1
+      },
+      {
+        "intervalMs": 17.900000005960464,
+        "count": 1
+      },
+      {
+        "intervalMs": 18,
+        "count": 2
+      },
+      {
+        "intervalMs": 18.099999994039536,
+        "count": 1
+      },
+      {
+        "intervalMs": 18.299999997019768,
+        "count": 1
+      },
+      {
+        "intervalMs": 18.5,
+        "count": 1
+      },
+      {
+        "intervalMs": 18.599999994039536,
+        "count": 1
+      },
+      {
+        "intervalMs": 18.69999998807907,
+        "count": 1
+      },
+      {
+        "intervalMs": 18.900000005960464,
+        "count": 1
+      },
+      {
+        "intervalMs": 19,
+        "count": 1
+      },
+      {
+        "intervalMs": 19.100000008940697,
+        "count": 1
+      },
+      {
+        "intervalMs": 19.200000002980232,
+        "count": 1
+      },
+      {
+        "intervalMs": 19.5,
+        "count": 1
+      },
+      {
+        "intervalMs": 20.099999994039536,
+        "count": 1
+      },
+      {
+        "intervalMs": 20.299999997019768,
+        "count": 1
+      },
+      {
+        "intervalMs": 20.399999991059303,
+        "count": 1
+      },
+      {
+        "intervalMs": 20.599999994039536,
+        "count": 1
+      },
+      {
+        "intervalMs": 21.099999994039536,
+        "count": 1
+      },
+      {
+        "intervalMs": 21.299999997019768,
+        "count": 1
+      },
+      {
+        "intervalMs": 22.700000002980232,
+        "count": 1
+      },
+      {
+        "intervalMs": 22.799999997019768,
+        "count": 1
+      },
+      {
+        "intervalMs": 24.599999994039536,
+        "count": 1
+      },
+      {
+        "intervalMs": 24.799999997019768,
+        "count": 1
+      },
+      {
+        "intervalMs": 25.69999998807907,
+        "count": 1
+      },
+      {
+        "intervalMs": 31,
+        "count": 1
+      },
+      {
+        "intervalMs": 31.799999997019768,
+        "count": 1
+      },
+      {
+        "intervalMs": 32,
+        "count": 1
+      }
+    ]
+  },
+  "status": "MEASURED: review functional/errors evidence before PASS",
+  "rawStorage": "Lossless frequency histogram of original frame interval Number values; chronological order retained only at 30-second window level.",
+  "hostEvidence": {
+    "source": "Approved Windows CIM read",
+    "os": "Microsoft Windows 11 Pro",
+    "version": "10.0.22631",
+    "architecture": "64-bit",
+    "manufacturer": "LENOVO",
+    "model": "20TH000XUS",
+    "cpu": "Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz",
+    "logicalProcessors": 12,
+    "physicalMemoryBytes": 16954777600
+  },
+  "bundleSHA256": {
+    "index-CEBRnW4o.js": "1DD95571D75194637D1B4D33092918A76E72DB2E137DC40A7E3598A2770B015B",
+    "phaser-BEsb1Ci6.js": "F19075BECD34638B9D81CBB9E8BE865E295D1D2646742E239058BFC0EDE90F36"
+  }
+}
