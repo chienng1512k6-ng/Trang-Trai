@@ -1,9 +1,9 @@
 # FARM DEVELOPMENT — DESIGN PACK V1.0
 
-Status: playable Sprint 1 technical prototype; FDS-001–012 accepted PASS.
-[Final Sprint review](docs/SPRINT-01-FINAL-REPORT.md) records FDS-013 PARTIAL
-pending verified hosted CI, technical debt and a conditional GO for a small
-Sprint 2. This is not Beta 1.0 or a persistent/server-authoritative game.
+Status: playable Sprint 1 technical prototype; FDS-001–013 accepted PASS.
+[Final Sprint review](docs/SPRINT-01-FINAL-REPORT.md) records hosted CI SUCCESS
+on commit 53692f9, technical debt and GO for a small Sprint 2.
+This is not Beta 1.0 or a persistent/server-authoritative game.
 The client renders a 32x32 isometric map and an animated placeholder player.
 PC WASD moves the player in screen directions, with obstacle collision and sliding.
 See [PC keyboard controls](docs/PC-KEYBOARD-CONTROLS.md) for mapping and focus rules.

@@ -6,18 +6,21 @@ dependencies, engine upgrade, commit or push in this review.
 
 ## 1. Executive summary and decision
 
-**FDS-001–012: accepted PASS within their recorded scopes. FDS-013: PARTIAL.**
+**FDS-001–013: PASS within their recorded scopes. Sprint 1: PASS.**
 The review, documentation, local regression, production smoke and proposed next
-backlog are complete. The ticket explicitly requires **CI green**; a successful
-hosted workflow run for the reviewed revision has not been verified. Local
-execution of the same commands is green, but does not close that hosted gate.
-Do not mark all 13 tasks complete until the owner supplies a successful workflow
-URL/revision or explicitly revises that acceptance gate.
+backlog are complete. On 2026-11-07 Codex read the GitHub Actions API and verified
+the hosted Development Quality run for the exact reviewed HEAD
+`53692f97c411a2a6d1dd98bf06eb04fea8ffddb1`: run and quality job completed/success,
+including install, lint, typecheck, unit tests and production build. This closes
+the previously outstanding CI-green gate using hosted evidence, not local results.
+Run URL, step outcomes and timestamps are recorded in section 3 below.
 
-**GO, conditional, for a small Sprint 2 starting with domain/state design.**
+**GO for a small Sprint 2 starting with domain/state design.**
 No blocking gameplay defect is reported in the accepted desktop/iPhone QA.
-Before merging Sprint 2 implementation, verify hosted CI on the reviewed Sprint 1
-checkpoint and approve the small Sprint 2 scope/authority contract below.
+The reviewed Sprint 1 checkpoint now has hosted green CI. The owner still selects
+and approves the small Sprint 2 scope/authority contract below before implementation;
+future revisions must pass their own CI. No Sprint 2 implementation is authorized
+or performed by this review.
 **NO-GO for Beta 1.0, commercial release or trusted persistent economy.**
 GDD beta acceptance requires persistence, validated economy, offline progression
 and operational/security controls that this prototype deliberately does not have.
@@ -25,7 +28,7 @@ and operational/security controls that this prototype deliberately does not have
 The local prototype goals are met: a 32×32 isometric farm, one animated Player,
 WASD and multitouch movement/attack, camera, nine static obstacles, one Slime FSM
 and real-time combat. The outstanding review gate is evidence, not a new gameplay
-feature. Numerical phone/Chrome FPS remains unmeasured; the owner's FDS-012 PASS
+feature; that evidence gate is now closed. Numerical phone/Chrome FPS remains unmeasured; the owner's FDS-012 PASS
 is preserved, with those measurement limitations explicitly carried forward.
 
 ## 2. Task acceptance matrix
@@ -37,7 +40,7 @@ historical; later owner device coverage is attributed under FDS-012.
 | Task / goal | Actual deliverables | Acceptance / evidence | Remaining limits | Next-sprint dependency |
 |---|---|---|---|---|
 | 001 Foundation | pnpm workspace, apps/game, strict TS, dev/typecheck/build, esbuild-only build approval | PASS local; frozen install and current quality commands pass | App manifest retains template identity; not all future packages exist | Keep lockfile/toolchain and reproducible root commands |
-| 002 Quality & CI | ESLint Flat Config, Vitest, root scripts, push/PR workflow | PASS local; initial deliberate failing assertion exited 1; now 351 pass | Hosted GitHub job NOT VERIFIED; Node/Linux runner not exercised locally | Require hosted green before next implementation merge |
+| 002 Quality & CI | ESLint Flat Config, Vitest, root scripts, push/PR workflow | PASS local; initial deliberate failing assertion exited 1; 351 local tests; FDS-013 now verifies hosted quality SUCCESS | PR-event run and deliberate hosted failure propagation not newly exercised | Keep quality checks required on future revisions |
 | 003 Coordinates | Pure 2:1 projection/inverse, origin, picking, Phaser camera adapter | PASS local/browser; 41 tests at delivery, 40 native browser checks, seeded round trips | Normal layer transform only; finite-position documentation exceeds helper validation | Reuse grid contract for state/plots/placement |
 | 004 Tilemap | Tiled-format 32×32 JSON, 64×32 tiles, Ground/Detail, 6 trees/3 rocks, original tileset | PASS local/browser; 59 tests, five coordinate checkpoints matched actual layer | Tiled GUI open/save NOT TESTED; prototype-specific importer | Define ownership/occupancy separately from tile art |
 | 005 Player | Pure state/movement, input interface, four-facing Idle/Walk atlas, footpoint view | PASS local/browser; 96 tests; four animation directions verified | 50ms delta cap discards stalls; four facings; fixed map constants | Preserve one authoritative movement path |
@@ -48,7 +51,7 @@ historical; later owner device coverage is attributed under FDS-012.
 | 010 Monster AI | Seeded six-state FSM, bounded BFS, wander/chase/return, HIT/DEAD hooks, atlas | PASS local/emulation; 264 tests; browser states/path/occlusion/restart checks | One actor; angular paths; shared PlayerState/speed ceiling | Profile before increasing population; stable entity IDs first |
 | 011 Combat | Pure health/arc/range/obstruction/cooldowns/events, Space/Attack, HIT/DEAD, manual recovery HUD | PASS local/emulation; 318 tests; later owner Chrome/iPhone functional PASS | Immediate single target, local authority, no loot or persistence | Never trust client combat rewards for economy |
 | 012 Performance/device QA | DEV probe, reproducible soak/CDP tools, durable metrics, two Safari gesture fixes | PASS accepted; 351 tests; production Electron 600s; owner Chrome 10min/physical Alt-Tab and iPhone PASS | Chrome/phone numeric FPS NOT MEASURED; hardware/version gaps | Carry measurement matrix; no invented device capacity |
-| 013 Final review | This matrix, architecture/debt/risk/license/security review, final regression/smoke, playable README, ADR outcome, Sprint 2 draft | PARTIAL: review deliverables complete; local checks PASS | Explicit hosted CI-green gate still open | Conditional GO for scoped planning; close CI before implementation merge |
+| 013 Final review | This matrix, architecture/debt/risk/license/security review, final regression/smoke, playable README, ADR outcome, Sprint 2 draft | PASS: review deliverables/local checks complete; hosted run 42351013684 and quality job SUCCESS on exact SHA 53692f9 | Existing device/performance/technical debt below retained; no Beta certification | GO for scoped Sprint 2; approve next ticket and retain CI on future revisions |
 
 Detailed task-time evidence: [Sprint backlog](../tasks/SPRINT-01.md),
 [coordinates](./ISOMETRIC-COORDINATES.md), [tilemap](./ISOMETRIC-TILEMAP.md),
@@ -133,9 +136,56 @@ phaser-BEsb1Ci6.js F19075BECD34638B9D81CBB9E8BE865E295D1D2646742E239058BFC0EDE90
 [Workflow](../.github/workflows/ci.yml) reviewed: push + pull_request, Ubuntu,
 Node 26, pnpm 12.18.0, frozen install -> lint -> typecheck -> unit tests -> build,
 15-minute timeout, contents:read, no secrets/deploy or continue-on-error. Local
-commands are green. GitHub CLI is unavailable; public API inspection did not
-return an accessible run. **Hosted CI success/failure propagation NOT VERIFIED.**
-Do not infer green from YAML or from the existence of an origin remote.
+commands are green. GitHub CLI is unavailable. An earlier public API attempt did
+not return a run; that limitation is superseded by the successful read-only
+GitHub REST API verification below. Initial sandbox network access failed;
+approved read-only retry succeeded. No workflow dispatch, commit or push was made.
+
+#### Hosted CI acceptance — verified 2026-11-07
+
+- Repository: chienng1512k6-ng/Trang-Trai; branch: main; trigger: push.
+- [Development Quality run 42351013684](https://github.com/chienng1512k6-ng/Trang-Trai/actions/runs/42351013684), attempt 1: **completed / success**.
+- Reviewed HEAD / run head_sha: **53692f97c411a2a6d1dd98bf06eb04fea8ffddb1**.
+  Local origin/main also references this SHA; working tree was clean before
+  this acceptance update. The run covers the committed final review checkpoint.
+- Run created 2026-11-07 07:22:25 UTC; last updated 07:23:06 UTC.
+- [quality job 128338945086](https://github.com/chienng1512k6-ng/Trang-Trai/actions/runs/42351013684/job/128338945086):
+  **completed / success**, runner label ubuntu-latest; started 07:22:28 UTC,
+  completed 07:23:05 UTC on 2026-11-07.
+
+| Hosted step | Command/config compared with repository workflow | API status / conclusion |
+|---|---|---|
+| Checkout / pnpm setup / Node setup | checkout@v4 / pnpm 12.18.0 / Node 26 | All completed / success |
+| Install dependencies | pnpm install --frozen-lockfile | completed / success |
+| Lint | pnpm run lint | completed / success |
+| Typecheck | pnpm run typecheck | completed / success |
+| Unit tests | pnpm run test | completed / success |
+| Production build | pnpm run build | completed / success |
+| Post/cleanup steps | Node cache, pnpm, checkout and complete-job steps | All completed / success |
+
+Evidence was read from `/repos/chienng1512k6-ng/Trang-Trai/actions/runs` and
+`/actions/runs/42351013684/jobs`. All required steps actually executed; none was
+skipped or merely inferred from a green local command. No failing CI step exists
+in this run, so no CI fix was needed. Raw text logs were not downloaded; this
+verification uses per-step API outcomes and checked-in command definitions.
+351 tests / 23 files remains the separately executed local regression count;
+the hosted step outcome alone does not establish a separately observed test count.
+This verifies the push success path. Pull-request execution and deliberate hosted
+failure propagation were not newly exercised; no broader CI certification is claimed.
+
+To verify manually, open the run URL (or repository Actions -> Development
+Quality), select this run and compare the full commit SHA with `git rev-parse HEAD`.
+Open job quality and expand Install dependencies, Lint, Typecheck, Unit tests and
+Production build; review their output and test count. For a PR, compare the tested
+merge SHA and PR head explicitly. The current workflow triggers on push and
+pull_request with no branch/path filters; it has no workflow_dispatch trigger.
+An owner-authorized future push/PR triggers a new run, or GitHub's Re-run jobs can
+rerun an existing revision. No empty commit or automatic push is necessary here.
+
+The current acceptance edits are documentation-only and remain uncommitted;
+the existing run cannot certify these future commit bytes. A later commit/push
+must receive its own run. Runtime source, dependency lockfile and CI configuration
+are unchanged from the successfully tested SHA.
 
 Sprint acceptance gates 1–7 and 9–10 have scoped local/browser/owner evidence.
 Gate 8's desktop/phone FPS target is not fully measured: Electron timing exists,
@@ -144,7 +194,8 @@ with that limitation; the wording is not silently changed into measured phone FP
 The original actor-overlap checkbox exceeds implemented static collision scope;
 actor-to-actor collision remains deferred. Trusted-Wi-Fi-only exposure is operator
 policy, not verified by functional QA. Broad manual checklist boxes must not all
-be checked merely because a ticket passed. Hosted CI remains the open FDS-013 gate.
+be checked merely because a ticket passed. The FDS-013 hosted CI gate is now closed
+for the exact reviewed revision above; other recorded QA limitations remain.
 
 ## 4. Architecture readiness
 
@@ -181,7 +232,7 @@ P3 = housekeeping. None is automatically a Sprint 2 gameplay blocker.
 | TD-06 P1 | No server authority, idempotency or trusted economy | Establish command/result, validation, operation IDs, authoritative time contracts first | Before real persistence, trading/rewards/purchases |
 | TD-07 P2 | Chrome FPS NOT MEASURED | Foreground standalone production trace with build/device metadata | Next performance checkpoint |
 | TD-08 P2 | No quantitative phone/device matrix or thermal benchmark | Record model/iOS/browser, Android and mid-range device traces | Before external alpha/capacity claims |
-| TD-09 P1 | Hosted GitHub Actions NOT VERIFIED | Owner runs existing workflow; attach URL, SHA and logs; fix only an observed failure | Close FDS-013; before Sprint 2 implementation merge |
+| TD-09 P1 — CLOSED for Sprint 1 checkpoint | Hosted CI evidence was previously missing; run 42351013684 now verifies success on 53692f9 | Preserve run/job URLs, SHA and per-step outcomes above; keep future revision CI required | Closed 2026-11-07; ongoing CI policy still applies |
 | TD-10 P2 | Frame-based follow smoothing; 50ms discarded stalls | Preserve local policy; evaluate fixed-step/authoritative timing separately | Before reconciliation/offline/time-sensitive systems |
 | TD-11 P2 | DisplayList comparator/CDP closure inspection couple to Phaser internals/layout | Keep installed-API browser regression; abort QA introspection on mismatch | Any future engine change |
 | TD-12 P2 | Finite position/origin validation claimed in coordinate doc but not performed by gridToWorld/worldToGrid | Define trusted internal vs public validated boundary; add explicit non-finite cases or narrow documentation in a scoped follow-up | Before accepting saved/external state; no new coordinate system |
@@ -201,7 +252,7 @@ no architecture or behavior changes are made to conceal them.
 | Sprint 2 expands directly into eight systems | High / high | Owner approves a small state/item slice; defer shop/buildings to later increments |
 | Local saves/currency treated as commercial authority | High / high | Domain command validation now; server/transactions/time later before trusted mutations |
 | Device performance inferred from Electron | Medium / high | Keep source-attributed metrics; owner/device QA captures separate traces |
-| Hosted/Linux install differs from local warm store | Medium / high | Verify frozen install and all steps on actual GitHub runner before next merge |
+| Hosted/Linux install differs from local warm store | Medium / high | Mitigated for 53692f9: actual ubuntu-latest frozen install and all quality steps succeeded; repeat CI for future revisions |
 | New buildings invalidate occupancy/path/depth assumptions | High / medium | Static AABB/footprint/ownership ADR and fixtures before placement work |
 | Input/gesture regression after adding HUD | Medium / high | Reuse guard allowlist deliberately; real iPhone retest, editable content and cleanup regressions |
 | Dependency/license/security confidence overstated | Medium / high | Keep notices, review advisories/license inventory before release; no clean-security certification |
@@ -247,8 +298,9 @@ is intentionally production Safari compatibility, not debug scaffolding.
 Prototype map checkpoints/hover hints intentionally remain visible; do not
 claim all diagnostic-looking graphics were removed. Default production has no
 performance overlay or privileged debug global. Release/deploy, headers/CSP,
-hosted CI, browser support beyond supplied evidence and full accessibility are
-not verified. Action's pointer-only DOM activation merits an explicit keyboard/
+browser support beyond supplied evidence and full accessibility are
+not verified. Hosted CI is verified only for the recorded run/revision, not release
+deployment or all event types. Action's pointer-only DOM activation merits an explicit keyboard/
 assistive-accessibility review later; Space remains the desktop attack binding.
 
 ## 8. Sprint 2 proposed backlog — plan only
@@ -292,20 +344,23 @@ This review changes documentation only; no runtime source/asset/lockfile changes
 Temporary task configuration and an unsuitable host-clipped screenshot created
 during inspection were removed; neither is a project deliverable.
 
-Suggested owner-operated checkpoint, after reviewing this report:
+Original review checkpoint fe67496 was followed by owner commit 53692f9
+(`docs: finalize Sprint 1 review`), now verified by the successful hosted run.
+The working tree was clean at the start of this CI-acceptance follow-up.
+Suggested owner-operated acceptance checkpoint, after reviewing this report:
 
 1. Review `git status --short`, `git diff`, untracked report and `git diff --check`.
 2. Stage only the reviewed README, ADR, Sprint backlog and final report. Inspect
    `git diff --cached --stat`, full staged diff and secret/license notices.
-3. Owner may create a documentation review checkpoint without rewriting existing
-   commits; do not label it all-13-PASS while the hosted gate is open.
+3. Owner may create a documentation acceptance checkpoint without rewriting existing
+   commits. All 13 tasks are now accepted for their recorded prototype scope.
 4. When the owner chooses to push, inspect Actions -> Development Quality / PR
    Checks; retain the green run URL and matching commit SHA. No push done here.
-5. After actual green evidence, update FDS-013/Sprint acceptance to PASS in a
-   small follow-up. An optional annotated sprint-1-prototype tag can then point
-   to the accepted checkpoint. No hard reset, clean, deletion or history rewrite.
+5. This follow-up records actual green evidence and FDS-013/Sprint PASS. An optional
+   annotated sprint-1-prototype tag can point to an owner-reviewed checkpoint
+   after that exact revision's CI passes. No hard reset, clean or history rewrite.
 
-Before Sprint 2 implementation merge: close CI evidence; approve D01–D03 scope
+Before Sprint 2 implementation: approve D01–D03 scope
 and untrusted-local/authoritative-future boundary. Before release: advisories and
 license notices, device metadata/numeric phone benchmarks, target-browser matrix,
 accessibility, hosted deployment/security and GDD beta gates. These are distinct

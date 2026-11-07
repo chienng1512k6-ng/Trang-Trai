@@ -32,13 +32,14 @@ both Safari gesture fixes are CLOSED. Production Electron timing was measured
 for 600 seconds. It is not Chrome or phone FPS. Phone model/performance tier,
 numerical phone performance and a broader device matrix remain unverified, so
 the original mid-range-phone performance criterion is not quantitatively closed.
-Hosted CI remains unverified. No engine blocker or evidence justifying a switch
+Hosted CI was verified SUCCESS on 2026-11-07 for commit 53692f9; the final report
+records its run URL and full SHA. No engine blocker or evidence justifying a switch
 was identified for this local prototype. Buildings/elevation/many entities and
 commercial beta readiness are not validated by this decision.
 
 See [final review, evidence and limits](./SPRINT-01-FINAL-REPORT.md) and
-[source-attributed QA](./PERFORMANCE-QA.md). FDS-013 remains PARTIAL until its
-explicit CI-green gate has actual hosted evidence.
+[source-attributed QA](./PERFORMANCE-QA.md). FDS-013 and Sprint 1 are PASS after
+closing the hosted CI gate; device-performance limitations above are unchanged.
 
 ## Official references (historical sources)
 - https://phaser.io/download/phaser4

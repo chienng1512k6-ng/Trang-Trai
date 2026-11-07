@@ -5,6 +5,11 @@
 **Scope:** Phaser 4 + TS + Vite, isometric Tiled map 32×32 cells (prototype map); WASD, joystick, camera, collision, enemy and simple attack; unit tests and build.
 **Non-goals:** auth, persistence, construction UX, wallet, quests, online APIs, offline sim, multiplayer, payments.
 
+**Final acceptance: PASS — FDS-001–013 accepted within recorded scope.**
+Hosted Development Quality run [42351013684](https://github.com/chienng1512k6-ng/Trang-Trai/actions/runs/42351013684)
+succeeded on reviewed commit `53692f97c411a2a6d1dd98bf06eb04fea8ffddb1`,
+2026-11-07. GO for scoped Sprint 2; no Beta/release claim or Sprint 2 implementation.
+
 ## Ordered backlog (estimated focused hours)
 
 | ID | Estimate | Depends on | Deliverable / acceptance |
@@ -21,7 +26,7 @@
 | FDS-010 | 5h | 005,009 | **PASS local/browser emulation** — one Green Slime, seeded FSM, bounded navigation and HIT/DEAD hooks; [verification](../docs/MONSTER-AI.md); real-device QA unverified |
 | FDS-011 | 4h | 006,007,010 | **PASS local/browser emulation** — Space/Attack, directional damage, melee, HP, knockout/recovery; [verification](../docs/COMBAT.md); real-device QA unverified |
 | FDS-012 | 4h | 007-011 | **PASS** — owner Chrome 157/Windows 11 Pro 10-minute gameplay and physical Alt-Tab PASS; iPhone Safari QA PASS, FIX-001/002 CLOSED; last regression 351 tests PASS; production Electron 600s / 60.037 FPS mean; Chrome-specific FPS NOT MEASURED; [QA evidence](../docs/PERFORMANCE-QA.md) |
-| FDS-013 | 3h | 012 | **PARTIAL** — final review, architecture/debt/risk/license/security review, playable README, test evidence, ADR outcome and Sprint 2 draft complete; fresh local install/lint/typecheck/351 tests/build PASS; explicit hosted CI-green gate NOT VERIFIED; [final report](../docs/SPRINT-01-FINAL-REPORT.md) |
+| FDS-013 | 3h | 012 | **PASS** — final review, debt/risk/license/security review, playable README, ADR outcome and Sprint 2 draft complete; local 351 tests PASS; hosted run 42351013684 and quality job SUCCESS on exact commit 53692f9; [final report and CI evidence](../docs/SPRINT-01-FINAL-REPORT.md) |
 
 **Total:** 52 focused hours, excluding uncertainty/asset rework.
 
@@ -210,7 +215,7 @@ FDS-012 is accepted below. No FDS-013 work.
 
 ## Acceptance gates
 
-### FDS-013 final review — 2026-11-07: PARTIAL
+### FDS-013 final review — 2026-11-07: PASS
 
 FDS-001–012 remain accepted PASS in their recorded scopes. The final review is
 complete, with **351 tests in 23 files** passing in the freshly executed local
@@ -221,11 +226,22 @@ DEV profiler is absent. The integrated browser restores a tiny viewport, so a
 later Recover/screenshot attempt is NOT VERIFIED; it does not replace accepted
 owner device QA. No new 10-minute benchmark or real-device test is claimed.
 
-The ticket requires CI green: local commands and workflow review pass, but no
-successful hosted run has been verified. **Do not mark FDS-013 or all 13 tasks
-PASS until a matching green workflow URL/revision is recorded.** Conditional GO
-for scoped Sprint 2 domain/state planning; verify cloud CI before implementation
-merge. No Beta 1.0 or commercial-release approval. See the
+The previously open CI-green gate is now closed using read-only GitHub Actions
+API evidence, not local-test inference. Run
+[42351013684](https://github.com/chienng1512k6-ng/Trang-Trai/actions/runs/42351013684),
+attempt 1, trigger push/main, head SHA `53692f97c411a2a6d1dd98bf06eb04fea8ffddb1`
+is completed/success. Job quality
+[128338945086](https://github.com/chienng1512k6-ng/Trang-Trai/actions/runs/42351013684/job/128338945086)
+on ubuntu-latest started 2026-11-07 07:22:28 UTC and completed 07:23:05 UTC;
+install, lint, typecheck, unit tests and production build all completed/success,
+as did setup/cleanup. Codex verified run and job metadata on 2026-11-07.
+The full hosted test count/raw text logs were not independently read; 351 remains
+the actual prior local count. No CI fix was needed. PR-trigger execution is not
+newly tested. Workflow triggers push/pull_request without filters, no manual
+workflow_dispatch trigger. Future commits require their own CI run.
+
+**FDS-013 PASS; Sprint 1 PASS; GO for scoped Sprint 2.** No Beta 1.0 or
+commercial-release approval. No new gameplay or Sprint 2 implementation. See the
 [acceptance matrix, open gates, debt and proposed backlog](../docs/SPRINT-01-FINAL-REPORT.md).
 
 FIX-001/002 stay CLOSED. Owner Chrome 157/Windows 11 Pro 10-minute gameplay and
@@ -233,9 +249,11 @@ physical Alt-Tab PASS is separate from owner iPhone Safari QA and agent producti
 Electron 600s / 60.037 FPS. Numeric Chrome/phone FPS is NOT MEASURED; original
 gate 8 is accepted only with the explicitly recorded FDS-012 measurement limit.
 Historical checklists below are not all checked: actor-to-actor collision,
-hosted CI and operator network policy are not certified by prototype acceptance.
+PR-event/failure-path CI and operator network policy are not certified by prototype
+acceptance. Hosted push CI on the recorded SHA is now verified SUCCESS.
 
-Git was clean at fe67496; prior FDS-009–012 changes are committed in history.
+Git was clean at fe67496 for the original review and clean at 53692f9 for this
+CI-acceptance follow-up; prior FDS-009–012 changes are committed in history.
 This task changes review documentation only; no runtime refactor, dependency,
 commit/push or Sprint 2 implementation. Owner checkpoint instructions are in the
 final report. Historical ticket sections above retain their task-time status;
