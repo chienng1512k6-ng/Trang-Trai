@@ -14,12 +14,14 @@ import { renderObstacle } from '../ObstacleRenderer';
 import { installDepthOrder } from '../depthOrder';
 import { Monster, SLIME_ART } from '../Monster';
 import { CombatController } from '../CombatController';
+import type { DevPerformance } from '../DevPerformance';
 
 export class Game extends Scene {
     private player?: Player;
     private monster?: Monster;
     private combat?: CombatController;
     private cameraController?: CameraController;
+    private performanceProbe?: DevPerformance;
     constructor() { super('Game'); }
 
     preload() {
@@ -46,6 +48,12 @@ export class Game extends Scene {
             if (!cameraParent) throw new Error('Game container unavailable.');
             this.cameraController = new CameraController(this, this.player.view.sprite, mapWorldBounds(MAP_ORIGIN), cameraParent);
             this.data.set('cameraController', this.cameraController);
+            if (import.meta.env.DEV && new URLSearchParams(location.search).get('perf') === '1') {
+                void import('../DevPerformance').then(({ DevPerformance }) => {
+                    if (this.sys.isActive()) this.performanceProbe = DevPerformance.attach(this, cameraParent);
+                });
+            }
+            this.events.once('shutdown', () => { this.performanceProbe = undefined; });
             let attackInput = () => false;
             this.combat = new CombatController(this, this.player, this.monster, obstacleColliders(obstacles), cameraParent, () => attackInput());
             this.data.set('combat', this.combat);
@@ -78,7 +86,9 @@ export class Game extends Scene {
 
     update(_time: number, delta: number) {
         this.player?.update(delta, this.combat?.canControl ?? true);
+        const aiStart = this.performanceProbe ? performance.now() : 0;
         this.monster?.update(delta, this.combat?.canControl ? this.player?.state.position : undefined);
+        if (this.performanceProbe) this.performanceProbe.recordAI(performance.now() - aiStart);
         this.combat?.update(delta);
     }
 

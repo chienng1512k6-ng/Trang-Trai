@@ -2,10 +2,10 @@
 
 Status: Sprint 1 foundation and development quality tooling. The client currently
 renders a 32x32 isometric prototype map and an animated placeholder player.
-PC WASD moves the player in screen directions; obstacle collision is not implemented.
+PC WASD moves the player in screen directions, with obstacle collision and sliding.
 See [PC keyboard controls](docs/PC-KEYBOARD-CONTROLS.md) for mapping and focus rules.
-Landscape touch/hybrid devices can use the virtual joystick. Action is a visual
-prototype without gameplay. Portrait shows a rotate prompt. See
+Landscape touch/hybrid devices can use the virtual joystick and Attack button.
+Portrait shows a rotate prompt. See
 [Mobile touch controls](docs/MOBILE-TOUCH-CONTROLS.md) for analog/priority rules
 and real-device QA limitations.
 
@@ -44,6 +44,10 @@ The bootstrap tests mock Phaser to run without a browser or WebGL; they do not
 replace browser rendering tests. Production output is in apps/game/dist.
 
 ## CI results
+
+Development-only performance instrumentation is enabled with `?perf=1`.
+See [performance methodology, reproducible soak and real-phone checklist](docs/PERFORMANCE-QA.md).
+Browser emulation does not certify real-device performance or complete Sprint 1.
 
 Trees and rocks now block the player's ground footprint, with edge sliding and
 footpoint depth sorting. See [collision/depth rules and QA](docs/COLLISION-DEPTH.md).

@@ -27,6 +27,18 @@ function fixture() {
 }
 afterEach(() => vi.unstubAllGlobals());
 describe('combat scene adapter', () => {
+    it('does not rewrite unchanged HUD text or recovery visibility each frame', () => {
+        const f = fixture();
+        const hp = f.controller.root.querySelector('.combat-hp'), button = f.controller.root.querySelector('button');
+        let text = hp.textContent, hidden = button.hidden;
+        const writeText = vi.fn(value => { text = value; }), writeHidden = vi.fn(value => { hidden = value; });
+        Object.defineProperty(hp, 'textContent', { get: () => text, set: writeText });
+        Object.defineProperty(button, 'hidden', { get: () => hidden, set: writeHidden });
+        for (let n = 0; n < 120; n++) f.controller.update(16);
+        expect(writeText).not.toHaveBeenCalled(); expect(writeHidden).not.toHaveBeenCalled();
+        f.attack.mockReturnValueOnce(true); f.controller.update(16);
+        expect(writeText).toHaveBeenCalledOnce(); expect(text).toContain('Slime HP 2/3');
+    });
     it('resolves once per frame, delivers HIT once and uses Phaser 4 tint API', () => {
         const f = fixture(); f.attack.mockReturnValueOnce(true); f.controller.update(16);
         expect(f.attack).toHaveBeenCalledOnce(); expect(f.controller.state.slime.hp).toBe(2);

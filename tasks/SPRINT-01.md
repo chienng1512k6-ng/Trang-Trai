@@ -20,7 +20,7 @@
 | FDS-009 | 4h | 004,005 | **PASS local/browser emulation** — Tiled tree/rock footprints, swept sliding collision and footpoint depth; [verification](../docs/COLLISION-DEPTH.md); real-device QA unverified |
 | FDS-010 | 5h | 005,009 | **PASS local/browser emulation** — one Green Slime, seeded FSM, bounded navigation and HIT/DEAD hooks; [verification](../docs/MONSTER-AI.md); real-device QA unverified |
 | FDS-011 | 4h | 006,007,010 | **PASS local/browser emulation** — Space/Attack, directional damage, melee, HP, knockout/recovery; [verification](../docs/COMBAT.md); real-device QA unverified |
-| FDS-012 | 4h | 007-011 | Performance/QA: Chrome desktop, one real landscape phone, debug overlay and accessibility checks |
+| FDS-012 | 4h | 007-011 | **PARTIAL — PASS local/embedded browser**; 327 tests, measured 10-minute soak; [report and real-phone checklist](../docs/PERFORMANCE-QA.md); standalone Chrome/physical phone QA still open |
 | FDS-013 | 3h | 012 | CI green, remove blockers, playable README, screenshots/test evidence and ADR outcome |
 
 **Total:** 52 focused hours, excluding uncertainty/asset rework.

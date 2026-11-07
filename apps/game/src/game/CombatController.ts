@@ -88,8 +88,9 @@ export class CombatController {
     }
     private render() {
         const { player, slime } = this.current;
-        this.hp.textContent = `Player HP ${player.hp}/${player.maxHP} · Slime HP ${slime.hp}/${slime.maxHP}`;
-        this.recover.hidden = this.canControl;
+        const text = `Player HP ${player.hp}/${player.maxHP} · Slime HP ${slime.hp}/${slime.maxHP}`;
+        if (this.hp.textContent !== text) this.hp.textContent = text;
+        if (this.recover.hidden !== this.canControl) this.recover.hidden = this.canControl;
     }
     readonly destroy = () => {
         if (this.disposed) return; this.disposed = true;

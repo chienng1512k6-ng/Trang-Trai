@@ -23,7 +23,24 @@ export async function startKeyboardBrowserCheck() {
     let watch;
     let samples = 0;
     let penetrations = 0;
+    let qaKeys = [];
     return {
+        performanceSnapshot(reset = false) {
+            const probe = scene.data.get('performance');
+            const result = probe?.snapshot() ?? null;
+            if (reset) probe?.reset();
+            return result;
+        },
+        holdKeys(codes) {
+            for (const code of qaKeys) scene.input.keyboard.emit('keyup', { code });
+            qaKeys = codes;
+            for (const code of codes) scene.input.keyboard.emit('keydown', { code, preventDefault() {} });
+        },
+        attackOnce() {
+            scene.input.keyboard.emit('keydown', { code: 'Space', repeat: false, preventDefault() {} });
+            scene.input.keyboard.emit('keyup', { code: 'Space' });
+        },
+        setCameraZoom(value) { scene.data.get('cameraController').setZoom(value); },
         combatCase(kind = 'hit') {
             const combat = scene.data.get('combat'); combat.current = createCombat();
             const blocked = kind === 'blocked';

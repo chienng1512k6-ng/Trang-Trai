@@ -1,0 +1,1301 @@
+{
+  "soak": {
+    "startedUTC": "2026-11-07T05:19:06.485Z",
+    "durationMs": 600000,
+    "intervals": [
+      {
+        "elapsedMs": 30002,
+        "build": "development",
+        "clock": "performance.now between Phaser poststep events",
+        "frames": {
+          "samples": 1800,
+          "sampledMs": 29981.80000001192,
+          "meanMs": 16.65655555556218,
+          "p95Ms": 16.899999991059303,
+          "meanFPS": 60.036422096047744,
+          "p5FPS": 59.17159766443996,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 17.700000002980232
+        },
+        "ai": {
+          "samples": 1801,
+          "sampledMs": 34.40000011026859,
+          "meanMs": 0.019100499783602773,
+          "p95Ms": 0.10000000894069672,
+          "meanFPS": 52354.65099496879,
+          "p5FPS": 9999.999105930408,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 0.29999999701976776
+        },
+        "excludedDiscontinuities": 0,
+        "heapBytes": 26827106,
+        "objects": {
+          "total": 20,
+          "slimes": 1,
+          "obstacles": 9
+        },
+        "listeners": {
+          "shutdown": 22,
+          "keydown": 1,
+          "keyup": 1,
+          "resize": 4,
+          "poststep": 2
+        },
+        "overlays": {
+          "touch-controls": 1,
+          "camera-controls": 1,
+          "combat-hud": 1,
+          "performance-overlay": 1
+        },
+        "state": {
+          "monsterMode": "IDLE",
+          "playerHP": 0,
+          "slimeHP": 3,
+          "activation": 0,
+          "playerPosition": {
+            "col": 20,
+            "row": 16.5
+          },
+          "slimePosition": {
+            "col": 22.809095527211753,
+            "row": 15.196494033506598
+          }
+        }
+      },
+      {
+        "elapsedMs": 60003.60000000894,
+        "build": "development",
+        "clock": "performance.now between Phaser poststep events",
+        "frames": {
+          "samples": 1801,
+          "sampledMs": 29997.40000000596,
+          "meanMs": 16.655968906166553,
+          "p95Ms": 16.80000001192093,
+          "meanFPS": 60.03853667316641,
+          "p5FPS": 59.52380948157267,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 22
+        },
+        "ai": {
+          "samples": 1801,
+          "sampledMs": 30.89999993145466,
+          "meanMs": 0.01715713488698204,
+          "p95Ms": 0.10000000894069672,
+          "meanFPS": 58284.78977330585,
+          "p5FPS": 9999.999105930408,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 0.7999999970197678
+        },
+        "excludedDiscontinuities": 0,
+        "heapBytes": 37779606,
+        "objects": {
+          "total": 20,
+          "slimes": 1,
+          "obstacles": 9
+        },
+        "listeners": {
+          "shutdown": 22,
+          "keydown": 1,
+          "keyup": 1,
+          "resize": 4,
+          "poststep": 2
+        },
+        "overlays": {
+          "touch-controls": 1,
+          "camera-controls": 1,
+          "combat-hud": 1,
+          "performance-overlay": 1
+        },
+        "state": {
+          "monsterMode": "WANDER",
+          "playerHP": 5,
+          "slimeHP": 3,
+          "activation": 0,
+          "playerPosition": {
+            "col": 16.5,
+            "row": 16.5
+          },
+          "slimePosition": {
+            "col": 20.923015398211046,
+            "row": 15.45431860459482
+          }
+        }
+      },
+      {
+        "elapsedMs": 90501.70000000298,
+        "build": "development",
+        "clock": "performance.now between Phaser poststep events",
+        "frames": {
+          "samples": 1830,
+          "sampledMs": 30481.39999999106,
+          "meanMs": 16.656502732235552,
+          "p95Ms": 16.900000005960464,
+          "meanFPS": 60.036612491569834,
+          "p5FPS": 59.17159761226685,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 17.700000002980232
+        },
+        "ai": {
+          "samples": 1831,
+          "sampledMs": 26.700000032782555,
+          "meanMs": 0.014582195539477092,
+          "p95Ms": 0.10000000894069672,
+          "meanFPS": 68576.7789420179,
+          "p5FPS": 9999.999105930408,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 0.20000000298023224
+        },
+        "excludedDiscontinuities": 0,
+        "heapBytes": 26840642,
+        "objects": {
+          "total": 20,
+          "slimes": 1,
+          "obstacles": 9
+        },
+        "listeners": {
+          "shutdown": 22,
+          "keydown": 1,
+          "keyup": 1,
+          "resize": 4,
+          "poststep": 2
+        },
+        "overlays": {
+          "touch-controls": 1,
+          "camera-controls": 1,
+          "combat-hud": 1,
+          "performance-overlay": 1
+        },
+        "state": {
+          "monsterMode": "CHASE",
+          "playerHP": 5,
+          "slimeHP": 3,
+          "activation": 0,
+          "playerPosition": {
+            "col": 4.1,
+            "row": 7.5
+          },
+          "slimePosition": {
+            "col": 5.36269426478806,
+            "row": 6.7288428920199
+          }
+        }
+      },
+      {
+        "elapsedMs": 120502.79999999702,
+        "build": "development",
+        "clock": "performance.now between Phaser poststep events",
+        "frames": {
+          "samples": 1800,
+          "sampledMs": 29981.40000000596,
+          "meanMs": 16.656333333336644,
+          "p95Ms": 16.900000005960464,
+          "meanFPS": 60.03722307829661,
+          "p5FPS": 59.17159761226685,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 24.299999997019768
+        },
+        "ai": {
+          "samples": 1800,
+          "sampledMs": 18.999999940395355,
+          "meanMs": 0.010555555522441864,
+          "p95Ms": 0.09999999403953552,
+          "meanFPS": 94736.84240246084,
+          "p5FPS": 10000.000596046484,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 0.29999999701976776
+        },
+        "excludedDiscontinuities": 0,
+        "heapBytes": 24543429,
+        "objects": {
+          "total": 20,
+          "slimes": 1,
+          "obstacles": 9
+        },
+        "listeners": {
+          "shutdown": 22,
+          "keydown": 1,
+          "keyup": 1,
+          "resize": 4,
+          "poststep": 2
+        },
+        "overlays": {
+          "touch-controls": 1,
+          "camera-controls": 1,
+          "combat-hud": 1,
+          "performance-overlay": 1
+        },
+        "state": {
+          "monsterMode": "IDLE",
+          "playerHP": 5,
+          "slimeHP": 3,
+          "activation": 0,
+          "playerPosition": {
+            "col": 4,
+            "row": 4
+          },
+          "slimePosition": {
+            "col": 24,
+            "row": 16.5
+          }
+        }
+      },
+      {
+        "elapsedMs": 151002.20000000298,
+        "build": "development",
+        "clock": "performance.now between Phaser poststep events",
+        "frames": {
+          "samples": 1830,
+          "sampledMs": 30481.20000000298,
+          "meanMs": 16.65639344262458,
+          "p95Ms": 17.100000008940697,
+          "meanFPS": 60.037006417064326,
+          "p5FPS": 58.4795321331668,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 19.599999994039536
+        },
+        "ai": {
+          "samples": 1831,
+          "sampledMs": 21.599999770522118,
+          "meanMs": 0.01179683220672972,
+          "p95Ms": 0.09999999403953552,
+          "meanFPS": 84768.51941909724,
+          "p5FPS": 10000.000596046484,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 0.20000000298023224
+        },
+        "excludedDiscontinuities": 0,
+        "heapBytes": 25757873,
+        "objects": {
+          "total": 20,
+          "slimes": 1,
+          "obstacles": 9
+        },
+        "listeners": {
+          "shutdown": 22,
+          "keydown": 1,
+          "keyup": 1,
+          "resize": 4,
+          "poststep": 2
+        },
+        "overlays": {
+          "touch-controls": 1,
+          "camera-controls": 1,
+          "combat-hud": 1,
+          "performance-overlay": 1
+        },
+        "state": {
+          "monsterMode": "CHASE",
+          "playerHP": 5,
+          "slimeHP": 3,
+          "activation": 0,
+          "playerPosition": {
+            "col": 4.1,
+            "row": 7.5
+          },
+          "slimePosition": {
+            "col": 4.870324000000004,
+            "row": 6.5
+          }
+        }
+      },
+      {
+        "elapsedMs": 181002.40000000596,
+        "build": "development",
+        "clock": "performance.now between Phaser poststep events",
+        "frames": {
+          "samples": 1799,
+          "sampledMs": 29964.79999999702,
+          "meanMs": 16.656364647024468,
+          "p95Ms": 17,
+          "meanFPS": 60.03711020931823,
+          "p5FPS": 58.8235294117647,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 23.200000002980232
+        },
+        "ai": {
+          "samples": 1800,
+          "sampledMs": 27.60000006854534,
+          "meanMs": 0.01533333337141408,
+          "p95Ms": 0.10000000894069672,
+          "meanFPS": 65217.391142378685,
+          "p5FPS": 9999.999105930408,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 0.7000000029802322
+        },
+        "excludedDiscontinuities": 1,
+        "heapBytes": 24873444,
+        "objects": {
+          "total": 20,
+          "slimes": 1,
+          "obstacles": 9
+        },
+        "listeners": {
+          "shutdown": 22,
+          "keydown": 1,
+          "keyup": 1,
+          "resize": 4,
+          "poststep": 2
+        },
+        "overlays": {
+          "touch-controls": 1,
+          "camera-controls": 1,
+          "combat-hud": 1,
+          "performance-overlay": 1
+        },
+        "state": {
+          "monsterMode": "IDLE",
+          "playerHP": 5,
+          "slimeHP": 3,
+          "activation": 0,
+          "playerPosition": {
+            "col": 4,
+            "row": 4
+          },
+          "slimePosition": {
+            "col": 24,
+            "row": 16.5
+          }
+        }
+      },
+      {
+        "elapsedMs": 211010.5,
+        "build": "development",
+        "clock": "performance.now between Phaser poststep events",
+        "frames": {
+          "samples": 1801,
+          "sampledMs": 29997.89999999106,
+          "meanMs": 16.656246529700756,
+          "p95Ms": 17.100000008940697,
+          "meanFPS": 60.03753596086849,
+          "p5FPS": 58.4795321331668,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 18.200000002980232
+        },
+        "ai": {
+          "samples": 1802,
+          "sampledMs": 34.59999996423721,
+          "meanMs": 0.01920088788248458,
+          "p95Ms": 0.10000000894069672,
+          "meanFPS": 52080.924909322515,
+          "p5FPS": 9999.999105930408,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 0.7000000029802322
+        },
+        "excludedDiscontinuities": 0,
+        "heapBytes": 24481825,
+        "objects": {
+          "total": 20,
+          "slimes": 1,
+          "obstacles": 9
+        },
+        "listeners": {
+          "shutdown": 22,
+          "keydown": 1,
+          "keyup": 1,
+          "resize": 4,
+          "poststep": 2
+        },
+        "overlays": {
+          "touch-controls": 1,
+          "camera-controls": 1,
+          "combat-hud": 1,
+          "performance-overlay": 1
+        },
+        "state": {
+          "monsterMode": "CHASE",
+          "playerHP": 5,
+          "slimeHP": 3,
+          "activation": 0,
+          "playerPosition": {
+            "col": 4.1,
+            "row": 7.5
+          },
+          "slimePosition": {
+            "col": 4.840570000000005,
+            "row": 6.5
+          }
+        }
+      },
+      {
+        "elapsedMs": 241504.5,
+        "build": "development",
+        "clock": "performance.now between Phaser poststep events",
+        "frames": {
+          "samples": 1829,
+          "sampledMs": 30465.10000000894,
+          "meanMs": 16.656697648993408,
+          "p95Ms": 17,
+          "meanFPS": 60.03590994283502,
+          "p5FPS": 58.8235294117647,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 24.200000002980232
+        },
+        "ai": {
+          "samples": 1829,
+          "sampledMs": 22.399999916553497,
+          "meanMs": 0.012247129533380807,
+          "p95Ms": 0.09999999403953552,
+          "meanFPS": 81651.78601846233,
+          "p5FPS": 10000.000596046484,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 0.20000000298023224
+        },
+        "excludedDiscontinuities": 0,
+        "heapBytes": 27681943,
+        "objects": {
+          "total": 20,
+          "slimes": 1,
+          "obstacles": 9
+        },
+        "listeners": {
+          "shutdown": 22,
+          "keydown": 1,
+          "keyup": 1,
+          "resize": 4,
+          "poststep": 2
+        },
+        "overlays": {
+          "touch-controls": 1,
+          "camera-controls": 1,
+          "combat-hud": 1,
+          "performance-overlay": 1
+        },
+        "state": {
+          "monsterMode": "IDLE",
+          "playerHP": 5,
+          "slimeHP": 3,
+          "activation": 0,
+          "playerPosition": {
+            "col": 4,
+            "row": 4
+          },
+          "slimePosition": {
+            "col": 24,
+            "row": 16.5
+          }
+        }
+      },
+      {
+        "elapsedMs": 272003,
+        "build": "development",
+        "clock": "performance.now between Phaser poststep events",
+        "frames": {
+          "samples": 1830,
+          "sampledMs": 30481.20000000298,
+          "meanMs": 16.65639344262458,
+          "p95Ms": 17,
+          "meanFPS": 60.037006417064326,
+          "p5FPS": 58.8235294117647,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 18.599999994039536
+        },
+        "ai": {
+          "samples": 1831,
+          "sampledMs": 32.09999993443489,
+          "meanMs": 0.017531403568779295,
+          "p95Ms": 0.10000000894069672,
+          "meanFPS": 57040.498558874344,
+          "p5FPS": 9999.999105930408,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 0.699999988079071
+        },
+        "excludedDiscontinuities": 0,
+        "heapBytes": 22392197,
+        "objects": {
+          "total": 20,
+          "slimes": 1,
+          "obstacles": 9
+        },
+        "listeners": {
+          "shutdown": 22,
+          "keydown": 1,
+          "keyup": 1,
+          "resize": 4,
+          "poststep": 2
+        },
+        "overlays": {
+          "touch-controls": 1,
+          "camera-controls": 1,
+          "combat-hud": 1,
+          "performance-overlay": 1
+        },
+        "state": {
+          "monsterMode": "CHASE",
+          "playerHP": 4,
+          "slimeHP": 3,
+          "activation": 0,
+          "playerPosition": {
+            "col": 4.1,
+            "row": 7.5
+          },
+          "slimePosition": {
+            "col": 3.746483313367911,
+            "row": 6.889218466963922
+          }
+        }
+      },
+      {
+        "elapsedMs": 302002.5,
+        "build": "development",
+        "clock": "performance.now between Phaser poststep events",
+        "frames": {
+          "samples": 1800,
+          "sampledMs": 29981.29999999702,
+          "meanMs": 16.656277777776122,
+          "p95Ms": 17,
+          "meanFPS": 60.03742332721326,
+          "p5FPS": 58.8235294117647,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 26.900000005960464
+        },
+        "ai": {
+          "samples": 1800,
+          "sampledMs": 20.600000098347664,
+          "meanMs": 0.011444444499082036,
+          "p95Ms": 0.09999999403953552,
+          "meanFPS": 87378.64035953955,
+          "p5FPS": 10000.000596046484,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 0.20000000298023224
+        },
+        "excludedDiscontinuities": 0,
+        "heapBytes": 29075446,
+        "objects": {
+          "total": 20,
+          "slimes": 1,
+          "obstacles": 9
+        },
+        "listeners": {
+          "shutdown": 22,
+          "keydown": 1,
+          "keyup": 1,
+          "resize": 4,
+          "poststep": 2
+        },
+        "overlays": {
+          "touch-controls": 1,
+          "camera-controls": 1,
+          "combat-hud": 1,
+          "performance-overlay": 1
+        },
+        "state": {
+          "monsterMode": "IDLE",
+          "playerHP": 5,
+          "slimeHP": 3,
+          "activation": 0,
+          "playerPosition": {
+            "col": 4,
+            "row": 4
+          },
+          "slimePosition": {
+            "col": 24,
+            "row": 16.5
+          }
+        }
+      },
+      {
+        "elapsedMs": 332502,
+        "build": "development",
+        "clock": "performance.now between Phaser poststep events",
+        "frames": {
+          "samples": 1831,
+          "sampledMs": 30496.79999999702,
+          "meanMs": 16.65581649371765,
+          "p95Ms": 17.099999994039536,
+          "meanFPS": 60.03908606805235,
+          "p5FPS": 58.47953218412662,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 17.899999991059303
+        },
+        "ai": {
+          "samples": 1832,
+          "sampledMs": 29.59999993443489,
+          "meanMs": 0.016157205204385856,
+          "p95Ms": 0.10000000894069672,
+          "meanFPS": 61891.89202898475,
+          "p5FPS": 9999.999105930408,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 0.7999999970197678
+        },
+        "excludedDiscontinuities": 0,
+        "heapBytes": 23477174,
+        "objects": {
+          "total": 20,
+          "slimes": 1,
+          "obstacles": 9
+        },
+        "listeners": {
+          "shutdown": 22,
+          "keydown": 1,
+          "keyup": 1,
+          "resize": 4,
+          "poststep": 2
+        },
+        "overlays": {
+          "touch-controls": 1,
+          "camera-controls": 1,
+          "combat-hud": 1,
+          "performance-overlay": 1
+        },
+        "state": {
+          "monsterMode": "CHASE",
+          "playerHP": 4,
+          "slimeHP": 3,
+          "activation": 0,
+          "playerPosition": {
+            "col": 4.1,
+            "row": 7.5
+          },
+          "slimePosition": {
+            "col": 4.091990276196145,
+            "row": 7.486154036377842
+          }
+        }
+      },
+      {
+        "elapsedMs": 362502.299999997,
+        "build": "development",
+        "clock": "performance.now between Phaser poststep events",
+        "frames": {
+          "samples": 1800,
+          "sampledMs": 29981.5,
+          "meanMs": 16.656388888888888,
+          "p95Ms": 16.900000005960464,
+          "meanFPS": 60.03702283074563,
+          "p5FPS": 59.17159761226685,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 26.200000002980232
+        },
+        "ai": {
+          "samples": 1800,
+          "sampledMs": 18.200000002980232,
+          "meanMs": 0.010111111112766795,
+          "p95Ms": 0.09999999403953552,
+          "meanFPS": 98901.09888490394,
+          "p5FPS": 10000.000596046484,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 0.20000000298023224
+        },
+        "excludedDiscontinuities": 0,
+        "heapBytes": 23274659,
+        "objects": {
+          "total": 20,
+          "slimes": 1,
+          "obstacles": 9
+        },
+        "listeners": {
+          "shutdown": 22,
+          "keydown": 1,
+          "keyup": 1,
+          "resize": 4,
+          "poststep": 2
+        },
+        "overlays": {
+          "touch-controls": 1,
+          "camera-controls": 1,
+          "combat-hud": 1,
+          "performance-overlay": 1
+        },
+        "state": {
+          "monsterMode": "IDLE",
+          "playerHP": 5,
+          "slimeHP": 3,
+          "activation": 0,
+          "playerPosition": {
+            "col": 4,
+            "row": 4
+          },
+          "slimePosition": {
+            "col": 24,
+            "row": 16.5
+          }
+        }
+      },
+      {
+        "elapsedMs": 393001.299999997,
+        "build": "development",
+        "clock": "performance.now between Phaser poststep events",
+        "frames": {
+          "samples": 1830,
+          "sampledMs": 30481.20000000298,
+          "meanMs": 16.65639344262458,
+          "p95Ms": 17,
+          "meanFPS": 60.037006417064326,
+          "p5FPS": 58.8235294117647,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 21.5
+        },
+        "ai": {
+          "samples": 1831,
+          "sampledMs": 26.800000086426735,
+          "meanMs": 0.014636810533275115,
+          "p95Ms": 0.10000000894069672,
+          "meanFPS": 68320.8953020615,
+          "p5FPS": 9999.999105930408,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 0.5
+        },
+        "excludedDiscontinuities": 0,
+        "heapBytes": 24998595,
+        "objects": {
+          "total": 20,
+          "slimes": 1,
+          "obstacles": 9
+        },
+        "listeners": {
+          "shutdown": 22,
+          "keydown": 1,
+          "keyup": 1,
+          "resize": 4,
+          "poststep": 2
+        },
+        "overlays": {
+          "touch-controls": 1,
+          "camera-controls": 1,
+          "combat-hud": 1,
+          "performance-overlay": 1
+        },
+        "state": {
+          "monsterMode": "CHASE",
+          "playerHP": 4,
+          "slimeHP": 3,
+          "activation": 0,
+          "playerPosition": {
+            "col": 4.1,
+            "row": 7.5
+          },
+          "slimePosition": {
+            "col": 4.0919326763062855,
+            "row": 7.48606227290776
+          }
+        }
+      },
+      {
+        "elapsedMs": 423003.10000000894,
+        "build": "development",
+        "clock": "performance.now between Phaser poststep events",
+        "frames": {
+          "samples": 1800,
+          "sampledMs": 29981.5,
+          "meanMs": 16.656388888888888,
+          "p95Ms": 16.799999997019768,
+          "meanFPS": 60.03702283074563,
+          "p5FPS": 59.52380953436874,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 21.100000008940697
+        },
+        "ai": {
+          "samples": 1800,
+          "sampledMs": 20.19999998807907,
+          "meanMs": 0.011222222215599483,
+          "p95Ms": 0.09999999403953552,
+          "meanFPS": 89108.91094367628,
+          "p5FPS": 10000.000596046484,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 0.20000000298023224
+        },
+        "excludedDiscontinuities": 0,
+        "heapBytes": 22139941,
+        "objects": {
+          "total": 20,
+          "slimes": 1,
+          "obstacles": 9
+        },
+        "listeners": {
+          "shutdown": 22,
+          "keydown": 1,
+          "keyup": 1,
+          "resize": 4,
+          "poststep": 2
+        },
+        "overlays": {
+          "touch-controls": 1,
+          "camera-controls": 1,
+          "combat-hud": 1,
+          "performance-overlay": 1
+        },
+        "state": {
+          "monsterMode": "WANDER",
+          "playerHP": 5,
+          "slimeHP": 3,
+          "activation": 0,
+          "playerPosition": {
+            "col": 4,
+            "row": 4
+          },
+          "slimePosition": {
+            "col": 23.766781337947524,
+            "row": 16.345355233213496
+          }
+        }
+      },
+      {
+        "elapsedMs": 453502.299999997,
+        "build": "development",
+        "clock": "performance.now between Phaser poststep events",
+        "frames": {
+          "samples": 1830,
+          "sampledMs": 30481.10000000894,
+          "meanMs": 16.656338797819092,
+          "p95Ms": 16.799999997019768,
+          "meanFPS": 60.03720338175011,
+          "p5FPS": 59.52380953436874,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 17.5
+        },
+        "ai": {
+          "samples": 1831,
+          "sampledMs": 18.59999991953373,
+          "meanMs": 0.010158383353104167,
+          "p95Ms": 0.09999999403953552,
+          "meanFPS": 98440.86064092306,
+          "p5FPS": 10000.000596046484,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 0.4000000059604645
+        },
+        "excludedDiscontinuities": 0,
+        "heapBytes": 24913632,
+        "objects": {
+          "total": 20,
+          "slimes": 1,
+          "obstacles": 9
+        },
+        "listeners": {
+          "shutdown": 22,
+          "keydown": 1,
+          "keyup": 1,
+          "resize": 4,
+          "poststep": 2
+        },
+        "overlays": {
+          "touch-controls": 1,
+          "camera-controls": 1,
+          "combat-hud": 1,
+          "performance-overlay": 1
+        },
+        "state": {
+          "monsterMode": "CHASE",
+          "playerHP": 3,
+          "slimeHP": 3,
+          "activation": 0,
+          "playerPosition": {
+            "col": 4.1,
+            "row": 7.5
+          },
+          "slimePosition": {
+            "col": 4.091915035745326,
+            "row": 7.486030926896289
+          }
+        }
+      },
+      {
+        "elapsedMs": 484003.40000000596,
+        "build": "development",
+        "clock": "performance.now between Phaser poststep events",
+        "frames": {
+          "samples": 1830,
+          "sampledMs": 30481.10000000894,
+          "meanMs": 16.656338797819092,
+          "p95Ms": 16.799999997019768,
+          "meanFPS": 60.03720338175011,
+          "p5FPS": 59.52380953436874,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 21.5
+        },
+        "ai": {
+          "samples": 1830,
+          "sampledMs": 12.59999993443489,
+          "meanMs": 0.0068852458658114155,
+          "p95Ms": 0.09999999403953552,
+          "meanFPS": 145238.0959938533,
+          "p5FPS": 10000.000596046484,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 0.20000000298023224
+        },
+        "excludedDiscontinuities": 0,
+        "heapBytes": 27129901,
+        "objects": {
+          "total": 20,
+          "slimes": 1,
+          "obstacles": 9
+        },
+        "listeners": {
+          "shutdown": 22,
+          "keydown": 1,
+          "keyup": 1,
+          "resize": 4,
+          "poststep": 2
+        },
+        "overlays": {
+          "touch-controls": 1,
+          "camera-controls": 1,
+          "combat-hud": 1,
+          "performance-overlay": 1
+        },
+        "state": {
+          "monsterMode": "WANDER",
+          "playerHP": 5,
+          "slimeHP": 3,
+          "activation": 0,
+          "playerPosition": {
+            "col": 4,
+            "row": 4
+          },
+          "slimePosition": {
+            "col": 23.100455638293433,
+            "row": 15.903521884544013
+          }
+        }
+      },
+      {
+        "elapsedMs": 514501.90000000596,
+        "build": "development",
+        "clock": "performance.now between Phaser poststep events",
+        "frames": {
+          "samples": 1830,
+          "sampledMs": 30481.29999999702,
+          "meanMs": 16.656448087430064,
+          "p95Ms": 16.900000005960464,
+          "meanFPS": 60.036809453670905,
+          "p5FPS": 59.17159761226685,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 17.700000002980232
+        },
+        "ai": {
+          "samples": 1831,
+          "sampledMs": 20.599999949336052,
+          "meanMs": 0.011250682659386156,
+          "p95Ms": 0.09999999403953552,
+          "meanFPS": 88883.49536423247,
+          "p5FPS": 10000.000596046484,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 1.2999999970197678
+        },
+        "excludedDiscontinuities": 0,
+        "heapBytes": 24747428,
+        "objects": {
+          "total": 20,
+          "slimes": 1,
+          "obstacles": 9
+        },
+        "listeners": {
+          "shutdown": 22,
+          "keydown": 1,
+          "keyup": 1,
+          "resize": 4,
+          "poststep": 2
+        },
+        "overlays": {
+          "touch-controls": 1,
+          "camera-controls": 1,
+          "combat-hud": 1,
+          "performance-overlay": 1
+        },
+        "state": {
+          "monsterMode": "CHASE",
+          "playerHP": 2,
+          "slimeHP": 3,
+          "activation": 0,
+          "playerPosition": {
+            "col": 4.1,
+            "row": 7.5
+          },
+          "slimePosition": {
+            "col": 4.091720170396824,
+            "row": 7.48569646584326
+          }
+        }
+      },
+      {
+        "elapsedMs": 544504.299999997,
+        "build": "development",
+        "clock": "performance.now between Phaser poststep events",
+        "frames": {
+          "samples": 1800,
+          "sampledMs": 29982.19999998808,
+          "meanMs": 16.656777777771154,
+          "p95Ms": 17,
+          "meanFPS": 60.03562113523076,
+          "p5FPS": 58.8235294117647,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 23.099999994039536
+        },
+        "ai": {
+          "samples": 1800,
+          "sampledMs": 19.999999836087227,
+          "meanMs": 0.01111111102004846,
+          "p95Ms": 0.09999999403953552,
+          "meanFPS": 90000.00073760748,
+          "p5FPS": 10000.000596046484,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 0.7999999970197678
+        },
+        "excludedDiscontinuities": 0,
+        "heapBytes": 25446065,
+        "objects": {
+          "total": 20,
+          "slimes": 1,
+          "obstacles": 9
+        },
+        "listeners": {
+          "shutdown": 22,
+          "keydown": 1,
+          "keyup": 1,
+          "resize": 4,
+          "poststep": 2
+        },
+        "overlays": {
+          "touch-controls": 1,
+          "camera-controls": 1,
+          "combat-hud": 1,
+          "performance-overlay": 1
+        },
+        "state": {
+          "monsterMode": "WANDER",
+          "playerHP": 5,
+          "slimeHP": 3,
+          "activation": 0,
+          "playerPosition": {
+            "col": 4,
+            "row": 4
+          },
+          "slimePosition": {
+            "col": 22.767272786294043,
+            "row": 15.682591946985607
+          }
+        }
+      },
+      {
+        "elapsedMs": 574503.6000000089,
+        "build": "development",
+        "clock": "performance.now between Phaser poststep events",
+        "frames": {
+          "samples": 1801,
+          "sampledMs": 29994.79999999702,
+          "meanMs": 16.65452526374071,
+          "p95Ms": 16.900000005960464,
+          "meanFPS": 60.043740915097914,
+          "p5FPS": 59.17159761226685,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 17.600000008940697
+        },
+        "ai": {
+          "samples": 1802,
+          "sampledMs": 22.299999833106995,
+          "meanMs": 0.012375138642123749,
+          "p95Ms": 0.09999999403953552,
+          "meanFPS": 80807.17549265258,
+          "p5FPS": 10000.000596046484,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 0.7000000029802322
+        },
+        "excludedDiscontinuities": 0,
+        "heapBytes": 27643945,
+        "objects": {
+          "total": 20,
+          "slimes": 1,
+          "obstacles": 9
+        },
+        "listeners": {
+          "shutdown": 22,
+          "keydown": 1,
+          "keyup": 1,
+          "resize": 4,
+          "poststep": 2
+        },
+        "overlays": {
+          "touch-controls": 1,
+          "camera-controls": 1,
+          "combat-hud": 1,
+          "performance-overlay": 1
+        },
+        "state": {
+          "monsterMode": "CHASE",
+          "playerHP": 2,
+          "slimeHP": 3,
+          "activation": 0,
+          "playerPosition": {
+            "col": 4.1,
+            "row": 7.5
+          },
+          "slimePosition": {
+            "col": 4.091860143208177,
+            "row": 7.485937833780505
+          }
+        }
+      },
+      {
+        "elapsedMs": 600002.1000000089,
+        "build": "development",
+        "clock": "performance.now between Phaser poststep events",
+        "frames": {
+          "samples": 1530,
+          "sampledMs": 25483.70000000298,
+          "meanMs": 16.656013071897373,
+          "p95Ms": 17,
+          "meanFPS": 60.03837747265197,
+          "p5FPS": 58.8235294117647,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 22.299999997019768
+        },
+        "ai": {
+          "samples": 1530,
+          "sampledMs": 15.299999997019768,
+          "meanMs": 0.009999999998052136,
+          "p95Ms": 0.09999999403953552,
+          "meanFPS": 100000.00001947864,
+          "p5FPS": 10000.000596046484,
+          "over33_3ms": 0,
+          "over50ms": 0,
+          "maxMs": 0.5
+        },
+        "excludedDiscontinuities": 0,
+        "heapBytes": 24972933,
+        "objects": {
+          "total": 20,
+          "slimes": 1,
+          "obstacles": 9
+        },
+        "listeners": {
+          "shutdown": 22,
+          "keydown": 1,
+          "keyup": 1,
+          "resize": 4,
+          "poststep": 2
+        },
+        "overlays": {
+          "touch-controls": 1,
+          "camera-controls": 1,
+          "combat-hud": 1,
+          "performance-overlay": 1
+        },
+        "state": {
+          "monsterMode": "WANDER",
+          "playerHP": 5,
+          "slimeHP": 3,
+          "activation": 0,
+          "playerPosition": {
+            "col": 16.5,
+            "row": 16.5
+          },
+          "slimePosition": {
+            "col": 20.92300873082026,
+            "row": 15.454314183520264
+          }
+        }
+      }
+    ],
+    "errors": [],
+    "httpErrors": [],
+    "scenarios": {
+      "0": 10,
+      "1": 10,
+      "2": 10,
+      "3": 10,
+      "4": 10,
+      "5": 10
+    },
+    "completed": true,
+    "elapsedMs": 600001.5,
+    "baseline": {
+      "build": "development",
+      "clock": "performance.now between Phaser poststep events",
+      "frames": {
+        "samples": 117,
+        "sampledMs": 1949,
+        "meanMs": 16.65811965811966,
+        "p95Ms": 17.400000005960464,
+        "meanFPS": 60.030785017957925,
+        "p5FPS": 57.471264348129,
+        "over33_3ms": 0,
+        "over50ms": 0,
+        "maxMs": 23
+      },
+      "ai": {
+        "samples": 118,
+        "sampledMs": 0.9000000357627869,
+        "meanMs": 0.007627118947142262,
+        "p95Ms": 0.10000000894069672,
+        "meanFPS": 131111.10590122384,
+        "p5FPS": 9999.999105930408,
+        "over33_3ms": 0,
+        "over50ms": 0,
+        "maxMs": 0.10000000894069672
+      },
+      "excludedDiscontinuities": 0,
+      "heapBytes": 27069050,
+      "objects": {
+        "total": 20,
+        "slimes": 1,
+        "obstacles": 9
+      },
+      "listeners": {
+        "shutdown": 22,
+        "keydown": 1,
+        "keyup": 1,
+        "resize": 4,
+        "poststep": 2
+      },
+      "overlays": {
+        "touch-controls": 1,
+        "camera-controls": 1,
+        "combat-hud": 1,
+        "performance-overlay": 1
+      }
+    }
+  },
+  "observation": {
+    "samples": 5598,
+    "modes": {
+      "CHASE": 2313,
+      "RETURN": 719,
+      "IDLE": 1256,
+      "WANDER": 902,
+      "HIT": 168,
+      "DEAD": 240
+    },
+    "knockouts": 21,
+    "recoveries": 21,
+    "deaths": 24,
+    "errors": []
+  }
+}
