@@ -21,7 +21,7 @@
 | FDS-010 | 5h | 005,009 | **PASS local/browser emulation** — one Green Slime, seeded FSM, bounded navigation and HIT/DEAD hooks; [verification](../docs/MONSTER-AI.md); real-device QA unverified |
 | FDS-011 | 4h | 006,007,010 | **PASS local/browser emulation** — Space/Attack, directional damage, melee, HP, knockout/recovery; [verification](../docs/COMBAT.md); real-device QA unverified |
 | FDS-012 | 4h | 007-011 | **PASS** — owner Chrome 157/Windows 11 Pro 10-minute gameplay and physical Alt-Tab PASS; iPhone Safari QA PASS, FIX-001/002 CLOSED; last regression 351 tests PASS; production Electron 600s / 60.037 FPS mean; Chrome-specific FPS NOT MEASURED; [QA evidence](../docs/PERFORMANCE-QA.md) |
-| FDS-013 | 3h | 012 | CI green, remove blockers, playable README, screenshots/test evidence and ADR outcome |
+| FDS-013 | 3h | 012 | **PARTIAL** — final review, architecture/debt/risk/license/security review, playable README, test evidence, ADR outcome and Sprint 2 draft complete; fresh local install/lint/typecheck/351 tests/build PASS; explicit hosted CI-green gate NOT VERIFIED; [final report](../docs/SPRINT-01-FINAL-REPORT.md) |
 
 **Total:** 52 focused hours, excluding uncertainty/asset rework.
 
@@ -209,6 +209,39 @@ FDS-012 is accepted below. No FDS-013 work.
   unreliable; layout was checked with CSS measurements. No FDS-008+ work.
 
 ## Acceptance gates
+
+### FDS-013 final review — 2026-11-07: PARTIAL
+
+FDS-001–012 remain accepted PASS in their recorded scopes. The final review is
+complete, with **351 tests in 23 files** passing in the freshly executed local
+regression. Frozen install (approved retry after store-lock sandbox denial),
+lint, typecheck, production build and whitespace checks pass. Production smoke
+loads the map/assets, Space feedback and Zoom+ with no captured JS/HTTP errors;
+DEV profiler is absent. The integrated browser restores a tiny viewport, so a
+later Recover/screenshot attempt is NOT VERIFIED; it does not replace accepted
+owner device QA. No new 10-minute benchmark or real-device test is claimed.
+
+The ticket requires CI green: local commands and workflow review pass, but no
+successful hosted run has been verified. **Do not mark FDS-013 or all 13 tasks
+PASS until a matching green workflow URL/revision is recorded.** Conditional GO
+for scoped Sprint 2 domain/state planning; verify cloud CI before implementation
+merge. No Beta 1.0 or commercial-release approval. See the
+[acceptance matrix, open gates, debt and proposed backlog](../docs/SPRINT-01-FINAL-REPORT.md).
+
+FIX-001/002 stay CLOSED. Owner Chrome 157/Windows 11 Pro 10-minute gameplay and
+physical Alt-Tab PASS is separate from owner iPhone Safari QA and agent production
+Electron 600s / 60.037 FPS. Numeric Chrome/phone FPS is NOT MEASURED; original
+gate 8 is accepted only with the explicitly recorded FDS-012 measurement limit.
+Historical checklists below are not all checked: actor-to-actor collision,
+hosted CI and operator network policy are not certified by prototype acceptance.
+
+Git was clean at fe67496; prior FDS-009–012 changes are committed in history.
+This task changes review documentation only; no runtime refactor, dependency,
+commit/push or Sprint 2 implementation. Owner checkpoint instructions are in the
+final report. Historical ticket sections above retain their task-time status;
+this section and the final report describe the current FDS-013 disposition.
+
+### Original Sprint-wide gates (retain measurement limitations above)
 1. 32×32 diamond isometric scene loads correctly and can be explored.
 2. PC WASD and landscape touch joystick move player; diagonal speed is normalized.
 3. Camera tracks player, including at bounds and after resize/zoom.

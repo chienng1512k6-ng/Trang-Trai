@@ -1,7 +1,10 @@
 # FARM DEVELOPMENT — DESIGN PACK V1.0
 
-Status: Sprint 1 foundation and development quality tooling. The client currently
-renders a 32x32 isometric prototype map and an animated placeholder player.
+Status: playable Sprint 1 technical prototype; FDS-001–012 accepted PASS.
+[Final Sprint review](docs/SPRINT-01-FINAL-REPORT.md) records FDS-013 PARTIAL
+pending verified hosted CI, technical debt and a conditional GO for a small
+Sprint 2. This is not Beta 1.0 or a persistent/server-authoritative game.
+The client renders a 32x32 isometric map and an animated placeholder player.
 PC WASD moves the player in screen directions, with obstacle collision and sliding.
 See [PC keyboard controls](docs/PC-KEYBOARD-CONTROLS.md) for mapping and focus rules.
 Landscape touch/hybrid devices can use the virtual joystick and Attack button.
@@ -42,6 +45,24 @@ generated output and node_modules, and treats warnings as failures. Unit tests
 use Vitest in one-shot mode: failed assertions return a nonzero exit code.
 The bootstrap tests mock Phaser to run without a browser or WebGL; they do not
 replace browser rendering tests. Production output is in apps/game/dist.
+
+To play a production build locally after build succeeds:
+
+```powershell
+pnpm.cmd --dir apps/game exec vite preview --host 127.0.0.1 --port 8082 --strictPort
+```
+
+Open http://127.0.0.1:8082/. Move with WASD or the joystick; face the Slime and
+press Space/ATTACK to strike. Release and press again after the cooldown; holding
+does not auto-attack. Use +/- or the canvas wheel for camera zoom. At zero HP,
+select Recover at safe spawn. Reload resets the local prototype, including Slime.
+There is no account, saved inventory or persistent progress. On mobile rotate to
+landscape. Physical iPhone Safari functional QA and independent Chrome desktop
+QA passed according to the owner; numeric phone/Chrome FPS is not measured.
+
+The app-local README is retained upstream template documentation; use this root
+README and the lockfile for current pnpm commands/versions. No telemetry utility
+is invoked by the default dev/build scripts.
 
 ## CI results
 
