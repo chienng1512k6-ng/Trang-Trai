@@ -1,7 +1,8 @@
 # Sprint 2 — State and authority foundations
 
-Scope is intentionally small; owner authorizes **FDS2-001 only** at this time.
-No Sprint 2 gameplay/economy/backend/save system is implied by these contracts.
+Scope is intentionally small; FDS2-001 is complete and the owner now authorizes
+**FDS2-002 only**. No gameplay/economy/backend/autosave system is implied by the
+explicit envelope storage seam. FDS2-003 remains unapproved.
 Follow [AGENTS](../AGENTS.md), [GDD](../docs/GDD-V1.0.md),
 [architecture](../docs/ARCHITECTURE.md) and
 [Sprint 1 final review](../docs/SPRINT-01-FINAL-REPORT.md).
@@ -21,7 +22,7 @@ own CI; baseline green does not certify new uncommitted code.
 | ID | Depends on | Scope / acceptance | Status |
 |---|---|---|---|
 | FDS2-001 — Game State & Authority Contract | Sprint 1 checkpoint + green CI | Pure schema/identity/logical-time/metadata contract, strict validation, explicit command/result/reference transition, authority matrix and meaningful tests; protect existing runtime; all quality checks pass | **PASS local — 2026-11-07** |
-| FDS2-002 — Persistence Architecture | 001 | Draft: design versioned snapshot validation/migration and persistence seam; decide explicit untrusted local vs authoritative service boundaries before implementation; no backend by assumption | DRAFT / NOT AUTHORIZED |
+| FDS2-002 — Persistence Architecture & Storage Adapter | 001 + its CI green | Explicit envelope JSON codec, validated load/save/remove, in-memory/localStorage adapters, namespace/revision/schema/error policy, tests and documented authority/concurrency limits; no autosave/migration engine/backend | **PASS local / embedded-browser — 2026-11-07** |
 | FDS2-003 — Item & Inventory Rules | 001, approved 002 | Draft: item definitions, integer quantities/capacity, atomic add/remove and replay rules; no shop/loot/currency rewards by assumption | DRAFT / NOT AUTHORIZED |
 
 Currency, farming/growth/harvest, shop, land expansion and building/construction
@@ -76,5 +77,53 @@ schema migration or offline engine was tested/implemented. Owner matching in an
 untrusted local caller is not a security guarantee. New-code hosted CI remains
 unverified until an owner-authorized commit/push; baseline CI evidence is separate.
 
-**FDS2-001 PASS for the contract scope.** FDS2-002/003 remain draft and require
-separate authorization. No real-device/production behavior change is claimed.
+**FDS2-001 PASS for the contract scope.** The results above are its historical
+acceptance. FDS2-002 was subsequently authorized and is recorded below;
+FDS2-003 still requires separate authorization. No real-device/production behavior
+change is claimed by FDS2-001.
+
+## FDS2-002 acceptance — 2026-11-07
+
+Entry: clean main at `7fddbaacfbdb4d9c3ff847b4fd9150a47e670776`, containing FDS2-001.
+Codex verified Development Quality
+[42352432537](https://github.com/chienng1512k6-ng/Trang-Trai/actions/runs/42352432537)
+completed/success on that exact SHA before implementation (approved read-only
+network retry after sandbox connection failure). No commit/push/dispatch here.
+
+Design: [Persistence Architecture](../docs/PERSISTENCE-ARCHITECTURE.md).
+New files: core/gameStatePersistence.ts and its test, storage/InMemorySnapshotStorage.ts,
+storage/BrowserLocalStorageAdapter.ts, architecture document. FDS2-001 gameState.ts
+only exports the existing ID predicate; no behavior changes. Authority document
+now links the persistence seam. No Player/input/camera/collision/AI/combat/asset,
+package version, lockfile, script, workflow or production-entry changes.
+
+| Executed command from root | Result |
+|---|---|
+| `pnpm.cmd run lint` | PASS, exit 0 |
+| `pnpm.cmd run typecheck` | PASS, exit 0 |
+| `pnpm.cmd run test` | PASS, exit 0; **434 tests / 25 files**, 44 new + all prior 390 |
+| `pnpm.cmd run build` | PASS, exit 0 |
+| `git diff --check` | PASS; all eight changed/new files also checked for whitespace/newline and document links |
+| `pnpm.cmd --dir apps/game run dev --host 127.0.0.1 --strictPort` | Started Vite 6.4.5 at localhost:8080 for focused browser QA |
+
+Embedded Chromium 150 / Electron 43.8.3 dev browser: native localStorage save ->
+reload -> load PASS (logicalTimeMs 123/revision 0 unchanged); schema-2 data blocks
+load/save and retains bytes; explicit remove -> missing PASS. The unique QA key
+was removed. No captured console/page or HTTP >=400 errors during reload check.
+Independent desktop Chrome, physical iPhone/Safari storage, production-browser
+persistence and device eviction/private-mode/quota QA are **NOT TESTED**. No new
+gameplay/performance or hosted-CI result for these changes is claimed.
+
+Strict validation refuses corrupt/unknown fields; failed loads never create state
+or delete/overwrite old bytes. Local data remains untrusted. Expected revision is
+a sequential precondition, **not atomic CAS**: concurrent writers can both pass;
+a test explicitly demonstrates that limitation. No migration engine, durable
+deduplication, multi-tab lock, backend, cloud sync or offline catch-up.
+
+Editor diagnostics report no errors in the new source/test files. Rebuilt app
+and Phaser chunk SHA256 values still match the FDS2-001 baseline values above:
+the seam is not imported by the production entry. These hashes are not a new
+browser/device regression certification. Existing 390 tests remain unchanged.
+
+**FDS2-002 PASS for explicit envelope storage scope.** No autosave or FDS2-003
+inventory implementation. Keep future commits subject to their own hosted CI.

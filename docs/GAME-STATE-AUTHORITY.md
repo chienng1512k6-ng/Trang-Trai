@@ -177,8 +177,11 @@ multiple characters/farms, server epochs and definition-version catalogs are
 not guessed in advance. Inventory, farming, currency and construction remain
 design boundaries only, with no empty implementation scaffolds or fake balances.
 
-FDS2-002 is **not implemented**: no localStorage, files, IndexedDB, serializers,
-save/load UI, adapter or database is added. FDS2-003 is **not implemented**.
+FDS2-001 itself added no persistence. FDS2-002 now adds an explicit envelope-only
+codec/storage seam and in-memory/localStorage adapters, documented separately in
+[Persistence Architecture](./PERSISTENCE-ARCHITECTURE.md). It does not connect
+autosave or current runtime state, migrate schemas, or add a database/save UI.
+FDS2-003 is **not implemented**.
 All technical debt/device limitations from the
 [Sprint 1 final report](./SPRINT-01-FINAL-REPORT.md) remain; this contract does not
 resolve movement/physics/network authority debt by declaration.
