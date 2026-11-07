@@ -1,8 +1,8 @@
 # Sprint 2 — State and authority foundations
 
-Scope is intentionally small; FDS2-001 is complete and the owner now authorizes
-**FDS2-002 only**. No gameplay/economy/backend/autosave system is implied by the
-explicit envelope storage seam. FDS2-003 remains unapproved.
+Scope is intentionally small; FDS2-001/002 are complete and the owner now authorizes
+**FDS2-003 only**. Pure inventory rules do not authorize gameplay integration,
+economy, UI, backend or persistent inventory. No follow-on task is authorized.
 Follow [AGENTS](../AGENTS.md), [GDD](../docs/GDD-V1.0.md),
 [architecture](../docs/ARCHITECTURE.md) and
 [Sprint 1 final review](../docs/SPRINT-01-FINAL-REPORT.md).
@@ -23,7 +23,7 @@ own CI; baseline green does not certify new uncommitted code.
 |---|---|---|---|
 | FDS2-001 — Game State & Authority Contract | Sprint 1 checkpoint + green CI | Pure schema/identity/logical-time/metadata contract, strict validation, explicit command/result/reference transition, authority matrix and meaningful tests; protect existing runtime; all quality checks pass | **PASS local — 2026-11-07** |
 | FDS2-002 — Persistence Architecture & Storage Adapter | 001 + its CI green | Explicit envelope JSON codec, validated load/save/remove, in-memory/localStorage adapters, namespace/revision/schema/error policy, tests and documented authority/concurrency limits; no autosave/migration engine/backend | **PASS local / embedded-browser — 2026-11-07** |
-| FDS2-003 — Item & Inventory Rules | 001, approved 002 | Draft: item definitions, integer quantities/capacity, atomic add/remove and replay rules; no shop/loot/currency rewards by assumption | DRAFT / NOT AUTHORIZED |
+| FDS2-003 — Item Definitions & Inventory Rules | 001, 002 + its CI green | Immutable item registry; validated configurable slots; atomic pure add/remove/move/split/merge; owner/target/revision/source-sink boundary; no UI/gameplay/persistence integration | **PASS local — 2026-11-07** |
 
 Currency, farming/growth/harvest, shop, land expansion and building/construction
 remain later draft groups in the final report; not part of this implementation.
@@ -79,7 +79,7 @@ unverified until an owner-authorized commit/push; baseline CI evidence is separa
 
 **FDS2-001 PASS for the contract scope.** The results above are its historical
 acceptance. FDS2-002 was subsequently authorized and is recorded below;
-FDS2-003 still requires separate authorization. No real-device/production behavior
+FDS2-003 was subsequently authorized as recorded below. No real-device/production behavior
 change is claimed by FDS2-001.
 
 ## FDS2-002 acceptance — 2026-11-07
@@ -127,3 +127,52 @@ browser/device regression certification. Existing 390 tests remain unchanged.
 
 **FDS2-002 PASS for explicit envelope storage scope.** No autosave or FDS2-003
 inventory implementation. Keep future commits subject to their own hosted CI.
+
+## FDS2-003 acceptance
+
+Entry: clean main at `92ddfdf4d81f97e09db7cee2b8b90c4fe12ca155`, FDS2-002 commit.
+Codex verified Development Quality
+[42353307430](https://github.com/chienng1512k6-ng/Trang-Trai/actions/runs/42353307430)
+completed/success on this exact SHA on 2026-11-07 before starting. Initial sandbox
+network request failed; approved read-only retry succeeded. No commit/push/dispatch.
+
+Design and invariants: [Item & Inventory](../docs/ITEM-INVENTORY.md).
+Deliverables: core/items.ts, core/inventory.ts, core/inventory.test.ts and docs.
+No GameState/schema/storage/runtime/asset/dependency/CI behavior changes.
+No inventory UI, loot, recipes, shop/currency, farming or real saved inventory.
+
+The first typecheck found TS2339 narrowing for from/to because two discriminants
+shared a union member. Split all five operations into separate discriminated union
+members; rerun typecheck passes. No type/lint rule or test assertion was disabled.
+First full unit run passed 483 tests. A subsequent source/sink authorization test
+raises the final total to 484; quantity-changing boundary commands now require
+matching authorization supplied separately from intent. This is still forgeable
+local context, not a backend, item reward entitlement or anti-cheat mechanism.
+
+### Final executed checks — 2026-11-07
+
+| Root command | Actual result |
+|---|---|
+| `pnpm.cmd run lint` | PASS, exit 0 |
+| `pnpm.cmd run typecheck` | PASS, exit 0 after the discriminant fix |
+| `pnpm.cmd run test` | PASS, exit 0; **484 tests / 26 files**, 50 new + all prior 434 |
+| `pnpm.cmd run build` | PASS, exit 0 |
+| `git diff --check` | PASS; new-file whitespace and relative document links also checked |
+
+Editor diagnostics show no errors in the three new TS files. Tests include all
+five operations and exact per-item conservation through a seeded 600-operation
+trace, BigInt aggregate checks near numeric limits, invalid inputs, frozen state,
+atomic failure, registry immutability, stale revision and source/sink authorization.
+All 39 FDS2-001 tests, 44 FDS2-002 tests and 351 Sprint 1 tests remain passing.
+
+Protected existing source, GameState/schema/codec, storage adapters, runtime assets,
+manifests, lockfile and workflow have no diff. Production app/Phaser JS SHA256
+values match the baseline values recorded above; domain modules are not imported
+by the production entry. No new browser/device QA is claimed for this unwired
+domain, and no hosted CI PASS is claimed for uncommitted changes.
+
+**FDS2-003 PASS for the domain scope.** Registry definitions are trusted composition,
+not command fields. Add/remove primitives do not prove source entitlement; future
+server authority must validate actual grants/consumption and commit transactions.
+No persistence/schema extension, UI, rewards, economy, gameplay or follow-on task.
+No commit/push; owner-authorized future checkpoint needs its own CI run.

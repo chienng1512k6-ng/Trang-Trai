@@ -89,7 +89,7 @@ Future server responsibilities below are design requirements, not deployed code.
 | Group | Current prototype / FDS2-001 | Future authoritative owner and required validation | Client role |
 |---|---|---|---|
 | Player progression | No progression subsystem | Server: identity, valid progression/reward rules, versioned definitions | Intent/UI/prediction; never grant XP/levels |
-| Inventory/items | Not implemented | Server: item definitions, integer quantities/capacity, ownership, atomic/idempotent operations | Request transfer/use, render verified result |
+| Inventory/items | FDS2-003 pure domain rules only; no gameplay or persistent inventory | Server: item definitions, integer quantities/capacity, ownership, atomic/idempotent operations | Request transfer/use, render verified result |
 | Currency | Not implemented | Server: integer ledger, prices, balances, operation IDs, transactional mutations | Display/request; never submit authoritative award/balance |
 | Farming/crops | Not implemented | Server: owned plots, seed/resources, lifecycle, trusted time and bounded catch-up | Preview and display growth from validated state |
 | Land ownership | Terrain only; no ownership system | Server: owner, contiguous expansion rules, price, occupancy and transactions | Placement/expansion preview |
@@ -181,7 +181,10 @@ FDS2-001 itself added no persistence. FDS2-002 now adds an explicit envelope-onl
 codec/storage seam and in-memory/localStorage adapters, documented separately in
 [Persistence Architecture](./PERSISTENCE-ARCHITECTURE.md). It does not connect
 autosave or current runtime state, migrate schemas, or add a database/save UI.
-FDS2-003 is **not implemented**.
+FDS2-003 now adds separate pure item/inventory rules; see
+[Item & Inventory](./ITEM-INVENTORY.md). Inventory is not added to this GameState
+envelope, storage, current actors or gameplay. Future persistence needs a separately
+approved schema extension/migration decision; local rules do not create server authority.
 All technical debt/device limitations from the
 [Sprint 1 final report](./SPRINT-01-FINAL-REPORT.md) remain; this contract does not
 resolve movement/physics/network authority debt by declaration.
