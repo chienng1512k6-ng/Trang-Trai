@@ -185,6 +185,19 @@ FDS2-003 now adds separate pure item/inventory rules; see
 [Item & Inventory](./ITEM-INVENTORY.md). Inventory is not added to this GameState
 envelope, storage, current actors or gameplay. Future persistence needs a separately
 approved schema extension/migration decision; local rules do not create server authority.
+
+FDS2-004 now proposes that extension in
+[Inventory Persistence Design](./INVENTORY-PERSISTENCE-DESIGN.md), **design only, not implemented**.
+Status: **FDS2-004 DESIGN APPROVED — 2026-11-07** (design only).
+The owner accepted D1–D9 and all three completed review amendments; this is not
+implementation approval or parser, migration or persistence implementation PASS.
+The retained farm-main container is farm-scoped storage, not a Player backpack;
+character death-drop rules MUST NOT affect it. Amendments specify stored-string
+preservation, bounded duplicate-key/numeric parsing and single-writer assumptions.
+Production multi-writer migration is blocked pending separate coordination or
+transactional-storage approval. Implementation remains separately unauthorized. The current
+schemaVersion=1, validators, commands and storage behavior remain unchanged; no
+inventory is persistent or migrated by this documentation update.
 All technical debt/device limitations from the
 [Sprint 1 final report](./SPRINT-01-FINAL-REPORT.md) remain; this contract does not
 resolve movement/physics/network authority debt by declaration.

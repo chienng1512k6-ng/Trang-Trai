@@ -1,8 +1,8 @@
 # Sprint 2 — State and authority foundations
 
-Scope is intentionally small; FDS2-001/002 are complete and the owner now authorizes
-**FDS2-003 only**. Pure inventory rules do not authorize gameplay integration,
-economy, UI, backend or persistent inventory. No follow-on task is authorized.
+Scope is intentionally small; FDS2-001–003 are complete. The owner now authorizes
+**FDS2-004 design only**. Schema changes, migration/persistent inventory integration,
+UI, economy, gameplay and backend implementation are not authorized.
 Follow [AGENTS](../AGENTS.md), [GDD](../docs/GDD-V1.0.md),
 [architecture](../docs/ARCHITECTURE.md) and
 [Sprint 1 final review](../docs/SPRINT-01-FINAL-REPORT.md).
@@ -24,6 +24,7 @@ own CI; baseline green does not certify new uncommitted code.
 | FDS2-001 — Game State & Authority Contract | Sprint 1 checkpoint + green CI | Pure schema/identity/logical-time/metadata contract, strict validation, explicit command/result/reference transition, authority matrix and meaningful tests; protect existing runtime; all quality checks pass | **PASS local — 2026-11-07** |
 | FDS2-002 — Persistence Architecture & Storage Adapter | 001 + its CI green | Explicit envelope JSON codec, validated load/save/remove, in-memory/localStorage adapters, namespace/revision/schema/error policy, tests and documented authority/concurrency limits; no autosave/migration engine/backend | **PASS local / embedded-browser — 2026-11-07** |
 | FDS2-003 — Item Definitions & Inventory Rules | 001, 002 + its CI green | Immutable item registry; validated configurable slots; atomic pure add/remove/move/split/merge; owner/target/revision/source-sink boundary; no UI/gameplay/persistence integration | **PASS local — 2026-11-07** |
+| FDS2-004 — Persistent Inventory Schema & Migration Design | 001–003 merged + green CI | Proposed v2/ownership, migration/revision model, backup/corruption policy, bounded parsing and test matrix; D1–D9 review decisions accepted | **DESIGN APPROVED — 2026-11-07; NOT implementation approval or implementation PASS** |
 
 Currency, farming/growth/harvest, shop, land expansion and building/construction
 remain later draft groups in the final report; not part of this implementation.
@@ -176,3 +177,66 @@ not command fields. Add/remove primitives do not prove source entitlement; futur
 server authority must validate actual grants/consumption and commit transactions.
 No persistence/schema extension, UI, rewards, economy, gameplay or follow-on task.
 No commit/push; owner-authorized future checkpoint needs its own CI run.
+
+## FDS2-004 design review — 2026-11-07
+
+Baseline main was clean at merge `8e91c51a71fbf85d0acd0420c53d1f9d9d1fff9d`.
+Codex verified Development Quality
+[42356114273](https://github.com/chienng1512k6-ng/Trang-Trai/actions/runs/42356114273)
+completed/success on that SHA before drafting. Read-only network retry after
+sandbox connection failure; no commit/push, workflow dispatch or networking code.
+
+Deliverable: [Inventory Persistence Design](../docs/INVENTORY-PERSISTENCE-DESIGN.md).
+Proposal: required nested inventory and catalog tag in v2; one farm supply
+inventory with scoped farm-main ID; deterministic v1/r -> v2/r+1 with inventory
+revision 0 and 20 null slots; unchanged legacy identities/logical timestamps.
+Outer revision is the local aggregate commit token, inventory revision remains
+subordinate. One accepted inventory mutation increments both once. Rejected
+operations change neither. None of these v2 rules is implemented yet.
+
+Architecture review outcome: **FDS2-004 DESIGN APPROVED — 2026-11-07** (design only).
+The owner accepted D1–D9 and all three completed review amendments. D1–D9 retain
+the proposed schema/migration/revision model. farm-main is farm-scoped storage,
+not a Player backpack and MUST NOT be subject to character death-drop rules.
+Amendments define exact stored-string (UTF-16 code-unit) backup/commit comparison,
+not raw file/network/disk bytes; decoded-key duplicate detection at every depth;
+explicit parser budgets and exact-number compatibility; one writer per aggregate
+across the local origin, with no cross-tab CAS/transaction claim. Production
+multi-writer migration remains BLOCKED pending separately approved coordination
+or transactional storage. Current v1 APIs/contracts remain unchanged.
+
+Parser design budgets include 262144 input code units, depth 16, 32768 tokens,
+16384 values, 64 members/object, 1000 elements/array, bounded decoded strings and
+numeric lexemes/exponents. Exact decimal integer checks precede Number conversion;
+new-path rejection of previously rounded/ambiguous/over-budget input preserves the
+stored string and does not alter legacy v1 API behavior. Matrix now includes
+T01–T38, including 12 amendment groups; these are plans, not implemented tests.
+Parser selection, conformance and implementation still need separate authorization.
+
+All runtime source/contracts/schema/storage remain untouched. No actual snapshot,
+localStorage or migration was executed. Test matrix distinguishes existing checks,
+future pure tests, integration fault tests and later browser QA. Historical
+484-test result is not a fresh regression or migration safety result. Only docs
+changed; whitespace/link and Git diff checks are the applicable verification.
+
+Verification executed: `git diff --check` PASS; all three changed/new document
+relative-link/whitespace/newline checks PASS. Protected code/dependency/CI diff
+guard exits 0. No regression rerun for docs-only work; the previous 484-test
+result is retained as historical, not newly executed. No v2/migration/browser
+tests were performed or claimed.
+
+Status: **FDS2-004 DESIGN APPROVED — 2026-11-07** (design only).
+Implementation remains blocked on separate authorization; production multi-writer
+migration has the additional coordination/transactional-storage approval gate.
+Do not mark FDS2-004 PASS implementation or implement follow-ups automatically.
+
+Final approval checkpoint records owner approval of the design only. Parser,
+migration and persistence implementation remain unapproved and unverified.
+T01–T38 and their proposed test classifications are unchanged; no new test
+execution or implementation PASS is implied by this approval.
+
+Amendment checks: git diff --check and protected source/dependency/CI diff guard
+exit 0. All three docs pass whitespace/newline/relative-link checks; D1–D9 and
+T01–T38 row counts verified. No obsolete positive raw-byte preservation claim.
+No lint/typecheck/unit/build rerun for docs-only amendments; no parser/migration
+test or new 484-test result is claimed. Existing uncommitted design work is retained.
