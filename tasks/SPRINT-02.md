@@ -1,8 +1,8 @@
 # Sprint 2 — State and authority foundations
 
 Scope is intentionally small; FDS2-001–003 are complete. The owner now authorizes
-**FDS2-004 design only**. Schema changes, migration/persistent inventory integration,
-UI, economy, gameplay and backend implementation are not authorized.
+**FDS2-005 pure core only**, following FDS2-004 design approval. Production storage
+migration/integration, UI, economy, gameplay and backend are not authorized.
 Follow [AGENTS](../AGENTS.md), [GDD](../docs/GDD-V1.0.md),
 [architecture](../docs/ARCHITECTURE.md) and
 [Sprint 1 final review](../docs/SPRINT-01-FINAL-REPORT.md).
@@ -25,6 +25,7 @@ own CI; baseline green does not certify new uncommitted code.
 | FDS2-002 — Persistence Architecture & Storage Adapter | 001 + its CI green | Explicit envelope JSON codec, validated load/save/remove, in-memory/localStorage adapters, namespace/revision/schema/error policy, tests and documented authority/concurrency limits; no autosave/migration engine/backend | **PASS local / embedded-browser — 2026-11-07** |
 | FDS2-003 — Item Definitions & Inventory Rules | 001, 002 + its CI green | Immutable item registry; validated configurable slots; atomic pure add/remove/move/split/merge; owner/target/revision/source-sink boundary; no UI/gameplay/persistence integration | **PASS local — 2026-11-07** |
 | FDS2-004 — Persistent Inventory Schema & Migration Design | 001–003 merged + green CI | Proposed v2/ownership, migration/revision model, backup/corruption policy, bounded parsing and test matrix; D1–D9 review decisions accepted | **DESIGN APPROVED — 2026-11-07; NOT implementation approval or implementation PASS** |
+| FDS2-005 — Pure Schema v2 & Migration Core | 004 design approval + exact baseline CI green | Separate v2 validator, pinned catalog, strict bounded raw parser, deterministic preparation and pure aggregate inventory/clock transitions; legacy v1 contracts unchanged; no storage integration | **PASS local — 2026-11-07; 602 tests / 28 files; READY FOR OWNER COMMIT REVIEW** |
 
 Currency, farming/growth/harvest, shop, land expansion and building/construction
 remain later draft groups in the final report; not part of this implementation.
@@ -240,3 +241,46 @@ exit 0. All three docs pass whitespace/newline/relative-link checks; D1–D9 and
 T01–T38 row counts verified. No obsolete positive raw-byte preservation claim.
 No lint/typecheck/unit/build rerun for docs-only amendments; no parser/migration
 test or new 484-test result is claimed. Existing uncommitted design work is retained.
+
+## FDS2-005 acceptance — 2026-11-07
+
+Owner separately approved pure implementation. Entry: clean main at
+`ed6c2bca3648b1ffab8e974902f3f72659827732`. Codex rechecked GitHub API:
+[Development Quality 42366226565](https://github.com/chienng1512k6-ng/Trang-Trai/actions/runs/42366226565)
+completed/success on that exact SHA. This baseline CI is not a run for new code.
+
+Deliverables and matrix mapping: [Pure Schema v2](../docs/GAME-STATE-V2.md).
+New core files: boundedJson.ts/test and gameStateV2.ts/test. No existing domain,
+runtime, storage, test, dependency or CI file modified. FDS2-004 remains DESIGN
+APPROVED; its full migration/parser/storage implementation is not marked PASS.
+
+| Root command actually executed | Final result |
+|---|---|
+| pnpm.cmd run lint | PASS, exit 0 |
+| pnpm.cmd run typecheck | PASS, exit 0 after diagnostic-only Node typing fix |
+| pnpm.cmd run test | PASS, exit 0; 602 tests / 28 files, 118 new + all prior 484 after audit corrections |
+| pnpm.cmd run build | PASS, exit 0 |
+| git diff --check | PASS; new-file whitespace/newline/link checks also executed |
+
+Failures and local parser timing/heap observations are recorded in the linked
+report. No limits, type rules or legacy assertions were weakened. Pure portions
+of T01–T16, T25, T27 and T29–T36 are covered as specified there; storage portions
+and T17–T24/T26/T28/T37–T38 remain deferred, not PASS. No browser/device migration,
+backup/recovery, CAS/transactions or production safety claims. No commit/push;
+FDS2-006 not started. **FDS2-005 PASS local for the approved pure scope only.**
+
+### Targeted audit corrections — local review checkpoint
+
+Initial suite: 582 tests. Audit requested typed dispatcher diagnostics and
+invalid-revision classification, a genuine incompatible-item fixture, and
+multi-item BigInt conservation. These three corrections now pass, with 20 new
+cases (602 total). Additional checks assert exact parser offsets, mixed container
+depth and escaped/surrogate key boundaries. Parser implementation is unchanged.
+The initial corrective test for an unsafe numeric token expected a domain error;
+it was fixed to retain the approved raw-gate invalid-json-number precedence.
+
+Only gameStateV2.ts, its tests, boundedJson.test.ts and the implementation/Sprint
+reports were edited in this correction pass. D1–D9/T01–T38, legacy sources/tests,
+storage adapters, gameplay, dependencies and CI remain unchanged. Root lint,
+typecheck, full tests, build and diff checks pass; storage/browser/concurrency
+scenarios remain deferred. **READY FOR OWNER COMMIT REVIEW**. No commit/push/merge.

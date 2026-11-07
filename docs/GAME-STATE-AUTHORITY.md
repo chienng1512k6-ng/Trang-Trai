@@ -195,9 +195,15 @@ The retained farm-main container is farm-scoped storage, not a Player backpack;
 character death-drop rules MUST NOT affect it. Amendments specify stored-string
 preservation, bounded duplicate-key/numeric parsing and single-writer assumptions.
 Production multi-writer migration is blocked pending separate coordination or
-transactional-storage approval. Implementation remains separately unauthorized. The current
+transactional-storage approval. Storage integration remains separately unauthorized. The current
 schemaVersion=1, validators, commands and storage behavior remain unchanged; no
 inventory is persistent or migrated by this documentation update.
+
+FDS2-005 subsequently adds the separately approved, unwired
+[Pure Schema v2 & Migration Core](./GAME-STATE-V2.md): a separate GameStateV2,
+strict raw parsing, deterministic migration preparation and aggregate transitions.
+The original GameState type, v1 APIs and storage behavior remain unchanged.
+V2 candidates are persistent-intent DTOs, not saved or activated gameplay state.
 All technical debt/device limitations from the
 [Sprint 1 final report](./SPRINT-01-FINAL-REPORT.md) remain; this contract does not
 resolve movement/physics/network authority debt by declaration.

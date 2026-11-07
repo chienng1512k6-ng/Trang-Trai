@@ -6,6 +6,13 @@ migration and revision proposals are retained. Implementation remains unapproved
 this document specifies future acceptance tests, not working v2 validation,
 migration or persistence. No production contract changes or implementation PASS.
 
+Subsequent scope update: the owner separately authorized FDS2-005 pure validators,
+bounded parsing, migration preparation and aggregate transitions. Its implementation
+and measured evidence are recorded in [Pure Schema v2](./GAME-STATE-V2.md).
+The approval/check records below describe FDS2-004 at its design checkpoint;
+D1–D9 and T01–T38 are preserved. Storage/coordinator/recovery implementation and
+production multi-writer migration remain outside that later pure-core approval.
+
 ## 1. Inspected baseline and compatibility constraints
 
 Repository was clean on main at merge commit
