@@ -31,6 +31,7 @@ export type ValidationResult<T> = { readonly ok: true; readonly value: T }
 
 const isId = (value: unknown): value is string => typeof value === 'string'
     && /^[A-Za-z0-9][A-Za-z0-9._:-]{0,63}$/.test(value);
+export { isId as isGameStateId };
 const isCounter = (value: unknown): value is number => typeof value === 'number'
     && Number.isSafeInteger(value) && value >= 0;
 
