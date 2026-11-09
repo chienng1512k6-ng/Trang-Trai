@@ -1,10 +1,11 @@
 # Sprint 2 — State and authority foundations
 
 Scope is intentionally small; FDS2-001–005 have their recorded scope acceptance.
-FDS2-006 is implementation complete and CI verified. Current owner authorization
-is **FDS2-007 technical design only**: explicit state adoption boundary and native
-browser QA specification. No real migration, gameplay integration, UI, economy,
-backend, autosave or next implementation package is authorized.
+FDS2-006 is implementation complete and CI verified. FDS2-007 is DESIGN APPROVED.
+The owner separately authorized
+**FDS2-007A pure adoption decision boundary, local implementation only**. No real
+migration, application session/adoption, native QA harness, gameplay integration,
+UI, economy, backend, autosave or next implementation package is authorized.
 Follow [AGENTS](../AGENTS.md), [GDD](../docs/GDD-V1.0.md),
 [architecture](../docs/ARCHITECTURE.md) and
 [Sprint 1 final review](../docs/SPRINT-01-FINAL-REPORT.md).
@@ -30,6 +31,7 @@ own CI; baseline green does not certify new uncommitted code.
 | FDS2-005 — Pure Schema v2 & Migration Core | 004 design approval + exact baseline CI green | Separate v2 validator, pinned catalog, strict bounded raw parser, deterministic preparation and pure aggregate inventory/clock transitions; legacy v1 contracts unchanged; no storage integration | **IMPLEMENTATION COMPLETE / CI VERIFIED — 2026-11-07; 602 tests / 28 files; run 42369209539 SUCCESS** |
 | FDS2-006 — Storage Migration Coordinator | 005 complete + exact baseline CI green | Explicit version-aware load, pure preparation, authorized commit, exact backup/readback, blocked reconciliation and known-reference recovery; isolated fault tests, no gameplay wiring | **IMPLEMENTATION COMPLETE / CI VERIFIED — 2026-11-09; 758 tests; run 42596640896 SUCCESS; native browser QA NOT TESTED** |
 | FDS2-007 — Browser Persistence QA & Explicit GameState Adoption Design | 006 accepted + exact SHA CI green | Proposed adoption/session/history contract, explicit read-only handoff, native QA fixture/key/evidence plan and separately approved implementation sequence; documentation only | **DESIGN APPROVED — 2026-11-09; NOT implementation or browser QA PASS** |
+| FDS2-007A — Pure GameState Adoption Boundary | 007 design approved + exact baseline CI green | Pure deterministic strict evidence/history decision, immutable issuance-history-bound read-only proposals, authorization policy and reevaluation; no session, I/O or actual adoption | **READY FOR OWNER COMMIT REVIEW — PASS local — 2026-11-09; 916 tests / 30 files; targeted P2 corrected** |
 
 Currency, farming/growth/harvest, shop, land expansion and building/construction
 remain later draft groups in the final report; not part of this implementation.
@@ -512,3 +514,88 @@ the current status is DESIGN APPROVED only. Q01–Q16 remain PLANNED / NOT TESTE
 FDS2-001–006 records, D1–D9/T01–T38 and multi-writer BLOCKED remain intact.
 Owner authorizes one local commit of the two documents after staged-diff checks;
 no push, migration, harness, implementation or FDS2-008 work is authorized.
+
+## FDS2-007A local pure-boundary checkpoint — 2026-11-09
+
+Historical pre-audit checkpoint: **FDS2-007A PASS local — awaiting owner source review**.
+The targeted correction below supersedes its readiness and issuance policy.
+Separate subsequent owner
+grant covers pure package A only; the historical FDS2-007 design approval remains
+unchanged. Entry: clean main at `398a5feb91876ca2056fd3bc48df17a69fe133bd`;
+GitHub API independently verified [Development Quality 42600268118](https://github.com/chienng1512k6-ng/Trang-Trai/actions/runs/42600268118)
+completed/success on that exact SHA before implementation. No new-code hosted CI.
+
+Only new [stateAdoption.ts](../apps/game/src/core/stateAdoption.ts), new
+[stateAdoption.test.ts](../apps/game/src/core/stateAdoption.test.ts), this backlog
+and [approved design / implementation evidence](../docs/GAME-STATE-ADOPTION-AND-BROWSER-QA-DESIGN.md#9-fds2-007a-pure-implementation-checkpoint--2026-11-09)
+changed. Existing v1/v2/parser/coordinator/adapters/tests, runtime entry/gameplay,
+assets, dependencies and CI remain untouched; original D1–D9/T01–T38 unchanged.
+
+Exports evaluateAdoption, validateAdoptionAuthorization and validateAdoptionProposal
+with strict session/history/captured-result types. Four decisions retained; only
+proposal-eligible carries a complete frozen detached v2 snapshot with read-only
+permission. Observation IDs correlate caller data, not storage proof or session
+handles. All positively eligible evidence must match current confirmed history;
+fresh accepted loads remain inspection-only and unresolved history blocks proposals.
+Typed failures/offsets/issues preserved; no async/I/O/time/RNG, mutable inventory
+authority, state publication, automatic migration/retry, reset/restore or adoption.
+
+Final root lint/typecheck/test/build and git diff --check: **PASS, exit 0**.
+Actual suite **883 tests / 30 files**, **125 new + all 758 baseline**, none skipped.
+All mandatory decision/provenance/immutability/authorization/revision/session-policy
+groups covered; bigint per-item conservation and parser/diagnostic edge cases.
+Initial Node typing issue corrected with Vite raw source import, no dependency;
+foreign-owner fixture fixed to be internally valid without weakening assertions.
+Self-audit tightened stale-history matching, no object coercion, diagnostic retention
+and inconsistent abort rejection; no blocking pure-contract issue remains.
+
+Package B/C/D remain NOT STARTED: session handles/guards/generations, actual read-only
+adoption and storage reread, harness and native QA are deferred. Q01–Q16 PLANNED /
+NOT TESTED; native browser/quota/crash NOT TESTED; normal v2 saving NOT IMPLEMENTED;
+production multi-writer migration BLOCKED. No player snapshot access, migration,
+gameplay/autosave, commit/push/merge or FDS2-008 work. Await owner source review.
+
+Final scope/whitespace/newline/relative-link checks PASS; exactly four intended
+files, empty staging and unchanged protected tracked sources/dependencies/CI.
+Original approved adoption design body, D1–D9/T01–T38 and Q01–Q16 preserved.
+No existing runtime source imports the new boundary; editor diagnostics clear.
+
+### FDS2-007A targeted P2 correction — 2026-11-09
+
+**FDS2-007A READY FOR OWNER COMMIT REVIEW — PASS local**. Main baseline remains
+`398a5feb91876ca2056fd3bc48df17a69fe133bd`; exactly the same four files and empty
+staging. No new hosted CI result. No coordinator, adapter, legacy API, parser,
+gameplay, dependency or CI changes; no snapshots accessed or migrated.
+
+Three focused tests reproduced the audit finding before the fix: proposals from
+confirmed history incorrectly survived a downgrade to unestablished for verified
+commit, already-migrated reconciliation and known-reference recovery. Red run:
+three expected invalidated/actual retained failures, all 883 old cases passing.
+
+Proposal now requires detached/deep-frozen issuanceHistory using the validated
+existing history union. Revalidation rejects malformed/contradictory issuance,
+retains existing typed failures and requires exact issuance/current policy equality
+before retaining a proposal. History loss, kind change, upgrade or material verified
+observation change invalidates it; repeated old evidence cannot promote or retain
+the old proposal across that change. Fresh evaluation can still produce a new
+read-only proposal from internally valid verified operation evidence where the
+approved matrix allows it. Fresh accepted v2 load alone stays inspection-only.
+
+No boolean/storage-authenticity claim, clock, generation, revocation ledger or
+session manager is added. A pure consistency function cannot authenticate new I/O
+or recall caller-omitted policy changes; package B owns actual operation provenance,
+opaque handles, generations and session lifetime. No reset/adoption/write authority.
+
+Final full regression: **916 tests / 30 files PASS**, **33 additional cases**, all
+883 prior tests retained, none skipped/deleted; **158 adoption tests**. Original
+three reproductions remain unchanged and green. Added policy-change, replay,
+malformed issuance, deep copy/freeze, fresh-eligibility and blocked negative tests;
+revision diagnostics now assert exact aggregate/inventory paths. A test-only readonly
+assignment typecheck error was corrected with Reflect.set, without relaxing types.
+Root lint/typecheck/test/build and git diff --check PASS, exit 0. Whitespace/newline/
+relative links, exact scope, empty staging and protected-source guards PASS.
+
+Detailed current contract and evidence: [P2 correction](../docs/GAME-STATE-ADOPTION-AND-BROWSER-QA-DESIGN.md#targeted-p2-proposal-invalidation-correction--2026-11-09).
+Prior FDS2-007 design approval, D1–D9/T01–T38 preserved. Q01–Q16 PLANNED / NOT TESTED;
+native browser/quota/crash NOT TESTED; B/C/D and normal v2 save NOT IMPLEMENTED;
+production multi-writer BLOCKED. No commit/push/merge or next-ticket work.

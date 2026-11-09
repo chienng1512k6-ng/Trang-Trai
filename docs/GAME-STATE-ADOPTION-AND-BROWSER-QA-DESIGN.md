@@ -7,6 +7,10 @@ Technical design only. No adoption code, harness, integration, storage operation
 migration or browser test is delivered by this document. All proposed tests below
 are **PLANNED / NOT TESTED**. Separate owner approval is required before coding.
 
+Subsequent owner authorization permits **FDS2-007A pure boundary only**, tracked
+separately in section 9. Sections 1–8 retain the approved design checkpoint;
+application adoption, session ownership and native QA remain unimplemented.
+
 ## 1. Verified baseline and actual integration boundary
 
 Inspected clean main, empty index, exact HEAD
@@ -446,3 +450,193 @@ D1–D9, T01–T38, FDS2-001–006 acceptance and production multi-writer BLOCKE
 preserved. Read-only/startup policy is design-approved; coding, harness packaging,
 native execution and any future normal-save/rebaseline/recovery changes still
 need their separate approvals. No implementation or BROWSER QA PASS is recorded.
+
+## 9. FDS2-007A pure implementation checkpoint — 2026-11-09
+
+Historical pre-audit checkpoint: **FDS2-007A PASS local — awaiting owner source review**.
+The targeted P2 correction below supersedes its readiness and issuance contract.
+This is package A only;
+the parent FDS2-007 DESIGN APPROVED status and Q01–Q16 classifications are unchanged.
+Baseline main was clean at `398a5feb91876ca2056fd3bc48df17a69fe133bd`. GitHub API
+independently verified [Development Quality 42600268118](https://github.com/chienng1512k6-ng/Trang-Trai/actions/runs/42600268118)
+completed/success for that exact SHA before coding. No hosted CI claim for new code.
+
+New pure [stateAdoption.ts](../apps/game/src/core/stateAdoption.ts) and adjacent
+[tests](../apps/game/src/core/stateAdoption.test.ts) implement:
+
+| Export | Actual contract |
+|---|---|
+| evaluateAdoption(unknown, unknown) -> AdoptionDecision | Four branches: proposal-eligible, inspection-only, migration-required, rejected; never adopted-read-only or write permission |
+| AdoptionSessionSummary / AdoptionHistory | Exact identity, lifecycle open/closed/invalidated, observationId and unestablished/confirmed-in-live-session/reconciled-current-target/unresolved history; confirmed observations contain complete source/state, unresolved history retains typed cause |
+| CapturedAdoptionEvidence | Exact tagged load/commit/reconciliation/recovery/failure wrappers using existing coordinator result/receipt/reference types; observationId must match the summary |
+| AdoptionProposal | Validated identity, observationId, exactPrimary, full detached GameStateV2, evidenceKind and mutationPermission=read-only; frozen recursively at runtime |
+| validateAdoptionAuthorization | Pure strict context check: explicit-adopt-verified-state, matching owner, local-single-writer, none-known competitor; returns read-only policy or blocked typed refusal; performs no adoption |
+| validateAdoptionProposal | Pure reevaluation against current inputs; retained with a new immutable proposal or invalidated with blocked decision; no handles, generations, replacement publication or session state |
+
+observationId is a caller-provided ASCII correlation label, not generated here,
+not a durable metadata field, secret, freshness proof or storage certificate.
+Package B must bind actual operations to their current session/correlation and
+invalidate superseded evidence. This module checks label equality and complete
+data consistency; it cannot establish that a caller-supplied storage result really
+occurred. Internally consistent fabricated captures remain indistinguishable from
+honest data to a pure function; neither catalog validation nor freeze is anti-cheat.
+
+Receipt validation reuses parseVersionedGameState and validateGameStateV2, rederives
+the deterministic candidate, checks full identity/source revision/candidate and
+exact target. No runtime import of the coordinator/persistence service or adapter:
+those result types are imported with import type only. No new definitions of
+GameStateV2 or MigrationReceipt, storage calls, browser/Phaser/network access,
+async operations, timers, wall clock, random IDs or background behavior.
+
+### Implemented matrix and history policy
+
+| Observation | Pure result / restriction |
+|---|---|
+| Missing | inspection-only/missing-primary; no candidate or implicit creation |
+| Valid captured v1 | migration-required with revalidated detached uncommitted receipt; existing preparation only, no extra revision increment |
+| Accepted v2 + unestablished history | inspection-only/unestablished-history; schema 2 never proves acknowledgment |
+| Accepted v2 + confirmed observation | proposal only on exact raw/full-state match; newer, reordered raw text or different complete state rejects |
+| Verified commit / completed already-migrated reconciliation / known-reference reconstructed target | proposal only when wrapper, receipt, result, identities, counters, full state and exact target agree; no adoption or gate clearing |
+| Source retained | inspection-only/source-retained; retry-only classification, no v2 proposal |
+| Corrupt/schema/catalog/revision/storage/conflict/unknown | rejected with detached typed cause/offset/issues; never backup substitution or missing-state fallback |
+| Busy / definite pre-primary abort | inspection-only/busy or pre-primary-abort; input gate remains untouched, new action still needed |
+| Closed / invalidated / unresolved session | no proposal; blocked inspection reason, or original typed failure retained if already rejected; unresolved history overrides positive observations |
+
+Any existing confirmed history must match the candidate exactly for every positive
+evidence kind, not just loads: old commit/recovery evidence cannot replace a newer
+known inventory. A genuinely new verified transition requires package B's explicit
+history policy and correctly captured summary; package A never updates history.
+Malformed session/evidence and stale correlation labels reject before eligibility.
+
+All accepted DTOs are defensive copies from strict validators/parser, then deeply
+frozen, including identity, metadata, slots and stacks. No caller object is frozen
+or retained as proposal authority. Equality operates only on validated canonical
+DTOs; raw primary/target comparisons use exact UTF-16 string equality without
+trimming, normalization or reserialization. Runtime diagnostic validation copies
+only existing typed codes, safe offsets and dense path/message issues; malformed
+diagnostic payloads reject rather than being echoed. Diagnostic arrays are bounded
+at 2048 issues, paths 256 and messages 1024 UTF-16 units, without truncation/repair.
+
+### Tests, self-audit and actual checks
+
+**883 tests / 30 files PASS**, including **125 new pure-boundary tests** and every
+758 existing test. Existing tests/source/adapters/coordinator were not modified.
+
+New tests cover all four decision branches and observation classes; exact commit/
+reconciliation/recovery provenance, wrong identities/references/revisions, forged
+status-only records, raw-text equivalence rejection, nonempty inventories, deep
+freeze/detachment, deterministic reevaluation, authorization refusal/precedence,
+invalid/missing/accessor/unexpected fields, current failures overriding earlier
+success, stale/closed/switched/invalidated sessions and pure proposal invalidation.
+Edge cases include parser duplicate keys/precision/limits/offsets, both revision
+fields, MAX_SAFE_INTEGER and preparation overflow, logical timestamps, invalid
+quantities, 1000 slots and bigint per-item totals. No source state/time/item changes.
+
+Self-audit corrected, within the new module: (1) all positive evidence must match
+a newer confirmed history, (2) unvalidated objects are never string-coerced via
+custom toString, (3) closed/unresolved policy does not erase a captured typed
+failure, and (4) contradictory not-attempted/primary-write abort records reject.
+No blocking source finding remains for the pure ordinary-data contract. This is
+not opaque-handle enforcement, actual storage verification, backup authenticity,
+historical acknowledgment or application mutation security.
+
+Initial test typecheck failed on Node fs typings; test source inspection now uses
+the existing Vite raw import support, without adding dependency/types or relaxing
+strictness. One foreign-owner fixture initially mismatched its own inventory owner;
+it was corrected to a valid foreign aggregate, retaining the exact identity-mismatch
+assertion. Production validation was not weakened to satisfy the test.
+
+| Command from repository root | Final actual result |
+|---|---|
+| pnpm.cmd run lint | PASS, exit 0 |
+| pnpm.cmd run typecheck | PASS, exit 0 |
+| pnpm.cmd run test | PASS, exit 0; 883 tests / 30 files, none skipped |
+| pnpm.cmd run build | PASS, exit 0; unwired module does not imply browser acceptance |
+| git diff --check | PASS, exit 0; new files also scanned for whitespace/newlines |
+
+Package B still owns issued opaque handles, monotonic generations, operation guard,
+explicit application authorization/adoption, proposal consumption and exact fresh
+storage reread. C/D own harness/native QA. Normal v2 saving is **NOT IMPLEMENTED**;
+Q01–Q16 remain **PLANNED / NOT TESTED**, native browser/quota/crash QA **NOT TESTED**,
+production multi-writer migration **BLOCKED**. No real snapshot, migration, gameplay
+integration, autosave, dependency, commit, push or follow-up package work.
+
+Final guards PASS: exactly four changed/new files and empty staging; protected
+tracked sources/tests/adapters/coordinator/gameplay/assets/dependencies/CI unchanged;
+new files inspected separately from git diff; whitespace/final-newline/relative
+links pass; no existing runtime import. Original approved sections 1–8 and
+D1–D9/T01–T38/Q01–Q16 retained. Editor diagnostics report no errors in new TS files.
+
+### Targeted P2 proposal-invalidation correction — 2026-11-09
+
+**FDS2-007A READY FOR OWNER COMMIT REVIEW — PASS local**. Baseline remains main at
+`398a5feb91876ca2056fd3bc48df17a69fe133bd`, empty staging and the same four-file scope.
+No hosted CI claim for uncommitted code. Original design approvals remain intact.
+
+Root cause: proposals retained identity/observation/raw state/evidence kind, but
+not the policy under which they were issued. Revalidation reevaluated the current
+summary, so an old commit/reconciliation/recovery capture still made a proposal
+eligible after confirmed history became unestablished. Three regression cases
+failed before the production fix: expected invalidated, received retained; all
+883 previous tests passed in that red run (886 total, three failures).
+
+The current AdoptionProposal additionally requires **issuanceHistory**, a detached,
+deep-frozen snapshot of the validated eligible AdoptionHistory: unestablished or
+confirmed-in-live-session/reconciled-current-target with full lastVerified source
+and state. Unresolved history cannot issue a proposal. This reuses the existing
+history representation; it adds no persistent field, schema version, timestamp,
+token, session generation, arbitrary verified flag or new source of authority.
+
+validateAdoptionProposal strictly validates/copies issuanceHistory using the same
+session/history rules, rejects impossible issuance (including unknown-history load
+or confirmed observation contradicting proposal raw/full state), then reevaluates
+current evidence. Existing typed failures and blocked decisions are preserved.
+When both decisions are eligible, the entire canonical issuance history must still
+match exactly. A change of history kind, exact UTF-16 source or complete verified
+state invalidates the old proposal with adoption/policy-changed where the fresh
+decision is otherwise eligible. Missing/malformed/contradictory issuance metadata
+returns invalid-proposal, blocked, without an actionable proposal payload.
+
+| Issuance -> current policy | Old proposal revalidation | Separate fresh evaluation |
+|---|---|---|
+| Confirmed -> unchanged identical history | Retained, read-only, if all other evidence still agrees | Existing matrix applies |
+| Confirmed -> unestablished | Invalidated/blocked, even with the same raw string, identity, observation ID and repeated verified capture | Internally valid verified commit/reconciliation/recovery may produce a new read-only proposal; accepted load stays inspection-only |
+| Unestablished -> confirmed | Invalidated/blocked; no automatic promotion of the old proposal | A new proposal may be evaluated under the new policy |
+| Confirmed -> reconciled-current-target | Invalidated/blocked even when the verified raw/state is identical | Existing matrix applies to the new policy |
+| Any -> unresolved/closed/invalidated | Invalidated with existing blocked inspection/typed failure | No eligible proposal under unresolved/closed/invalidated policy |
+| Verified source/state/counters/inventory change | Invalidated; no history inheritance across different observations | Must independently satisfy the current decision matrix |
+
+Copies include nested metadata, inventory, dense slots and item stacks inside
+lastVerified. Caller inputs remain unfrozen; later mutation cannot rewrite captured
+history. Exact source comparison remains UTF-16 string equality. No storage access,
+GameState/Inventory/time/revision mutation, adoption or policy-reset method exists.
+
+This is a consistency binding, not proof that an operation happened or was newly
+captured. A consistently fabricated/replaced DTO remains indistinguishable from
+honest caller data. Package B must own actual operation provenance, opaque handles,
+monotonic session generations, close/revocation, fresh storage reads and adoption.
+The pure function cannot remember a previously rejected DTO or a historical policy
+excursion omitted by the caller; it stores no revocation ledger. It does not add
+an operation that resets invalidation. Replaying the old capture after a supplied
+history downgrade does not retain the old proposal.
+
+Measured final suite: **916 tests / 30 files PASS**, no skipped/deleted cases;
+**158 adoption tests**, 33 added here plus all 883 previous cases. Coverage includes
+the three unchanged red reproductions; unchanged and upgraded/downgraded policy;
+unresolved/closed/invalidated contexts; all material history fields; malformed and
+missing metadata; immutable detached history; repeated old evidence vs fresh
+evaluation; and representative blocked negative outcomes with typed diagnostics.
+Existing revision tests now assert exact metadata.revision/inventory.revision
+paths. The proposal-field assertion explicitly includes issuanceHistory.
+
+The first new immutability fixture failed typecheck because it directly assigned a
+readonly session field; it now uses Reflect.set to exercise runtime caller mutation,
+without weakening types or production validation. Before the larger coverage set,
+the three original regressions passed after the fix (128 adoption cases).
+
+Root lint, typecheck, full test and production build: PASS, exit 0. git diff --check,
+four-file scope/empty staging, whitespace/final-newline/relative-link and protected
+source/dependency/CI guards pass. No legacy/parser/coordinator/adapter/gameplay
+change, dependency or real snapshot access. Q01–Q16 remain PLANNED / NOT TESTED;
+native browser/quota/crash NOT TESTED; B/C/D and normal v2 save remain unimplemented;
+production multi-writer remains BLOCKED. No commit, push or follow-up work.
