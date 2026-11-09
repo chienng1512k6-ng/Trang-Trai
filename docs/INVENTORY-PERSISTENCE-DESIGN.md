@@ -13,6 +13,14 @@ The approval/check records below describe FDS2-004 at its design checkpoint;
 D1–D9 and T01–T38 are preserved. Storage/coordinator/recovery implementation and
 production multi-writer migration remain outside that later pure-core approval.
 
+FDS2-006 now specifies the explicit storage boundary in
+[Storage Migration Coordinator Design](./STORAGE-MIGRATION-COORDINATOR-DESIGN.md),
+**FDS2-006 DESIGN APPROVED — 2026-11-09**, not approved for implementation. It preserves
+D1–D9 and T01–T38; proposed storage/fault/browser scenarios are not executed tests.
+Review amendments define exact reconciliation outcomes and blocked-gate permissions,
+plus read-only receipt reconstruction from one explicit validated backup reference.
+They add no automatic migration, restore, enumeration, CAS or gameplay adoption.
+
 ## 1. Inspected baseline and compatibility constraints
 
 Repository was clean on main at merge commit

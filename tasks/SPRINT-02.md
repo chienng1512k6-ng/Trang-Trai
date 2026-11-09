@@ -1,8 +1,8 @@
 # Sprint 2 — State and authority foundations
 
-Scope is intentionally small; FDS2-001–003 are complete. The owner now authorizes
-**FDS2-005 pure core only**, following FDS2-004 design approval. Production storage
-migration/integration, UI, economy, gameplay and backend are not authorized.
+Scope is intentionally small; FDS2-001–005 have their recorded scope acceptance.
+The owner now authorizes **FDS2-006 technical design only**. Coordinator production
+code, real storage migration, UI, economy, gameplay and backend are not authorized.
 Follow [AGENTS](../AGENTS.md), [GDD](../docs/GDD-V1.0.md),
 [architecture](../docs/ARCHITECTURE.md) and
 [Sprint 1 final review](../docs/SPRINT-01-FINAL-REPORT.md).
@@ -25,7 +25,8 @@ own CI; baseline green does not certify new uncommitted code.
 | FDS2-002 — Persistence Architecture & Storage Adapter | 001 + its CI green | Explicit envelope JSON codec, validated load/save/remove, in-memory/localStorage adapters, namespace/revision/schema/error policy, tests and documented authority/concurrency limits; no autosave/migration engine/backend | **PASS local / embedded-browser — 2026-11-07** |
 | FDS2-003 — Item Definitions & Inventory Rules | 001, 002 + its CI green | Immutable item registry; validated configurable slots; atomic pure add/remove/move/split/merge; owner/target/revision/source-sink boundary; no UI/gameplay/persistence integration | **PASS local — 2026-11-07** |
 | FDS2-004 — Persistent Inventory Schema & Migration Design | 001–003 merged + green CI | Proposed v2/ownership, migration/revision model, backup/corruption policy, bounded parsing and test matrix; D1–D9 review decisions accepted | **DESIGN APPROVED — 2026-11-07; NOT implementation approval or implementation PASS** |
-| FDS2-005 — Pure Schema v2 & Migration Core | 004 design approval + exact baseline CI green | Separate v2 validator, pinned catalog, strict bounded raw parser, deterministic preparation and pure aggregate inventory/clock transitions; legacy v1 contracts unchanged; no storage integration | **PASS local — 2026-11-07; 602 tests / 28 files; READY FOR OWNER COMMIT REVIEW** |
+| FDS2-005 — Pure Schema v2 & Migration Core | 004 design approval + exact baseline CI green | Separate v2 validator, pinned catalog, strict bounded raw parser, deterministic preparation and pure aggregate inventory/clock transitions; legacy v1 contracts unchanged; no storage integration | **IMPLEMENTATION COMPLETE / CI VERIFIED — 2026-11-07; 602 tests / 28 files; run 42369209539 SUCCESS** |
+| FDS2-006 — Storage Migration Coordinator | 005 complete + exact baseline CI green | Explicit version-aware load, pure receipt preparation and authorized commit specification; backup/readback/reconciliation, D8 limits and fault/native QA plan only | **FDS2-006 DESIGN APPROVED — 2026-11-09; NOT IMPLEMENTATION APPROVAL OR PASS** |
 
 Currency, farming/growth/harvest, shop, land expansion and building/construction
 remain later draft groups in the final report; not part of this implementation.
@@ -244,6 +245,14 @@ test or new 484-test result is claimed. Existing uncommitted design work is reta
 
 ## FDS2-005 acceptance — 2026-11-07
 
+Current status: **IMPLEMENTATION COMPLETE / CI VERIFIED**. Approved implementation
+commit `3ec3f84aba872477759eb3e3e9c5437a36a3afbc` was pushed normally to main;
+[Development Quality 42369209539](https://github.com/chienng1512k6-ng/Trang-Trai/actions/runs/42369209539)
+completed/success on that exact head SHA on 2026-11-07. The quality job's install,
+lint, typecheck, unit tests and production build all succeeded, verified through
+GitHub API. The local review/commit-readiness statements below are historical,
+superseded by this completed checkpoint; no new execution is claimed here.
+
 Owner separately approved pure implementation. Entry: clean main at
 `ed6c2bca3648b1ffab8e974902f3f72659827732`. Codex rechecked GitHub API:
 [Development Quality 42366226565](https://github.com/chienng1512k6-ng/Trang-Trai/actions/runs/42366226565)
@@ -266,8 +275,9 @@ Failures and local parser timing/heap observations are recorded in the linked
 report. No limits, type rules or legacy assertions were weakened. Pure portions
 of T01–T16, T25, T27 and T29–T36 are covered as specified there; storage portions
 and T17–T24/T26/T28/T37–T38 remain deferred, not PASS. No browser/device migration,
-backup/recovery, CAS/transactions or production safety claims. No commit/push;
-FDS2-006 not started. **FDS2-005 PASS local for the approved pure scope only.**
+backup/recovery, CAS/transactions or production safety claims. At that local
+checkpoint there was no commit/push and FDS2-006 had not started. The current
+implementation/CI checkpoint is recorded above; pure scope remains unchanged.
 
 ### Targeted audit corrections — local review checkpoint
 
@@ -283,4 +293,69 @@ Only gameStateV2.ts, its tests, boundedJson.test.ts and the implementation/Sprin
 reports were edited in this correction pass. D1–D9/T01–T38, legacy sources/tests,
 storage adapters, gameplay, dependencies and CI remain unchanged. Root lint,
 typecheck, full tests, build and diff checks pass; storage/browser/concurrency
-scenarios remain deferred. **READY FOR OWNER COMMIT REVIEW**. No commit/push/merge.
+scenarios remain deferred. Historical correction checkpoint: **READY FOR OWNER
+COMMIT REVIEW**, with no commit/push/merge at that time; subsequently committed
+and CI verified as recorded above.
+
+## FDS2-006 technical design — 2026-11-07
+
+Entry: clean main at `3ec3f84aba872477759eb3e3e9c5437a36a3afbc`.
+Codex verified GitHub API: [Development Quality 42369209539](https://github.com/chienng1512k6-ng/Trang-Trai/actions/runs/42369209539)
+completed/success on that exact SHA. This closes FDS2-005's hosted CI gate;
+its earlier commit-review statements above remain historical checkpoint records.
+
+Deliverable: [Storage Migration Coordinator Design](../docs/STORAGE-MIGRATION-COORDINATOR-DESIGN.md).
+Separate load/preparation/explicit commit/read-only reconciliation/recovery inspection
+contracts; exact UTF-16 source/backup/target comparisons; immutable backup retention;
+failure and crash matrix; local mutation gate and explicitly unenforced origin-wide
+single-writer assumptions; production multi-writer gate remains BLOCKED.
+No enumeration exists in SnapshotStorage: recovery requires a known explicit
+backup reference. A lost receipt or process cannot silently clear uncertain state.
+
+Test plan maps T01–T38, prioritizing T17–T24/T28/T37–T38 with fake storage operation
+logs, injected faults/crash checkpoints and deterministic competing-writer barriers.
+Native reload/quota/physical-device checks remain separately PLANNED / NOT TESTED.
+No coordinator test is marked PASS. Historical FDS2-005 suite is 602 tests/28 files;
+not rerun for documentation-only work. No source, adapter, dependency or CI change,
+snapshot access, real migration, restore or gameplay integration.
+
+Applicable documentation checks: git diff --check, whitespace/newline/relative
+links, exact three-document scope, unchanged D1–D9/T01–T38 and protected-source
+guards. Historical checkpoint: **FDS2-006 APPROVE WITH CHANGES — DESIGN REVIEW
+ONLY**; amendments awaited owner review and no implementation approval/PASS was
+granted. Final design approval is recorded below; implementation remains unauthorized.
+
+Executed docs checks: git diff --check PASS, exit 0; whitespace/final-newline/
+relative-link scans PASS for all three documents; exact file scope confirmed;
+protected-source guard exit 0; original D1–D9/T01–T38 unchanged. No regression,
+build or browser run for this documentation-only change.
+
+### FDS2-006 architecture review amendments — design only
+
+The amended specification defines all four ReconciliationResult variants with
+typed causes, payloads, phase/disposition and explicit permitted-next-action rules.
+Every read-only outcome leaves the mutation gate blocked. A verified retained
+source permits only a fresh authorized matching-resolution retry; verified target
+permits only explicit validated state adoption. Conflict/unknown permit neither.
+
+inspectRecovery accepts an explicit BackupReference, validates one same-identity/r
+backup, reconstructs deterministic preparation/receipt and reads current primary
+for reconciliation, with at most two reads and no writes/removes. Missing reference
+does not trigger enumeration or revision guessing. T21–T23 and T37 descriptions
+are extended in the coordinator plan without changing approved group numbering
+or S classification; original D1–D9/T01–T38 remain intact. All future tests remain
+PLANNED / NOT EXECUTED. Owner outcome: **APPROVE WITH CHANGES, DESIGN ONLY**;
+review amendments were ready for confirmation at that historical checkpoint,
+not implementation PASS or coding approval.
+
+### FDS2-006 final design approval — 2026-11-09
+
+**FDS2-006 DESIGN APPROVED — 2026-11-09**. The owner accepted the technical
+architecture, implementation planning and all three review amendments. This
+supersedes the earlier conditional design-review status only. Four reconciliation
+branches, typed causes/dispositions, blocked read-only gate, explicit retry/adoption,
+known-reference recovery, exact UTF-16 comparisons and all safety boundaries remain
+unchanged. D1–D9/T01–T38 are preserved; production multi-writer remains BLOCKED.
+Coordinator implementation and native browser/fault QA remain unimplemented/
+unverified and are not marked PASS. Owner authorized a local documentation-only
+commit; no push, merge, snapshot access or next-ticket implementation is authorized.
