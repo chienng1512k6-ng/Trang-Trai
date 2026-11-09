@@ -2,8 +2,10 @@
 
 Status: **FDS2-006 DESIGN APPROVED — 2026-11-09**.
 The owner accepted the architecture, implementation plan and review amendments.
-Design approval does not authorize coordinator implementation or imply IMPLEMENTATION PASS.
-No coordinator code, storage writes, migrations or snapshot changes were executed.
+That design checkpoint did not authorize implementation or imply IMPLEMENTATION PASS.
+The subsequent implementation grant is recorded in section 11; current corrected
+local evidence and the owner-approved busy/preflight amendment are in section 12.
+Earlier design-only statements below describe their historical review checkpoints.
 
 ## 1. Baseline and retained decisions
 
@@ -43,8 +45,8 @@ prepareMigration(source: string, identity: SnapshotIdentity) -> PreparationResul
 
 coordinator.load(identity) -> Promise<VersionedLoadResult>
 coordinator.commit(receipt, authorization, retryResolution?) -> Promise<MigrationCommitResult>
-coordinator.reconcile(receipt) -> Promise<ReconciliationResult>
-coordinator.inspectRecovery(identity, backupReference?) -> Promise<RecoveryResult>
+coordinator.reconcile(receipt) -> Promise<ReconciliationAttemptResult>
+coordinator.inspectRecovery(identity, backupReference?) -> Promise<RecoveryAttemptResult>
 ```
 
 No save/remove/reset/restore operation is introduced in this ticket. No caller
@@ -174,9 +176,10 @@ not-attempted: after process loss that history may be unknown. Exact source
 observation does not prove no prior write/rollback occurred; exact target does not
 prove who wrote it. These are current observations under D8, not history/authenticity.
 
-Deterministic outcome rules: malformed receipt -> unknown/invalid-preparation
-(with nested validation failure when available), no I/O; busy -> unknown/busy,
-no new I/O; missing backup -> unknown/backup-missing; invalid or foreign/unsupported
+Deterministic completed-outcome rules: malformed receipt -> unknown/invalid-preparation
+(with nested validation failure when available), no I/O; busy is a separate
+side-effect-free preflight refusal as amended below, NOT a completed unknown
+outcome; missing backup -> unknown/backup-missing; invalid or foreign/unsupported
 backup -> unknown with its validation cause; a separately valid same-identity/r
 backup text differing from receipt.source -> conflict/backup-conflict. Storage
 exceptions -> unknown/storage cause at the failing phase. With verified backup,
@@ -186,7 +189,7 @@ validation cause; independently valid different primary -> conflict/source-chang
 or target-mismatch. Unsupported primary schema/catalog -> conflict with original
 validation cause. Do not replace validation codes/issues/offsets with message matching.
 
-Every reconciliation outcome LEAVES the mutation gate blocked. The two success
+Every completed reconciliation outcome LEAVES the mutation gate blocked. The two success
 observations supply a permitted explicit next action, not automatic unblocking:
 
 | Outcome | Explicit retry | Explicit adoption | Gate handling |
@@ -216,7 +219,33 @@ unknown/conflict -> read-only reconciliation -> already-migrated
 ```
 
 One active I/O operation per identity in the composed coordinator; overlapping
-calls return busy rather than queueing unlimited work. A blocked identity permits
+calls return busy before changing gate state, rather than queueing unlimited work.
+Busy refusal preserves any previous open/blocked state and retry proof. The four
+completed read-only outcomes remain blocked; a busy attempt is not one of them.
+ReconciliationAttemptResult = ReconciliationResult | MigrationPreflightRefusal;
+RecoveryAttemptResult = RecoveryResult | MigrationPreflightRefusal. The preflight
+record has status=busy, phase=receipt-validation, primaryWrite=not-attempted,
+validated identity/reference (or null), actual mutationGate, typed coordinator/busy
+cause and permittedNextAction=retry-after-active-operation. No read/write/remove,
+block transition or retry-proof invalidation occurs on refusal. Resource-exhaustion
+preflight with no trackable gate conservatively reports blocked.
+
+Authorization/receipt failures in commit report the existing gate of a validated
+identity without allocating or changing it and without I/O. An unresolvable
+identity reports blocked conservatively; it never certifies an unverified open
+state. Receipt diagnostic precedence remains before authorization, then approval,
+owner, operating mode, competing writer and execution-gate checks.
+
+A definitely aborted attempt before any primary write preserves the previous
+gate. When previously open, a new explicit authorized attempt can create/reuse
+and independently verify the backup afresh; reconciliation is not a prerequisite
+for first commit or safe pre-write abort. Pre-write conflicts are not safe aborts
+and remain blocked. A previously blocked attempt stays blocked even on definite
+pre-write failure and still requires matching observed source-retained resolution.
+After any uncertain primary write, missing/invalid backup cannot prove success
+or safe retry: keep blocked and require manual inspection, never automatic repair.
+
+A blocked identity permits
 only bounded load/inspection/reconciliation, not another blind commit. Read-only
 load never clears a block or installs a candidate. A confirmed source-retained
 reconciliation permits an explicitly reauthorized retry using retryResolution,
@@ -293,7 +322,10 @@ No backup-restoration result or gameplay state activation is hidden in this API.
 
 inspectRecovery(identity, backupReference?) is the supported no-receipt path:
 
-1. Set/retain the session mutation gate blocked. Validate identity and the exact
+1. Validate identity, then check/acquire the active-operation gate before changing
+   block state. If active, return the separate busy preflight refusal with unchanged
+   state and no I/O. Otherwise set/retain the session mutation gate blocked.
+   Validate the exact
    BackupReference fields/version/range, with r<=MAX_SAFE_INTEGER-1. Missing
    reference -> recovery-rejected/recovery-reference-required; malformed reference
    -> invalid-reference; invalid identity retains the existing invalid-identity
@@ -319,7 +351,12 @@ inspectRecovery(identity, backupReference?) is the supported no-receipt path:
    write/remove calls. If receipt reconstruction itself fails, return recovery-rejected.
 6. Exact source yields source-confirmed-retained; exact valid expected target yields
    already-migrated even after process restart; different/newer valid primary
-   yields conflict; missing/corrupt/unreadable primary yields unknown. Preserve
+   yields conflict; missing/corrupt/unreadable primary yields unknown. A valid
+   same-identity v1 at MAX_SAFE_INTEGER is ineligible for new migration but is
+   still a valid conflicting primary: conflict/source-changed retains the nested
+   revision-overflow diagnostic and full string. Reuse bounded parsing and strict
+   v1 validation for this classification; foreign/invalid data cannot use the
+   overflow shortcut. Pure dispatcher and v1 APIs are unchanged. Preserve
    nonempty newer v2 inventory rather than initializing it from the source backup.
 
 Without an old receipt there is no known original source string to compare with
@@ -518,3 +555,164 @@ all three changed/new documents PASS trailing-whitespace, final-newline and
 relative-link scans; exact three-file scope confirmed; protected-source guard
 exit 0; D1–D9/T01–T38 rows exactly match HEAD. No implementation/fault/browser
 tests were executed or relabeled PASS. No new dependency or architecture exception.
+
+## 11. Authorized local implementation evidence — 2026-11-09
+
+Historical pre-audit checkpoint: **FDS2-006 PASS local — awaiting owner source review**.
+The independent audit subsequently required corrections; section 12 supersedes
+this checkpoint's readiness and busy-gate behavior. The subsequent owner
+grant authorized only the coordinator seam and isolated tests. Baseline: clean
+main at `7f9991ad260fbd739c3691911556c329f70498af`; GitHub API verified
+[Development Quality 42589824538](https://github.com/chienng1512k6-ng/Trang-Trai/actions/runs/42589824538)
+completed/success for that exact SHA. This does not certify the uncommitted code.
+
+Implementation: [storageMigrationCoordinator.ts](../apps/game/src/core/storageMigrationCoordinator.ts)
+and [fault-injection tests](../apps/game/src/core/storageMigrationCoordinator.test.ts).
+Existing parser, domain validators, revisions, SnapshotStorage, adapters and v1 APIs
+are reused unchanged. No startup import, gameplay wiring or native storage access
+was added. D1–D9 and the original T01–T38 matrix remain unchanged.
+
+### Implemented boundary
+
+- `prepareMigration` is pure. `load` is version-aware and read-only, without adoption.
+- Receipts are rederived before awaiting I/O: exact identity/source/revision,
+  validated detached candidate and canonical target must agree. Authorization
+  checks owner, explicit approval, local-single-writer mode and known competitors.
+- Commit retains the exact UTF-16 source string under the approved backup key;
+  an existing different backup is never overwritten. Backup readback is independently
+  parsed and compared before primary reread, one complete write and target readback.
+  Errors normalize into typed storage/validation/coordinator causes with phase and
+  primary-write disposition. Exceptions after a possible write trigger reads only.
+- Four reconciliation branches retain a blocked mutation gate. Only independently
+  observed source-retained evidence and fresh explicit authorization permit a retry.
+  Target verification permits future explicit adoption; no adoption API is provided.
+- `inspectRecovery` requires a known BackupReference, validates identity/revision,
+  reconstructs deterministic preparation, and uses at most two reads, no writes,
+  removes, enumeration or revision guessing. It cannot authenticate an old backup
+  without a prior trusted receipt. No automatic restore or rollback exists.
+- Per-instance gates reject overlapping operations without queuing. Generation
+  checks protect completed blocks. The original busy path also changed block state;
+  the approved correction in section 12 removes that side effect. The
+  bounded gate map retains at most 128 identities for one coordinator lifetime;
+  exhaustion returns busy without I/O, rather than evicting a blocked identity.
+  These are local bookkeeping bounds, not cross-tab locking or durable gates.
+
+### Executed test mapping
+
+113 new deterministic tests plus all 602 legacy tests: **715 tests / 29 files PASS**.
+All coordinator storage evidence uses isolated in-memory strings and injected
+failures/barriers, not player snapshots or native browser storage.
+
+| Approved scenario groups | Local implementation evidence |
+|---|---|
+| T17–T19 | Explicit load/preparation, authorized commit, retained exact backup, reuse/conflict and source comparison |
+| T20, T28 | Read/write/access/quota failures before/after effect, backup readback, corrupt/truncated primary, unknown disposition |
+| T21–T23 | Simulated crash checkpoints, recreated coordinator, known-reference recovery, lost acknowledgments, all four reconciliation outcomes |
+| T24, T37–T38 | Busy/blocked gates, fresh retry proof, tampered/stale proof rejection, cross-instance race demonstration and no automatic adoption |
+| T25, T27, T36 | Legacy codec compatibility, version/catalog/parser failures, distinct identities and exact stored-string behavior |
+| T26 / native storage and browser scenarios | **NOT TESTED**; no native reload, real quota, private-mode or eviction evidence |
+| Other pure-domain scenarios | Existing FDS2-005 regression retained; no new storage/browser PASS inferred from it |
+
+Tests also preserve a newer multi-item inventory with per-item bigint totals and
+ordering during recovery conflict; verify no remove calls; and demonstrate that
+two uncontrolled writers can race even after reread. The race is a documented
+limitation, not an atomicity success claim. Crashes are suspended mock operations,
+not actual browser/process termination.
+
+### Verification and limitations
+
+| Root command | Result |
+|---|---|
+| `pnpm.cmd run lint` | PASS, exit 0 |
+| `pnpm.cmd run typecheck` | PASS, exit 0 |
+| `pnpm.cmd run test` | PASS, exit 0; 715 tests / 29 files |
+| `pnpm.cmd run build` | PASS, exit 0 |
+| `git diff --check` | PASS, exit 0; untracked files additionally scanned |
+
+During test development an initial test syntax error and a mutable/readonly helper
+typing error were corrected; final checks above passed without weakening domain
+validation or changing protected contracts. Editor diagnostics report no errors
+in the two new TypeScript files.
+
+Final scope guards confirm exactly these four files, an empty staging area,
+unchanged protected source/adapters/dependencies/CI and unchanged D1–D9/T01–T38.
+Original technical design sections 1–10 are retained verbatim. Whitespace, final
+newline and relative-link scans pass for the four files; no existing source
+imports the coordinator. Git reports an LF-to-CRLF advisory for this document;
+it is not a diff whitespace error and no Git configuration was changed.
+
+Native browser QA, real quota/crash behavior, durable startup gating, normal v2
+save/adoption, backup maintenance and production integration remain deferred.
+Production multi-writer migration remains **BLOCKED** pending separately approved
+coordination or transactional storage. Client-side checks are not anti-cheat or
+backup authenticity guarantees. No new hosted CI run, commit, push or merge was
+performed. No FDS2-007 implementation is included.
+
+## 12. Targeted audit corrections — 2026-11-09
+
+**READY FOR OWNER COMMIT REVIEW — PASS local**. Exact baseline remains main at
+`7f9991ad260fbd739c3691911556c329f70498af`. Changes are restricted to the two
+coordinator files, this document and the Sprint backlog; no real snapshots used.
+The owner explicitly approved treating busy as preflight, preserving the four
+completed reconciliation outcomes, D1–D9, T01–T38 and all strict lexical limits.
+
+| Finding | Root cause / implemented correction |
+|---|---|
+| A / P2 | Early authorization errors preceded gate lookup and falsely reported open. Commit now validates identity, consults existing gate without allocation/I/O/mutation, retains error precedence and reports blocked for unresolvable identity. Rejected attempts preserve retry evidence and actual gate state. |
+| B / P2 | Reconcile/recovery blocked before checking active work. Busy now returns MigrationPreflightRefusal without changing state or proof; completed outcomes still block. Safe pre-primary abort preserves previous open/blocked state; fresh authorized attempts rerun backup verification. No reset or escape-hatch API. |
+| C / P3 | Preparation overflow was confused with invalid primary. On revision-overflow, coordinator independently reuses bounded parsing and strict v1 validation; only a valid same-identity different MAX revision is source-changed conflict, with nested overflow diagnostic. No overwrite/migration and no pure dispatcher changes. |
+
+### Regression evidence
+
+Before production correction, three newly added original-reproduction tests failed
+exactly as audited while all 715 previous tests passed: 3 failed / 715 passed.
+After production correction the one existing busy test still expected the former
+unknown/blocked behavior; its assertions were updated to the owner's explicit
+preflight contract, preserving its overlap/no-extra-write assertions. No test was
+removed/skipped or domain validation relaxed.
+
+Final measured suite: **758 tests / 29 files PASS**, 43 additional tests over the
+715-test checkpoint, 156 coordinator tests total plus the 602 legacy tests.
+
+- A: blocked identities with missing/invalid approval, wrong owner, unsupported
+  mode, known competitor and malformed receipt; exact diagnostics/offsets and
+  zero I/O; positive retry with the earlier proof demonstrates no gate/proof
+  mutation. Invalid identity is conservative; open-state error precedence retained.
+- B: paused initial load -> busy reconcile -> completed load -> authorized backup
+  create/verify -> complete primary write/readback. Paused load plus recovery or
+  malformed reconciliation is likewise side-effect-free. Preexisting blocked
+  state and retry proof survive busy; safe aborts at all four pre-write operations
+  can retry with fresh approval and backup readback. Previously blocked pre-write
+  failure remains blocked. Uncertain write plus missing/corrupt backup stays
+  blocked with no repair or blind retry. Successful reconciliation never opens it.
+- C: both reconcile and known-reference recovery test MAX revision, changed
+  revision, foreign identity (including MAX), invalid state, unsafe numeric token,
+  decoded duplicate key, malformed JSON and unsupported schema. Full observed
+  string retained; exactly two reads, zero writes/removes; no committed result.
+- Additional T17/T27: two farms sharing farm-main independently migrate with
+  distinct primary/backup keys; escaped names, CRLF and reordered/numeric spelling
+  source are backed up unchanged; structurally equal reordered target conflicts.
+
+### Final commands and boundaries
+
+| Root command | Actual result |
+|---|---|
+| `pnpm.cmd run lint` | PASS, exit 0 |
+| `pnpm.cmd run typecheck` | PASS, exit 0 |
+| `pnpm.cmd run test` | PASS, exit 0; 758 tests / 29 files |
+| `pnpm.cmd run build` | PASS, exit 0 |
+| `git diff --check` | PASS, exit 0; untracked-file whitespace scanned separately |
+
+Existing v1/domain/parser/adapters/tests, runtime, dependencies, assets and CI
+remain unchanged. Exact four-file scope, empty staging, whitespace/newlines and
+relative links are checked; editor diagnostics are clear for the two TS files.
+Original D1–D9/T01–T38 document is unchanged. The prior section-11 verbatim-design
+guard was historical; section 12 now records the owner-approved preflight amendment.
+
+Native browser reload/quota/private-mode/eviction and actual process-crash QA
+remain **NOT TESTED**. The blocked gate is in-memory only; recreating a coordinator
+does not establish recovery or permit bypass. Lost-receipt recovery still needs a
+known backup reference; unverifiable backup after uncertain write requires manual
+inspection, with no automatic restore/repair/adoption. No cross-tab CAS, durable
+startup coordination or authenticity guarantee; production multi-writer remains
+**BLOCKED**. No dependency, hosted-CI claim, commit, push, merge or FDS2-007 work.

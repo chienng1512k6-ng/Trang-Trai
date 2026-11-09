@@ -1,8 +1,9 @@
 # Sprint 2 — State and authority foundations
 
 Scope is intentionally small; FDS2-001–005 have their recorded scope acceptance.
-The owner now authorizes **FDS2-006 technical design only**. Coordinator production
-code, real storage migration, UI, economy, gameplay and backend are not authorized.
+The owner subsequently authorized **FDS2-006 local coordinator implementation**
+after its design checkpoint. Real snapshot migration, gameplay integration, UI,
+economy and backend remain outside this grant; owner source review is pending.
 Follow [AGENTS](../AGENTS.md), [GDD](../docs/GDD-V1.0.md),
 [architecture](../docs/ARCHITECTURE.md) and
 [Sprint 1 final review](../docs/SPRINT-01-FINAL-REPORT.md).
@@ -26,7 +27,7 @@ own CI; baseline green does not certify new uncommitted code.
 | FDS2-003 — Item Definitions & Inventory Rules | 001, 002 + its CI green | Immutable item registry; validated configurable slots; atomic pure add/remove/move/split/merge; owner/target/revision/source-sink boundary; no UI/gameplay/persistence integration | **PASS local — 2026-11-07** |
 | FDS2-004 — Persistent Inventory Schema & Migration Design | 001–003 merged + green CI | Proposed v2/ownership, migration/revision model, backup/corruption policy, bounded parsing and test matrix; D1–D9 review decisions accepted | **DESIGN APPROVED — 2026-11-07; NOT implementation approval or implementation PASS** |
 | FDS2-005 — Pure Schema v2 & Migration Core | 004 design approval + exact baseline CI green | Separate v2 validator, pinned catalog, strict bounded raw parser, deterministic preparation and pure aggregate inventory/clock transitions; legacy v1 contracts unchanged; no storage integration | **IMPLEMENTATION COMPLETE / CI VERIFIED — 2026-11-07; 602 tests / 28 files; run 42369209539 SUCCESS** |
-| FDS2-006 — Storage Migration Coordinator | 005 complete + exact baseline CI green | Explicit version-aware load, pure receipt preparation and authorized commit specification; backup/readback/reconciliation, D8 limits and fault/native QA plan only | **FDS2-006 DESIGN APPROVED — 2026-11-09; NOT IMPLEMENTATION APPROVAL OR PASS** |
+| FDS2-006 — Storage Migration Coordinator | 005 complete + exact baseline CI green | Explicit version-aware load, pure preparation, authorized commit, exact backup/readback, blocked reconciliation and known-reference recovery; isolated fault tests, no gameplay wiring | **PASS local / READY FOR OWNER COMMIT REVIEW — 2026-11-09; 758 tests; native browser QA NOT TESTED** |
 
 Currency, farming/growth/harvest, shop, land expansion and building/construction
 remain later draft groups in the final report; not part of this implementation.
@@ -359,3 +360,79 @@ unchanged. D1–D9/T01–T38 are preserved; production multi-writer remains BLOC
 Coordinator implementation and native browser/fault QA remain unimplemented/
 unverified and are not marked PASS. Owner authorized a local documentation-only
 commit; no push, merge, snapshot access or next-ticket implementation is authorized.
+
+### FDS2-006 subsequent implementation grant and local acceptance — 2026-11-09
+
+Historical pre-audit checkpoint: **FDS2-006 PASS local — awaiting owner source review**.
+The independent audit required corrections; the targeted-correction record below
+supersedes its readiness and original busy-gate behavior. This later implementation
+grant supersedes the historical design-only authorization above, without changing
+D1–D9 or T01–T38. Verified baseline: clean main at
+`7f9991ad260fbd739c3691911556c329f70498af`; baseline
+[Development Quality 42589824538](https://github.com/chienng1512k6-ng/Trang-Trai/actions/runs/42589824538)
+completed/success for the exact SHA. No hosted CI claim for the new local changes.
+
+Files: new [coordinator](../apps/game/src/core/storageMigrationCoordinator.ts),
+new [tests](../apps/game/src/core/storageMigrationCoordinator.test.ts), this backlog
+and [design/evidence](../docs/STORAGE-MIGRATION-COORDINATOR-DESIGN.md#11-authorized-local-implementation-evidence--2026-11-09).
+Only these four files changed. Protected domain/v1 APIs, adapters, existing tests,
+gameplay, assets, dependencies and CI remain unchanged; no production entry-point
+imports or native storage migration were added.
+
+Root `pnpm.cmd run lint`, `pnpm.cmd run typecheck`, `pnpm.cmd run test`,
+`pnpm.cmd run build` and `git diff --check`: PASS, exit 0. Actual suite:
+**715 tests / 29 files**, including **113 new coordinator tests** and all 602
+previous tests. Initial test-only syntax/readonly-helper errors were corrected;
+no validation was relaxed. Editor diagnostics report no errors in the new files.
+
+Fault tests cover T17–T24, T28 and T37–T38 with deterministic in-memory storage,
+plus compatibility/parser/identity/string cases. Crash checkpoints and quota are
+simulated. Native browser reload/quota/crash/eviction QA remains **NOT TESTED**.
+Every read-only reconciliation remains blocked; explicit retry requires retained
+source proof and renewed authorization. No adoption/restore/rollback operation.
+The 128-identity per-instance gate bound does not provide cross-tab coordination;
+race tests demonstrate that localStorage-style read/compare/write is not CAS.
+Production multi-writer migration remains **BLOCKED**. Future v2 save/adoption,
+durable startup gates and backup maintenance require separate approval.
+No player snapshots accessed, no commit/push/merge and no FDS2-007 work.
+
+### FDS2-006 targeted source-audit corrections — 2026-11-09
+
+**READY FOR OWNER COMMIT REVIEW — PASS local**. Baseline unchanged:
+`7f9991ad260fbd739c3691911556c329f70498af`, main. Exactly the same four files:
+coordinator, its test, coordinator design/evidence and this backlog. Empty staging;
+no protected source, v1 API, parser, adapter, gameplay, dependency or CI changes.
+
+Owner-approved busy policy: active operations return a side-effect-free preflight
+refusal, outside the four completed reconciliation outcomes; preserve previous
+open/blocked state and retry evidence. Completed read-only reconciliation remains
+blocked. Authorization failures report the existing validated identity's actual
+gate without I/O or transitions; invalid identity conservatively reports blocked.
+Safe pre-primary aborts preserve the prior gate; new attempts require fresh
+authorization and backup verification, without reconciliation as a first-commit
+prerequisite. Uncertain primary writes remain blocked, especially when backup
+is missing/invalid; no automatic backup repair, reset, restore or adoption.
+
+Different valid same-identity v1 at MAX_SAFE_INTEGER now reports source-changed
+conflict with the underlying revision-overflow diagnostic and full source string,
+after independent bounded parsing/strict v1 validation. No change to FDS2-005.
+
+Three original reproductions failed before the fixes while the previous 715 tests
+passed. Final measured suite: **758 tests / 29 files PASS**, 43 additional tests,
+156 coordinator tests plus all 602 legacy tests. One existing busy assertion was
+updated for the explicitly approved preflight semantics; no tests removed/skipped.
+New coverage includes authorization/gate accuracy, paused load plus busy reconcile/
+recovery, all pre-primary abort/retry positions, blocked-state/proof retention,
+uncertain-write/unverifiable-backup safety, MAX/foreign/invalid primary cases via
+both read-only paths, two aggregate migrations and exact escaped/reordered strings.
+
+Root `pnpm.cmd run lint`, `pnpm.cmd run typecheck`, `pnpm.cmd run test`,
+`pnpm.cmd run build`, `git diff --check`: PASS, exit 0. Whitespace/newline/relative
+links, exact scope, protected-source/dependency/CI and unchanged D1–D9/T01–T38
+guards pass. Detailed evidence: [coordinator corrections](../docs/STORAGE-MIGRATION-COORDINATOR-DESIGN.md#12-targeted-audit-corrections--2026-11-09).
+
+Native browser and real quota/crash QA **NOT TESTED**. In-memory gate does not
+survive process loss; known-reference inspection and separately approved recovery
+policy remain necessary. Unverifiable backup after uncertain write requires manual
+inspection. Production multi-writer remains **BLOCKED**. No player snapshot access,
+new hosted CI, commit/push/merge or next-ticket work.
