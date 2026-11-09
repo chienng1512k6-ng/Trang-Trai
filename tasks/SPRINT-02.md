@@ -1,9 +1,10 @@
 # Sprint 2 — State and authority foundations
 
 Scope is intentionally small; FDS2-001–005 have their recorded scope acceptance.
-The owner subsequently authorized **FDS2-006 local coordinator implementation**
-after its design checkpoint. Real snapshot migration, gameplay integration, UI,
-economy and backend remain outside this grant; owner source review is pending.
+FDS2-006 is implementation complete and CI verified. Current owner authorization
+is **FDS2-007 technical design only**: explicit state adoption boundary and native
+browser QA specification. No real migration, gameplay integration, UI, economy,
+backend, autosave or next implementation package is authorized.
 Follow [AGENTS](../AGENTS.md), [GDD](../docs/GDD-V1.0.md),
 [architecture](../docs/ARCHITECTURE.md) and
 [Sprint 1 final review](../docs/SPRINT-01-FINAL-REPORT.md).
@@ -27,7 +28,8 @@ own CI; baseline green does not certify new uncommitted code.
 | FDS2-003 — Item Definitions & Inventory Rules | 001, 002 + its CI green | Immutable item registry; validated configurable slots; atomic pure add/remove/move/split/merge; owner/target/revision/source-sink boundary; no UI/gameplay/persistence integration | **PASS local — 2026-11-07** |
 | FDS2-004 — Persistent Inventory Schema & Migration Design | 001–003 merged + green CI | Proposed v2/ownership, migration/revision model, backup/corruption policy, bounded parsing and test matrix; D1–D9 review decisions accepted | **DESIGN APPROVED — 2026-11-07; NOT implementation approval or implementation PASS** |
 | FDS2-005 — Pure Schema v2 & Migration Core | 004 design approval + exact baseline CI green | Separate v2 validator, pinned catalog, strict bounded raw parser, deterministic preparation and pure aggregate inventory/clock transitions; legacy v1 contracts unchanged; no storage integration | **IMPLEMENTATION COMPLETE / CI VERIFIED — 2026-11-07; 602 tests / 28 files; run 42369209539 SUCCESS** |
-| FDS2-006 — Storage Migration Coordinator | 005 complete + exact baseline CI green | Explicit version-aware load, pure preparation, authorized commit, exact backup/readback, blocked reconciliation and known-reference recovery; isolated fault tests, no gameplay wiring | **PASS local / READY FOR OWNER COMMIT REVIEW — 2026-11-09; 758 tests; native browser QA NOT TESTED** |
+| FDS2-006 — Storage Migration Coordinator | 005 complete + exact baseline CI green | Explicit version-aware load, pure preparation, authorized commit, exact backup/readback, blocked reconciliation and known-reference recovery; isolated fault tests, no gameplay wiring | **IMPLEMENTATION COMPLETE / CI VERIFIED — 2026-11-09; 758 tests; run 42596640896 SUCCESS; native browser QA NOT TESTED** |
+| FDS2-007 — Browser Persistence QA & Explicit GameState Adoption Design | 006 accepted + exact SHA CI green | Proposed adoption/session/history contract, explicit read-only handoff, native QA fixture/key/evidence plan and separately approved implementation sequence; documentation only | **DESIGN APPROVED — 2026-11-09; NOT implementation or browser QA PASS** |
 
 Currency, farming/growth/harvest, shop, land expansion and building/construction
 remain later draft groups in the final report; not part of this implementation.
@@ -436,3 +438,77 @@ survive process loss; known-reference inspection and separately approved recover
 policy remain necessary. Unverifiable backup after uncertain write requires manual
 inspection. Production multi-writer remains **BLOCKED**. No player snapshot access,
 new hosted CI, commit/push/merge or next-ticket work.
+
+## FDS2-006 hosted implementation checkpoint — 2026-11-09
+
+**IMPLEMENTATION COMPLETE / CI VERIFIED**. Owner accepted and authorized normal
+push of `95b6ea2c88af66377e9e4a0556516072d7e1f85d`, parent
+`7f9991ad260fbd739c3691911556c329f70498af`. The earlier local review/readiness
+records are historical. [Development Quality 42596640896](https://github.com/chienng1512k6-ng/Trang-Trai/actions/runs/42596640896)
+was verified through GitHub API as completed/success on that exact SHA; quality
+install, lint, typecheck, unit tests and build succeeded. CI was independently
+rechecked for FDS2-007 entry. The 758 tests / 29 files count is historical local
+acceptance evidence, not a new regression run in this documentation task.
+Native browser/quota/crash migration QA is still NOT TESTED. No production migration,
+gameplay adoption or autosave approval; production multi-writer remains BLOCKED.
+
+## FDS2-007 technical design — 2026-11-09
+
+**FDS2-007 DESIGN APPROVED — 2026-11-09**; not IMPLEMENTATION PASS or BROWSER QA PASS.
+Entry: clean main at `95b6ea2c88af66377e9e4a0556516072d7e1f85d`, empty staging,
+exact baseline CI SUCCESS independently checked as above. No baseline mismatch.
+
+Deliverable: [GameState Adoption & Native Browser QA Design](../docs/GAME-STATE-ADOPTION-AND-BROWSER-QA-DESIGN.md).
+Inspected strict v1/v2 contracts, persistence/adapter ports, actual coordinator
+including final audit amendments, and DOMContentLoaded -> Phaser -> Game Scene.
+Production currently initializes transient gameplay directly; no persistent session
+or Inventory consumer is connected. No runtime integration is introduced here.
+
+Proposal: one application session owner, separate prepared/verified/active state,
+explicit identity/provenance-bound read-only adoption with fresh exact primary
+revalidation. Busy preflight preserves gates; completed reconciliation remains
+blocked. No raw replacement, automatic candidate activation, implicit inventory
+grant or death-drop from farm-main. No normal v2 saving supplied by adoption.
+Fresh session starts history-unestablished and mutation-blocked; accepted v2 alone
+does not prove a previous uncertain migration's acknowledgment. Known receipt or
+BackupReference can support explicit target reconciliation; without it, inspection
+only pending reviewed policy. No gate-clearing escape hatch or revision guessing.
+
+Q01–Q16 plan covers independent native Chrome and physical iPhone separately,
+dev vs separately built optimized QA harness, isolated fixture/key manifest,
+reload/reopen, exact backup/target, corruption/catalog/revision, native access/quota,
+interruption/reconciliation and deliberately isolated competing-writer races.
+All cases **PLANNED / NOT TESTED**. Production/adoption harness is a future approved
+deliverable; today's ordinary production entry does not expose those APIs.
+No storage.clear, backup enumeration, unrelated cleanup or real player snapshots.
+
+Draft work packages are separate: pure adoption contract/tests; application owner;
+opt-in QA harness; native evidence; read-only application integration; normal v2
+save/optional autosave; only then separately scoped farming. No follow-up ticket
+ID, implementation, dependency, backend or gameplay is authorized by this plan.
+Owner must approve strict startup availability policy, read-only scope, harness
+packaging and actual device/quota/crash QA scope before coding.
+
+Applicable checks: git diff --check, whitespace/final-newline/relative links,
+exact two-document scope, protected-source/dependency/CI and D1–D9/T01–T38 guards.
+No unit tests, build or browser tests rerun; no new execution inferred from the
+758-test baseline. No commit, push, merge, snapshot access or actual migration.
+
+Executed documentation checks: git diff --check PASS (exit 0); both documents
+PASS whitespace/final-newline/relative links; exact two-file scope and empty
+staging confirmed; protected-source/adapter/dependency/asset/CI/design guards
+PASS, original D1–D9 and T01–T38 unchanged. No implementation or browser QA PASS.
+
+### FDS2-007 final design approval and local documentation checkpoint — 2026-11-09
+
+**FDS2-007 DESIGN APPROVED — 2026-11-09**. Final complete-document review satisfied
+the owner's conditional approval: all twelve adoption/session/safety conditions
+and Q01–Q16 checked, including shared environment/fixture/evidence/cleanup rules,
+allowed/forbidden actions, diagnostics, exact-string reread and blocked persistent
+mutations. No policy change or implementation exception was introduced.
+The earlier DESIGN READY FOR OWNER REVIEW was the historical drafting checkpoint;
+the current status is DESIGN APPROVED only. Q01–Q16 remain PLANNED / NOT TESTED;
+758 tests is historical, with no regression/build/browser run in this docs task.
+FDS2-001–006 records, D1–D9/T01–T38 and multi-writer BLOCKED remain intact.
+Owner authorizes one local commit of the two documents after staged-diff checks;
+no push, migration, harness, implementation or FDS2-008 work is authorized.
